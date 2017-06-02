@@ -8,16 +8,31 @@ import tane.mahuta.gradle.plugins.version.persistence.VersionStorageFactory
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
+
 /**
  * @author christian.heike@icloud.com
  * Created on 28.05.17.
  */
 @CompileStatic
 @Slf4j
-class ServiceLoaderVersionStorageFactory implements VersionStorageFactory {
+class CompositeVersionStorageFactory implements VersionStorageFactory {
+
+    private static
+    final ThreadLocal<CompositeVersionStorageFactory> SL_INSTANCE_TL = new InheritableThreadLocal<CompositeVersionStorageFactory>() {
+        @Override
+        protected CompositeVersionStorageFactory initialValue() {
+            new CompositeVersionStorageFactory(ServiceLoader.load(VersionStorageFactory).iterator().collect {
+                it as VersionStorageFactory
+            })
+        }
+    }
 
     private final Map<String, VersionStorage> storageCache = [:]
-    private final ServiceLoader<VersionStorageFactory> serviceLoader = ServiceLoader.load(VersionStorageFactory)
+    private final Iterable<VersionStorageFactory> factories
+
+    CompositeVersionStorageFactory(@Nonnull final Iterable<VersionStorageFactory> factories) {
+        this.factories = factories
+    }
 
     @Override
     @Nullable
@@ -29,19 +44,19 @@ class ServiceLoaderVersionStorageFactory implements VersionStorageFactory {
 
     @Nullable
     VersionStorage doCreate(@Nonnull final Project project) {
-        final storageFactories = getFactories()
-        for (final storageFactory in storageFactories) {
+        for (final storageFactory in factories) {
             final storage = storageFactory.create(project)
             if (storage?.load() != null) {
                 log.debug("Created version storage {} using: {}", storage, storageFactory)
                 return storage
             }
         }
-        log.debug("Could not create version storage, tried: {}", storageFactories)
+        log.debug("Could not create version storage, tried: {}", factories)
         return null
     }
 
-    protected List<VersionStorageFactory> getFactories() {
-        serviceLoader.iterator() as List<VersionStorageFactory>
+    static CompositeVersionStorageFactory getServiceLoaderInstance() {
+        SL_INSTANCE_TL.get()
     }
+
 }
