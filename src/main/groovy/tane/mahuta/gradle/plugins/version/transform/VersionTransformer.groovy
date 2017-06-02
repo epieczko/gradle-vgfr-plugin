@@ -1,4 +1,4 @@
-package tane.mahuta.gradle.plugins.version
+package tane.mahuta.gradle.plugins.version.transform
 
 import javax.annotation.Nonnull
 
