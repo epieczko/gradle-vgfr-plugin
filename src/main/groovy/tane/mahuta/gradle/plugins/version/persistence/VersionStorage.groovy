@@ -20,6 +20,7 @@ interface VersionStorage {
      * @param project the project to load the version for
      * @return the version of the project
      */
-    @Nullable def load()
+    @Nullable
+    def load()
 
 }

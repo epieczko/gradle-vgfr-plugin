@@ -45,7 +45,7 @@ class SemanticVersion implements Comparable<SemanticVersion> {
     }
 
     @Nonnull
-    String buildStringRepresentation() {
+    private String buildStringRepresentation() {
         final sb = new StringBuilder()
         sb.append(major)
         sb.append(".")
