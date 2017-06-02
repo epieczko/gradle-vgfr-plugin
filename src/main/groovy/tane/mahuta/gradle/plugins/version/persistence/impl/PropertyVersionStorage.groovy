@@ -5,8 +5,9 @@ import groovy.util.logging.Slf4j
 import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
 
 import javax.annotation.Nonnull
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 /**
  * @author christian.heike@icloud.com
  * Created on 28.05.17.
@@ -14,6 +15,8 @@ import java.time.format.DateTimeFormatter
 @CompileStatic
 @Slf4j
 class PropertyVersionStorage implements VersionStorage {
+
+    private static final DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ")
 
     private final File file
     private final String propertyName
@@ -33,7 +36,7 @@ class PropertyVersionStorage implements VersionStorage {
         final value = version as String
         if (props[propertyName] != value) {
             props[propertyName] = value
-            file.withWriter { props.store(it, "Modified by versions plugin at ${DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(LocalDateTime.now())}")}
+            file.withWriter { props.store(it, "Modified by versions plugin at ${TIMESTAMP_FORMAT.format(new Date())}") }
             log.debug("Saved new version: {}", value)
         } else {
             log.debug("Version {} has not changed: {}", props[propertyName], version)
@@ -47,7 +50,7 @@ class PropertyVersionStorage implements VersionStorage {
 
     private Properties loadProperties() {
         final result = new Properties()
-        file.withReader{ result.load(it) }
+        file.withReader { result.load(it) }
         log.debug("Loaded properties from file {}: {}", file, result)
         result
     }
