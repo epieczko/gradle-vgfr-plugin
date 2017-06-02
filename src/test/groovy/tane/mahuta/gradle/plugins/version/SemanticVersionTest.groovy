@@ -29,6 +29,13 @@ class SemanticVersionTest extends Specification {
         "1.2.3-BRANCH-RELEASE" | 1     | 2     | 3     | "BRANCH-RELEASE"
     }
 
+    def "parsing non matching pattern throws exception"() {
+        when:
+        SemanticVersion.parse("x.y.z")
+        then:
+        thrown(IllegalArgumentException)
+    }
+
     @Unroll
     def "compare(#lhs, #rhs) = #expected"() {
         setup:

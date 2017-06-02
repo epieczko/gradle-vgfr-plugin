@@ -86,9 +86,6 @@ class SemanticVersion implements Comparable<SemanticVersion> {
 
     @Override
     int compareTo(final SemanticVersion o) {
-        if (o == null) {
-            return 1
-        }
         final majorComp = major <=> o.major
         if (majorComp != 0) {
             return majorComp
