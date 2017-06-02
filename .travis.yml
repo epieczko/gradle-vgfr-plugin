@@ -4,4 +4,4 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 jdk:
-  - oraclejdk6
+  - oraclejdk8
