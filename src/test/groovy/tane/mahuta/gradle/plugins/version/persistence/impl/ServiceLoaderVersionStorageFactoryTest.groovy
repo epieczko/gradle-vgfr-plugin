@@ -24,10 +24,7 @@ class ServiceLoaderVersionStorageFactoryTest extends Specification {
         final storages = [Mock(VersionStorage), Mock(VersionStorage)]
         final factories = [Mock(VersionStorageFactory), Mock(VersionStorageFactory), Mock(VersionStorageFactory)]
         final factory = new ServiceLoaderVersionStorageFactory() {
-            @Override
-            protected List<VersionStorageFactory> getFactories() {
-                factories
-            }
+            @Override protected List<VersionStorageFactory> getFactories() { factories }
         }
 
         when: 'invoking the create method'
@@ -42,5 +39,14 @@ class ServiceLoaderVersionStorageFactoryTest extends Specification {
         1 * storages[1].load() >> "My.Version"
         and: 'the storage is being used'
         actual == storages[1]
+    }
+
+    def "empty factory will not return any storage"() {
+        setup:
+        final factory = new ServiceLoaderVersionStorageFactory() {
+            @Override protected List<VersionStorageFactory> getFactories() { [] }
+        }
+        expect:
+        factory.create(project) == null
     }
 }
