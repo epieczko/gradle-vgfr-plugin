@@ -3,7 +3,7 @@ package tane.mahuta.gradle.plugins
 import groovy.transform.CompileStatic
 import org.gradle.api.Plugin
 import org.gradle.api.internal.project.ProjectInternal
-import tane.mahuta.gradle.plugins.utils.ExtensionAccessor
+import tane.mahuta.gradle.plugins.utils.ProjectExtensionHelper
 import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
 import tane.mahuta.gradle.plugins.version.persistence.VersionStorageFactory
 
@@ -15,8 +15,8 @@ import javax.annotation.Nonnull
 @CompileStatic
 class VersionPlugin implements Plugin<ProjectInternal> {
 
-    static final ExtensionAccessor<VersionStorage> CONVENTION =
-            new ExtensionAccessor<>("versionStorage", VersionStorageFactory.ServiceLoaderVersionStorageFactory.get().&create)
+    static final ProjectExtensionHelper<VersionStorage> CONVENTION =
+            new ProjectExtensionHelper<>("versionStorage", VersionStorageFactory.ServiceLoaderVersionStorageFactory.get().&create)
 
 
     @Override
