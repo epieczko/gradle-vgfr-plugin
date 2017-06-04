@@ -16,11 +16,11 @@ class CompositeVersionStorageFactoryTest extends Specification {
 
     def "factory service loader finds all factories"() {
         setup:
-        final factory = CompositeVersionStorageFactory.getServiceLoaderInstance()
+        final factory = VersionStorageFactory.ServiceLoaderVersionStorageFactory.get()
         expect: 'all default factories have been found'
         factory.@factories.collect{it.class}.containsAll(DEFAULT_FACTORY_CLASSES)
         and: 'the factory is initialized once only'
-        CompositeVersionStorageFactory.getServiceLoaderInstance().is(factory)
+        VersionStorageFactory.ServiceLoaderVersionStorageFactory.get().is(factory)
     }
 
     def "create invokes factories and creates storages"() {

@@ -1,0 +1,8 @@
+gradlePlugin {
+    plugins {
+        versionPlugin {
+            id = 'tane.mahuta.gradle.version-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugins.VersionPlugin'
+        }
+    }
+}

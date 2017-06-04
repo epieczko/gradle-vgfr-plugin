@@ -17,16 +17,6 @@ import javax.annotation.Nullable
 @Slf4j
 class CompositeVersionStorageFactory implements VersionStorageFactory {
 
-    private static
-    final ThreadLocal<CompositeVersionStorageFactory> SL_INSTANCE_TL = new InheritableThreadLocal<CompositeVersionStorageFactory>() {
-        @Override
-        protected CompositeVersionStorageFactory initialValue() {
-            new CompositeVersionStorageFactory(ServiceLoader.load(VersionStorageFactory).iterator().collect {
-                it as VersionStorageFactory
-            })
-        }
-    }
-
     private final Map<String, VersionStorage> storageCache = [:]
     private final Iterable<VersionStorageFactory> factories
 
@@ -53,10 +43,6 @@ class CompositeVersionStorageFactory implements VersionStorageFactory {
         }
         log.debug("Could not create version storage, tried: {}", factories)
         return null
-    }
-
-    static CompositeVersionStorageFactory getServiceLoaderInstance() {
-        SL_INSTANCE_TL.get()
     }
 
 }
