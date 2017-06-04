@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 @Slf4j
 class PropertyVersionStorage implements VersionStorage {
 
-    private static final DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ")
+    private static final DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd'V'HH:mmZ")
 
     private final File file
     private final String propertyName

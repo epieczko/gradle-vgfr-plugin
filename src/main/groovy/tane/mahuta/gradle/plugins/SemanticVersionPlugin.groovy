@@ -4,9 +4,9 @@ import groovy.transform.CompileStatic
 import org.gradle.api.Plugin
 import org.gradle.api.internal.project.ProjectInternal
 import tane.mahuta.gradle.plugins.version.SemanticVersion
+import tane.mahuta.gradle.plugins.version.VersionExtension
 
 import javax.annotation.Nonnull
-
 /**
  * Version plugin which provides mechanisms to load and store versions.
  * <p>
@@ -27,7 +27,7 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal>  {
     @Override
     void apply(@Nonnull final ProjectInternal target) {
         target.pluginManager.apply(VersionPlugin)
-        target.version = SemanticVersion.parse(target.version as String)
+        (target.version as VersionExtension).setParser(SemanticVersion.&parse)
     }
 
 }

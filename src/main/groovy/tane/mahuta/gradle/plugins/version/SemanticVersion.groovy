@@ -5,6 +5,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.Immutable
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
 import java.util.regex.Pattern
 
 /**
@@ -70,6 +71,7 @@ class SemanticVersion implements Comparable<SemanticVersion> {
      * @param version the string representation
      * @return the parsed version
      */
+    @Nullable
     static SemanticVersion parse(final String version) {
         if (version == null) {
             return null

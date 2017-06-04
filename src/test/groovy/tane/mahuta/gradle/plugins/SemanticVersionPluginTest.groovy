@@ -22,9 +22,14 @@ class SemanticVersionPluginTest extends Specification {
         when:
         project.apply plugin: SemanticVersionPlugin
         then:
-        project.extensions.findByName("versionStorage") != null
-        and:
         project.version == SemanticVersion.parse("1.2.3")
+        and:
+        project.version.toString() == "1.2.3"
+
+        when:
+        project.version = "1.2.4-SNAPSHOT"
+        then:
+        project.version.toString() == "1.2.4-SNAPSHOT"
     }
 
 }

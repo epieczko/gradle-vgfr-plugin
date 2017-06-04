@@ -3,7 +3,7 @@ package tane.mahuta.gradle.plugins.version.persistence
 import javax.annotation.Nullable
 
 /**
- * Persistence handler, which stores versioning information.
+ * Persistence handler which stores versioning information.
  * @author christian.heike@icloud.com
  * Created on 23.05.17.
  */
