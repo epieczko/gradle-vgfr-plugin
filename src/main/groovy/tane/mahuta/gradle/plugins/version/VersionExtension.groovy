@@ -4,7 +4,9 @@ import groovy.transform.CompileStatic
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.FromString
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
+import tane.mahuta.build.version.VersionParser
+import tane.mahuta.build.version.VersionStorage
+import tane.mahuta.build.version.VersionTransformer
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
@@ -19,29 +21,33 @@ class VersionExtension {
 
     private def rawVersion, parsedVersion
 
+    private Map<String, VersionTransformer<?>> transformer
     private VersionStorage storage
-    private VersionParser<?> parser = VersionParser.Factory.NOP
+    private VersionParser<?> parser
 
     /**
      * Set a new parser for the version.
      * @param parser the parser
      */
     VersionExtension setParser(@Nullable final VersionParser<?> parser) {
-        this.parser = parser ?: VersionParser.Factory.NOP
+        this.parser = parser
         reparse()
         this
     }
 
     /**
      * Uses a closure for parsing.
-     * @see VersionExtension#setParser(tane.mahuta.gradle.plugins.version.VersionParser)
+     * @see VersionExtension#setParser(tane.mahuta.build.version.VersionParser)
      */
     VersionExtension setParser(@Nonnull
                                @ClosureParams(value = FromString, options = "java.lang.Object")
                                final Closure<?> parser) {
-        this.parser = parser != null ?
-                VersionParser.Factory.fromClosure(parser) :
-                VersionParser.Factory.NOP
+        this.parser = parser != null ? new VersionParser() {
+            @Override
+            Object parse(@Nullable Object source) {
+                parser.call(source)
+            }
+        } : null
         reparse()
         this
     }
@@ -84,7 +90,7 @@ class VersionExtension {
     }
 
     private void reparse() {
-        parsedVersion = this.parser.parse(rawVersion)
+        parsedVersion = this.parser != null ? this.parser.parse(rawVersion) : rawVersion
     }
 
 }

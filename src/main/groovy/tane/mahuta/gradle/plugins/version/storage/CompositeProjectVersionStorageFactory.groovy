@@ -1,10 +1,10 @@
-package tane.mahuta.gradle.plugins.version.persistence.impl
+package tane.mahuta.gradle.plugins.version.storage
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorageFactory
+import tane.mahuta.build.version.VersionStorage
+import tane.mahuta.gradle.plugins.version.ProjectVersionStorageFactory
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
@@ -15,12 +15,12 @@ import javax.annotation.Nullable
  */
 @CompileStatic
 @Slf4j
-class CompositeVersionStorageFactory implements VersionStorageFactory {
+class CompositeProjectVersionStorageFactory implements ProjectVersionStorageFactory {
 
     private final Map<String, VersionStorage> storageCache = [:]
-    private final Iterable<VersionStorageFactory> factories
+    private final Iterable<ProjectVersionStorageFactory> factories
 
-    CompositeVersionStorageFactory(@Nonnull final Iterable<VersionStorageFactory> factories) {
+    CompositeProjectVersionStorageFactory(@Nonnull final Iterable<ProjectVersionStorageFactory> factories) {
         this.factories = factories
     }
 

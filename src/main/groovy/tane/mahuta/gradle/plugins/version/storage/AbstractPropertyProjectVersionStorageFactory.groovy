@@ -1,10 +1,10 @@
-package tane.mahuta.gradle.plugins.version.persistence.impl
+package tane.mahuta.gradle.plugins.version.storage
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorageFactory
+import tane.mahuta.build.version.VersionStorage
+import tane.mahuta.gradle.plugins.version.ProjectVersionStorageFactory
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
@@ -15,7 +15,7 @@ import javax.annotation.Nullable
  */
 @CompileStatic
 @Slf4j
-abstract class AbstractPropertyVersionStorageFactory implements VersionStorageFactory {
+abstract class AbstractPropertyProjectVersionStorageFactory implements ProjectVersionStorageFactory {
 
     /**
      * Get the file representation of the target file in the provided directory.

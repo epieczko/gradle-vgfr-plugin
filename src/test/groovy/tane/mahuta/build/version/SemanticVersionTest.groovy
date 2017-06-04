@@ -1,4 +1,4 @@
-package tane.mahuta.gradle.plugins.version
+package tane.mahuta.build.version
 
 import spock.lang.Specification
 import spock.lang.Subject
@@ -13,7 +13,7 @@ class SemanticVersionTest extends Specification {
     @Unroll
     def "parse #source to (#major,#minor,#micro,#qualifier)"() {
         setup:
-        final expected = new SemanticVersion(major: major, minor: minor, micro: micro, qualifier: qualifier)
+        final expected = new SemanticVersion(major, minor, micro, qualifier, null)
 
         when: 'parsing the version'
         def actual = SemanticVersion.parse(source)

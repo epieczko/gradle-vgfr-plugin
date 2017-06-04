@@ -1,8 +1,8 @@
-package tane.mahuta.gradle.plugins.version.persistence.impl
+package tane.mahuta.gradle.plugins.version.storage
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
+import tane.mahuta.build.version.VersionStorage
 
 import javax.annotation.Nonnull
 import java.text.DateFormat

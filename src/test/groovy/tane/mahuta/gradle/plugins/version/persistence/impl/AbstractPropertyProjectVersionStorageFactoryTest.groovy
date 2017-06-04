@@ -6,14 +6,15 @@ import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
 import spock.lang.Subject
+import tane.mahuta.gradle.plugins.version.storage.AbstractPropertyProjectVersionStorageFactory
 
 import javax.annotation.Nonnull
 /**
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
-@Subject(AbstractPropertyVersionStorageFactory)
-class AbstractPropertyVersionStorageFactoryTest extends Specification {
+@Subject(AbstractPropertyProjectVersionStorageFactory)
+class AbstractPropertyProjectVersionStorageFactoryTest extends Specification {
 
     @Rule
     final TemporaryFolder folderRule = new TemporaryFolder()
@@ -21,7 +22,7 @@ class AbstractPropertyVersionStorageFactoryTest extends Specification {
     private Project project, subproject
 
 
-    private final AbstractPropertyVersionStorageFactory factory = new AbstractPropertyVersionStorageFactory() {
+    private final AbstractPropertyProjectVersionStorageFactory factory = new AbstractPropertyProjectVersionStorageFactory() {
 
         @Override
         protected File propertyVersionFileIn(@Nonnull final File directory) {

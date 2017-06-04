@@ -1,7 +1,8 @@
 package tane.mahuta.gradle.plugins.version.transform
 
 import groovy.transform.CompileStatic
-import tane.mahuta.gradle.plugins.version.SemanticVersion
+import tane.mahuta.build.version.SemanticVersion
+import tane.mahuta.build.version.VersionTransformer
 
 import javax.annotation.Nonnull
 

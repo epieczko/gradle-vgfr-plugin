@@ -1,6 +1,9 @@
-apply plugin: 'java-gradle-plugin'
-apply plugin: 'groovy'
-apply plugin: 'jacoco'
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.8'
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'jacoco'
+}
 
 sourceCompatibility = targetCompatibility = 1.8
 

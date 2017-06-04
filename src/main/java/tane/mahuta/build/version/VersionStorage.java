@@ -1,26 +1,26 @@
-package tane.mahuta.gradle.plugins.version.persistence
+package tane.mahuta.build.version;
 
-import javax.annotation.Nullable
+import javax.annotation.Nullable;
 
 /**
  * Persistence handler which stores versioning information.
+ *
  * @author christian.heike@icloud.com
- * Created on 23.05.17.
+ *         Created on 23.05.17.
  */
-interface VersionStorage {
-
+public interface VersionStorage {
     /**
      * Store the provided version for the project.
+     *
      * @param version the version to be stored
      */
-    void store(@Nullable def version)
+    void store(@Nullable Object version);
 
     /**
      * Load the version for the provided project.
-     * @param project the project to load the version for
+     *
      * @return the version of the project
      */
     @Nullable
-    def load()
-
+    Object load();
 }

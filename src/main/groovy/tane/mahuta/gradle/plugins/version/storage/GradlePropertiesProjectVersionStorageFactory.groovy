@@ -1,4 +1,4 @@
-package tane.mahuta.gradle.plugins.version.persistence.impl
+package tane.mahuta.gradle.plugins.version.storage
 
 import groovy.transform.CompileStatic
 
@@ -10,7 +10,7 @@ import javax.annotation.Nullable
  * Created on 28.05.17.
  */
 @CompileStatic
-class GradlePropertiesVersionStorageFactory extends AbstractPropertyVersionStorageFactory {
+class GradlePropertiesProjectVersionStorageFactory extends AbstractPropertyProjectVersionStorageFactory {
 
     @Override
     @Nullable

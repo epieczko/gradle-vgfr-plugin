@@ -3,33 +3,36 @@ package tane.mahuta.gradle.plugins.version.persistence.impl
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 import spock.lang.Subject
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
-import tane.mahuta.gradle.plugins.version.persistence.VersionStorageFactory
+import tane.mahuta.build.version.VersionStorage
+import tane.mahuta.gradle.plugins.version.ProjectVersionStorageFactory
+import tane.mahuta.gradle.plugins.version.storage.CompositeProjectVersionStorageFactory
+import tane.mahuta.gradle.plugins.version.storage.GradlePropertiesProjectVersionStorageFactory
+
 /**
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
-@Subject(CompositeVersionStorageFactory)
-class CompositeVersionStorageFactoryTest extends Specification {
+@Subject(CompositeProjectVersionStorageFactory)
+class CompositeProjectVersionStorageFactoryTest extends Specification {
 
-    private static final List<Class<GradlePropertiesVersionStorageFactory>> DEFAULT_FACTORY_CLASSES = [GradlePropertiesVersionStorageFactory]
+    private static final List<Class<GradlePropertiesProjectVersionStorageFactory>> DEFAULT_FACTORY_CLASSES = [GradlePropertiesProjectVersionStorageFactory]
 
     private final project = ProjectBuilder.builder().build()
 
     def "factory service loader finds all factories"() {
         setup:
-        final factory = VersionStorageFactory.ServiceLoaderVersionStorageFactory.get()
+        final factory = ProjectVersionStorageFactory.ServiceLoaderVersionStorageFactory.get()
         expect: 'all default factories have been found'
         factory.@factories.collect{it.class}.containsAll(DEFAULT_FACTORY_CLASSES)
         and: 'the factory is initialized once only'
-        VersionStorageFactory.ServiceLoaderVersionStorageFactory.get().is(factory)
+        ProjectVersionStorageFactory.ServiceLoaderVersionStorageFactory.get().is(factory)
     }
 
     def "create invokes factories and creates storages"() {
         setup: 'factories and storages'
         final storages = [Mock(VersionStorage), Mock(VersionStorage)]
-        final factories = [Mock(VersionStorageFactory), Mock(VersionStorageFactory), Mock(VersionStorageFactory)]
-        final factory = new CompositeVersionStorageFactory(factories)
+        final factories = [Mock(ProjectVersionStorageFactory), Mock(ProjectVersionStorageFactory), Mock(ProjectVersionStorageFactory)]
+        final factory = new CompositeProjectVersionStorageFactory(factories)
 
         when: 'invoking the create method'
         final actual = factory.create(project)
@@ -47,7 +50,7 @@ class CompositeVersionStorageFactoryTest extends Specification {
 
     def "empty factory will not return any storage"() {
         setup:
-        final factory = new CompositeVersionStorageFactory([])
+        final factory = new CompositeProjectVersionStorageFactory([])
         expect:
         factory.create(project) == null
     }

@@ -1,6 +1,7 @@
 package tane.mahuta.gradle.plugins.version.transform
 
 import spock.lang.Specification
+import tane.mahuta.build.version.VersionTransformer
 
 import javax.annotation.Nonnull
 

@@ -4,6 +4,8 @@ import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
 import spock.lang.Subject
+import tane.mahuta.gradle.plugins.version.storage.PropertyVersionStorage
+
 /**
  * @author christian.heike@icloud.com
  * Created on 01.06.17.
