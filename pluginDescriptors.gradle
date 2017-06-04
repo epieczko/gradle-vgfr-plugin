@@ -4,5 +4,9 @@ gradlePlugin {
             id = 'tane.mahuta.gradle.version-plugin'
             implementationClass = 'tane.mahuta.gradle.plugins.VersionPlugin'
         }
+        semanticVersionPlugin {
+            id = 'tane.mahuta.gradle.semver-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugins.SemanticVersionPlugin'
+        }
     }
 }

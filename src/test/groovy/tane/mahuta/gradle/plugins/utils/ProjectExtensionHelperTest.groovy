@@ -3,11 +3,13 @@ package tane.mahuta.gradle.plugins.utils
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
+import spock.lang.Subject
 
 /**
  * @author christian.heike@icloud.com
  * Created on 04.06.17.
  */
+@Subject(ProjectExtensionHelper)
 class ProjectExtensionHelperTest extends Specification {
 
     private final Project project = ProjectBuilder.builder().withName("platsch").build()

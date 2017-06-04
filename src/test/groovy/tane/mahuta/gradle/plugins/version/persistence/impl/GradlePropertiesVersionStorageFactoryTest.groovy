@@ -3,11 +3,12 @@ package tane.mahuta.gradle.plugins.version.persistence.impl
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
-
+import spock.lang.Subject
 /**
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
+@Subject(GradlePropertiesVersionStorageFactory)
 class GradlePropertiesVersionStorageFactoryTest extends Specification {
 
     @Rule

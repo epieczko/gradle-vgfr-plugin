@@ -5,13 +5,14 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
+import spock.lang.Subject
 
 import javax.annotation.Nonnull
-
 /**
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
+@Subject(AbstractPropertyVersionStorageFactory)
 class AbstractPropertyVersionStorageFactoryTest extends Specification {
 
     @Rule

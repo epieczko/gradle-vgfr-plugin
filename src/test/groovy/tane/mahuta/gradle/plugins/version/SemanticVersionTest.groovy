@@ -1,12 +1,13 @@
 package tane.mahuta.gradle.plugins.version
 
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
-
 /**
  * @author christian.heike@icloud.com
  * Created on 23.05.17.
  */
+@Subject(SemanticVersion)
 class SemanticVersionTest extends Specification {
 
     @Unroll

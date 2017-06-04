@@ -2,12 +2,14 @@ package tane.mahuta.gradle.plugins.version.persistence.impl
 
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
+import spock.lang.Subject
 import tane.mahuta.gradle.plugins.version.persistence.VersionStorage
 import tane.mahuta.gradle.plugins.version.persistence.VersionStorageFactory
 /**
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
+@Subject(CompositeVersionStorageFactory)
 class CompositeVersionStorageFactoryTest extends Specification {
 
     private static final List<Class<GradlePropertiesVersionStorageFactory>> DEFAULT_FACTORY_CLASSES = [GradlePropertiesVersionStorageFactory]
