@@ -54,7 +54,7 @@ class SemanticVersionTest extends Specification {
     }
 
     @Unroll
-    def "compare(#lhs, #rhs) = #expected"() {
+    def "compare(#lhs, #rhs) = #expected / #expectedEquals"() {
         setup:
         final lhsVer = SemanticVersion.parse(lhs)
         final rhsVer = SemanticVersion.parse(rhs)
@@ -63,19 +63,23 @@ class SemanticVersionTest extends Specification {
         lhsVer <=> rhsVer == expected
         and:
         rhsVer <=> lhsVer == -1 * expected
+        and:
+        (lhs.hashCode() == rhs?.hashCode()) == expectedEquals
+        and:
+        lhs.equals(rhs) == expectedEquals
 
         where:
-        lhs              | rhs              | expected
-        "1.2"            | "1.2.0"          | 0
-        "1.2"            | null             | 1
-        "1.2.0"          | "1.2.0"          | 0
-        "1.2-SNAPSHOT"   | "1.2.0-SNAPSHOT" | 0
-        "1.2.0-SNAPSHOT" | "1.2.0-SNAPSHOT" | 0
-        "1.2.3"          | "1.2.4"          | -1
-        "1.2.3"          | "1.3.4"          | -1
-        "1.2.3"          | "2.3.4"          | -1
-        "1.3.0-SNAPSHOT" | "1.3.0"          | -1
-        "1.3-SNAPSHOT"   | "1.3.0"          | -1
+        lhs              | rhs              | expected | expectedEquals
+        "1.2"            | "1.2.0"          | 0        | false
+        "1.2"            | null             | 1        | false
+        "1.2.0"          | "1.2.0"          | 0        | true
+        "1.2-SNAPSHOT"   | "1.2.0-SNAPSHOT" | 0        | false
+        "1.2.0-SNAPSHOT" | "1.2.0-SNAPSHOT" | 0        | true
+        "1.2.3"          | "1.2.4"          | -1       | false
+        "1.2.3"          | "1.3.4"          | -1       | false
+        "1.2.3"          | "2.3.4"          | -1       | false
+        "1.3.0-SNAPSHOT" | "1.3.0"          | -1       | false
+        "1.3-SNAPSHOT"   | "1.3.0"          | -1       | false
     }
 
 }

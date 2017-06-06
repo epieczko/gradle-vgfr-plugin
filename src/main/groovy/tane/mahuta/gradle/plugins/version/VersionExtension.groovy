@@ -87,9 +87,6 @@ class VersionExtension {
 
     @Override
     boolean equals(final Object o) {
-        if (o == null) {
-            return (parsedVersion ?: rawVersion) == null
-        }
         parsedVersion == o || rawVersion == o
     }
 
@@ -101,4 +98,5 @@ class VersionExtension {
     private void reparse() {
         parsedVersion = this.parser != null ? this.parser.parse(rawVersion) : null
     }
+
 }

@@ -26,7 +26,7 @@ import static lombok.AccessLevel.PRIVATE;
  *         Created on 23.05.17.
  */
 @AllArgsConstructor(access = PRIVATE)
-@EqualsAndHashCode(of = "stringRepresentation")
+@EqualsAndHashCode(exclude = "stringRepresentation")
 public class SemanticVersion implements Version, Comparable<SemanticVersion> {
 
     private static final Function<SemanticVersion, Integer>
