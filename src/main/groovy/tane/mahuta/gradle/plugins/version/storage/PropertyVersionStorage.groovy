@@ -9,6 +9,8 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 /**
+ * {@link VersionStorage} for property files.
+ *
  * @author christian.heike@icloud.com
  * Created on 28.05.17.
  */

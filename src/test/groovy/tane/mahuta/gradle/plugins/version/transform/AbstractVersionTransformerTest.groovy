@@ -1,6 +1,7 @@
 package tane.mahuta.gradle.plugins.version.transform
 
 import spock.lang.Specification
+import tane.mahuta.build.version.Version
 import tane.mahuta.build.version.VersionTransformer
 
 import javax.annotation.Nonnull
@@ -12,18 +13,18 @@ import javax.annotation.Nonnull
 class AbstractVersionTransformerTest extends Specification {
 
     private final VersionTransformer mock = Mock(VersionTransformer)
-    private
-    final VersionTransformer.AbstractVersionTransformer transformer = new VersionTransformer.AbstractVersionTransformer() {
+
+    private final VersionTransformer.AbstractVersionTransformer transformer = new VersionTransformer.AbstractVersionTransformer<Version, Version>() {
         @Override
-        def doTransform(@Nonnull Object version) {
+        Version doTransform(@Nonnull final Version version) {
             mock.transform(version)
         }
     }
 
     def "transform calls doTransform with non null values"() {
         setup:
-        final version = new Object()
-        final transformed = new Object()
+        final version = Mock(Version)
+        final transformed = Mock(Version)
 
         when:
         final actual = transformer.transform(version)

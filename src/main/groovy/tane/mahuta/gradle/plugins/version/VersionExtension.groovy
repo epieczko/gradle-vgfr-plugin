@@ -2,15 +2,12 @@ package tane.mahuta.gradle.plugins.version
 
 import groovy.transform.CompileStatic
 import groovy.transform.EqualsAndHashCode
-import groovy.transform.stc.ClosureParams
-import groovy.transform.stc.FromString
+import tane.mahuta.build.version.Version
 import tane.mahuta.build.version.VersionParser
 import tane.mahuta.build.version.VersionStorage
 import tane.mahuta.build.version.VersionTransformer
 
-import javax.annotation.Nonnull
 import javax.annotation.Nullable
-
 /**
  * @author christian.heike@icloud.com
  * Created on 04.06.17.
@@ -19,51 +16,59 @@ import javax.annotation.Nullable
 @EqualsAndHashCode
 class VersionExtension {
 
-    private def rawVersion, parsedVersion
+    private def rawVersion
+    private Version parsedVersion
 
-    private Map<String, VersionTransformer<?>> transformer
+    private final Map<String, VersionTransformer<? extends Version, ? extends Version>> transformers = [:]
+
     private VersionStorage storage
-    private VersionParser<?> parser
+
+    private VersionParser<? extends Version> parser
 
     /**
      * Set a new parser for the version.
      * @param parser the parser
      */
-    VersionExtension setParser(@Nullable final VersionParser<?> parser) {
+    VersionExtension setParser(@Nullable final VersionParser<? extends Version> parser) {
         this.parser = parser
         reparse()
         this
     }
 
     /**
-     * Uses a closure for parsing.
-     * @see VersionExtension#setParser(tane.mahuta.build.version.VersionParser)
+     * @return the parser for this extension
      */
-    VersionExtension setParser(@Nonnull
-                               @ClosureParams(value = FromString, options = "java.lang.Object")
-                               final Closure<?> parser) {
-        this.parser = parser != null ? new VersionParser() {
-            @Override
-            Object parse(@Nullable Object source) {
-                parser.call(source)
-            }
-        } : null
-        reparse()
-        this
-    }
+    VersionParser<? extends Version> getParser() { parser }
 
+    /**
+     * Sets the raw version from the project.
+     * This triggers parsing the version.
+     * @param rawVersion the raw version from the project
+     * @return ( this )
+     */
     VersionExtension setRawVersion(final rawVersion) {
         this.rawVersion = rawVersion
         reparse()
         this
     }
 
-    VersionExtension setStorage(final VersionStorage storage) {
+    /**
+     * Sets the {@link VersionStorage}.
+     * This triggers a {@link VersionExtension#load()}.
+     * @param storage the storage to be used
+     * @return (this)
+     */
+    VersionExtension setStorage(@Nullable final VersionStorage storage) {
         this.storage = storage
         load()
         this
     }
 
+    /**
+     * Loads the version from the storage using {@link VersionStorage#load()}
+     * and sets it using {@link VersionExtension#setRawVersion(java.lang.Object)}.
+     * @return (this)
+     */
     VersionExtension load() {
         if (storage != null) {
             setRawVersion(storage.load())
@@ -71,8 +76,12 @@ class VersionExtension {
         this
     }
 
+    /**
+     * Stores the version using {@link VersionStorage#store(java.lang.Object)}.
+     * @return (this)
+     */
     VersionExtension store() {
-        storage?.store(parsedVersion ?: rawVersion)
+        storage?.store(parsedVersion?.toStorable() ?: rawVersion)
         this
     }
 
@@ -90,7 +99,6 @@ class VersionExtension {
     }
 
     private void reparse() {
-        parsedVersion = this.parser != null ? this.parser.parse(rawVersion) : rawVersion
+        parsedVersion = this.parser != null ? this.parser.parse(rawVersion) : null
     }
-
 }

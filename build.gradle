@@ -13,7 +13,8 @@ repositories {
 
 dependencies {
     compile 'com.google.code.findbugs:jsr305:3.0.2'
-    compile('org.spockframework:spock-core:1.1-groovy-2.4') {
+    compile 'external.atlassian.jgitflow:jgit-flow-core:1.0-m5.1'
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
         exclude module: 'groovy-all'
     }
 }
@@ -24,6 +25,8 @@ jacocoTestReport {
         html.enabled = true
     }
 }
+
+lombok.version = '1.16.16'
 
 test.finalizedBy jacocoTestReport
 
