@@ -18,4 +18,8 @@ public interface VcsAccessor {
      */
     String getRevisionId();
 
+    /**
+     * @return the branch configuration
+     */
+    VcsFlowConfig getBranchConfig();
 }

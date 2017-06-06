@@ -34,7 +34,9 @@ abstract class AbstractPropertyProjectVersionStorageFactory implements ProjectVe
     @Override
     VersionStorage create(final Project project) {
         final f = findPropertyFile(project.projectDir)
-        f != null ? new PropertyVersionStorage(f, propertyName()) : null
+        final PropertyVersionStorage storage = f != null ? new PropertyVersionStorage(f, propertyName()) : null
+
+        storage?.load() != null ? storage : null
     }
 
     @Nullable
