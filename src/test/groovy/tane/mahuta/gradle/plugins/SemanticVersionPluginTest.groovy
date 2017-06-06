@@ -4,7 +4,7 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 import spock.lang.Subject
-import tane.mahuta.build.version.SemanticVersion
+import tane.mahuta.build.version.DefaultSemanticVersion
 
 /**
  * @author christian.heike@icloud.com
@@ -22,7 +22,7 @@ class SemanticVersionPluginTest extends Specification {
         when:
         project.apply plugin: SemanticVersionPlugin
         then:
-        project.version == SemanticVersion.parse("1.2.3")
+        project.version == DefaultSemanticVersion.parse("1.2.3")
         and:
         project.version.toString() == "1.2.3"
 

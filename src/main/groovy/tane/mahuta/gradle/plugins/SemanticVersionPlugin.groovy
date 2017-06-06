@@ -3,7 +3,7 @@ package tane.mahuta.gradle.plugins
 import groovy.transform.CompileStatic
 import org.gradle.api.Plugin
 import org.gradle.api.internal.project.ProjectInternal
-import tane.mahuta.build.version.SemanticVersion
+import tane.mahuta.build.version.DefaultSemanticVersion
 import tane.mahuta.build.version.VersionParserFactory
 import tane.mahuta.gradle.plugins.version.VersionExtension
 
@@ -18,7 +18,7 @@ import javax.annotation.Nonnull
  *     </pre>
  * </p>
  * <p>
- *     It uses {@link VersionPlugin} to load the version and transforms it by {@link SemanticVersion#parse(java.lang.String)}.
+ *     It uses {@link VersionPlugin} to load the version and transforms it by {@link DefaultSemanticVersion#parse(java.lang.String)}.
  * </p>
  * @author christian.heike@icloud.com
  * Created on 04.06.17.
@@ -30,7 +30,7 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
     void apply(@Nonnull final ProjectInternal target) {
         target.pluginManager.apply(VersionPlugin)
         (target.version as VersionExtension).setParser(VersionParserFactory.create {
-            SemanticVersion.parse(it as String)
+            DefaultSemanticVersion.parse(it as String)
         })
     }
 

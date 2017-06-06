@@ -14,6 +14,7 @@ repositories {
 dependencies {
     compile 'com.google.code.findbugs:jsr305:3.0.2'
     compile 'external.atlassian.jgitflow:jgit-flow-core:1.0-m5.1'
+    compile 'commons-lang:commons-lang:2.6'
     testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
         exclude module: 'groovy-all'
     }
