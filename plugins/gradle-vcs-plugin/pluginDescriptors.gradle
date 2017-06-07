@@ -1,0 +1,8 @@
+gradlePlugin {
+    plugins {
+        vcsPlugin {
+            id = 'tane.mahuta.gradle.vcs-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.VcsPlugin'
+        }
+    }
+}

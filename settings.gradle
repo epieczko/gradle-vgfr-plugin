@@ -1,1 +1,8 @@
 rootProject.name = 'gradle-vgfr-plugin'
+
+include 'buildtools:buildtools-api',
+        'buildtools:buildtools-impl',
+        'plugins:gradle-plugin-tooling',
+        'plugins:gradle-vcs-plugin',
+        'plugins:gradle-version-plugin',
+        'plugins:gradle-semver-plugin'

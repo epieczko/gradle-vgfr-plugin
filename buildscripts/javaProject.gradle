@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
+sourceCompatibility = targetCompatibility = 1.8
+
+lombok.version = '1.16.16'
+
+dependencies {
+    compile 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+tasks.withType(org.gradle.testing.jacoco.tasks.JacocoReport).each {
+    it.reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    test.finalizedBy it
+}

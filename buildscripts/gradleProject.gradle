@@ -1,0 +1,15 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'groovy'
+
+apply from: rootProject.file('buildscripts/javaProject.gradle')
+apply from: rootProject.file('buildscripts/spockDependencies.gradle')
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+final descriptors = file("pluginDescriptors.gradle")
+if (descriptors.isFile()) {
+    apply from: descriptors
+}

@@ -1,34 +1,28 @@
-plugins {
-    id 'io.franzbecker.gradle-lombok' version '1.8'
-    id 'java-gradle-plugin'
-    id 'groovy'
-    id 'jacoco'
-}
+subprojects {
 
-sourceCompatibility = targetCompatibility = 1.8
-
-repositories {
-    jcenter()
-}
-
-dependencies {
-    compile 'com.google.code.findbugs:jsr305:3.0.2'
-    compile 'external.atlassian.jgitflow:jgit-flow-core:1.0-m5.1'
-    compile 'commons-lang:commons-lang:2.6'
-    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
-        exclude module: 'groovy-all'
+    buildscript {
+        repositories {
+            jcenter()
+            maven { url "https://plugins.gradle.org/m2/" }
+        }
+        dependencies {
+            classpath "io.franzbecker:gradle-lombok:1.8"
+        }
     }
-}
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
+    repositories {
+        jcenter()
+        mavenCentral()
     }
+
 }
 
-lombok.version = '1.16.16'
+allprojects {
+    group = 'tane.mahuta.build'
+}
 
-test.finalizedBy jacocoTestReport
 
-apply from: file("pluginDescriptors.gradle")
+
+
+
+

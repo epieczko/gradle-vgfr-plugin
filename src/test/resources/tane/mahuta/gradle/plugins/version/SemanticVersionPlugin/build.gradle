@@ -1,5 +1,0 @@
-package tane.mahuta.gradle.plugins.version.SemanticVersionPlugin
-
-apply plugin: SemanticVersionPlugin
-
-
