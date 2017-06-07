@@ -18,6 +18,11 @@ class VersionExtensionTest extends Specification {
     private final version = Mock(Version)
     private final storage = Mock(VersionStorage)
 
+    def 'default version is udefined'() {
+        expect:
+        extension as String == 'undefined'
+    }
+
     def 'setting the parser parses the version'() {
         setup: 'mocking a parser and stubbing the parsed version'
         extension.setRawVersion("1.2.3")

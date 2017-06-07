@@ -1,11 +1,9 @@
 package tane.mahuta.gradle.plugin
 
-import org.gradle.api.Project
-import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Rule
 import spock.lang.Specification
 import spock.lang.Subject
 import tane.mahuta.gradle.plugin.version.VersionExtension
-
 /**
  * @author christian.heike@icloud.com
  * Created on 03.06.17.
@@ -13,29 +11,37 @@ import tane.mahuta.gradle.plugin.version.VersionExtension
 @Subject(SemanticVersionPlugin)
 class VersionPluginTest extends Specification {
 
-    private final Project project = ProjectBuilder.builder().build()
+    @Rule
+    final ProjectBuilderTestRule projectBuilder = new ProjectBuilderTestRule()
+
+    def 'plugin without version storage throws exception'() {
+        when:
+        projectBuilder.project.apply plugin: VersionPlugin
+        then:
+        projectBuilder.project.version as String == 'undefined'
+    }
 
     def 'plugin loads version and creates version storage'() {
         setup:
-        new File(project.projectDir, "gradle.properties").text = 'version=1.2.3\n'
+        projectBuilder.gradleProperties.version = '1.2.3'
 
         when:
-        project.apply plugin: VersionPlugin
+        projectBuilder.project.apply plugin: VersionPlugin
         then:
-        project.version instanceof VersionExtension
+        projectBuilder.project.version instanceof VersionExtension
         and:
-        project.version == "1.2.3"
+        projectBuilder.project.version == "1.2.3"
         and:
-        project.version.toString() == "1.2.3"
+        projectBuilder.project.version.toString() == "1.2.3"
 
         when:
-        project.version = "1.2.4"
+        projectBuilder.project.version = "1.2.4"
         then:
-        project.version instanceof VersionExtension
+        projectBuilder.project.version instanceof VersionExtension
         and:
-        project.version == "1.2.4"
+        projectBuilder.project.version == "1.2.4"
         and:
-        project.version.toString() == "1.2.4"
+        projectBuilder.project.version.toString() == "1.2.4"
     }
 
 }

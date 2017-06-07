@@ -31,6 +31,7 @@ import javax.annotation.Nonnull
  * <p>
  *     By default, the {@link VersionStorage} provided by {@link ServiceLoaderProjectServiceFactory#getInstance(java.lang.Class)} will be used.
  * </p>
+ *
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
@@ -38,8 +39,8 @@ class VersionPlugin implements Plugin<ProjectInternal> {
 
     @Override
     void apply(@Nonnull final ProjectInternal target) {
-        final version = new VersionExtension()
         final storage = ServiceLoaderProjectServiceFactory.getInstance(ProjectVersionStorageFactory).create(target)
+        final version = new VersionExtension()
         version.setStorage(storage)
         target.version = version
         target.metaClass.setVersion = version.&setRawVersion

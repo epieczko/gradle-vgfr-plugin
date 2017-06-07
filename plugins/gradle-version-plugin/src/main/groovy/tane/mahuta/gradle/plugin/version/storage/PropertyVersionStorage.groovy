@@ -23,7 +23,6 @@ class PropertyVersionStorage implements VersionStorage {
     private final File file
     private final String propertyName
 
-
     PropertyVersionStorage(@Nonnull final File file, @Nonnull final String propertyName) {
         if (!file.isFile()) {
             throw new IllegalArgumentException("File ${file} is not a file.")

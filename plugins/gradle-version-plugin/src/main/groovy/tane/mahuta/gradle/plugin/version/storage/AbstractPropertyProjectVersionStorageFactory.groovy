@@ -43,7 +43,7 @@ abstract class AbstractPropertyProjectVersionStorageFactory implements ProjectVe
     private File findPropertyFile(@Nonnull final File directory) {
         def curDir = directory
         while (curDir != null) {
-            final result = propertyVersionFileIn(curDir)
+            final result = propertyVersionFileIn(curDir).absoluteFile
             if (result?.isFile()) {
                 log.debug("Found version property file: {}", result)
                 return result

@@ -16,7 +16,7 @@ import javax.annotation.Nullable
 @EqualsAndHashCode
 class VersionExtension {
 
-    private def rawVersion
+    private def storageVersion
     private Version parsedVersion
 
     private final Map<String, VersionTransformer<? extends Version, ? extends Version>> transformers = [:]
@@ -47,7 +47,7 @@ class VersionExtension {
      * @return ( this )
      */
     VersionExtension setRawVersion(final rawVersion) {
-        this.rawVersion = rawVersion
+        this.storageVersion = rawVersion
         reparse()
         this
     }
@@ -81,22 +81,23 @@ class VersionExtension {
      * @return (this)
      */
     VersionExtension store() {
-        storage?.store(parsedVersion?.toStorable() ?: rawVersion)
+        storage?.store(parsedVersion?.toStorable() ?: storageVersion)
         this
     }
 
     @Override
     boolean equals(final Object o) {
-        parsedVersion == o || rawVersion == o
+        parsedVersion == o || storageVersion == o
     }
 
     @Override
     String toString() {
-        (parsedVersion ?: rawVersion)?.toString() ?: "undefined"
+        (parsedVersion ?: storageVersion)?.toString() ?: "undefined"
     }
 
     private void reparse() {
-        parsedVersion = this.parser != null ? this.parser.parse(rawVersion) : null
+        parsedVersion = this.parser != null ? this.parser.parse(storageVersion) : null
+        storageVersion = parsedVersion?.toStorable() ?: storageVersion
     }
 
 }
