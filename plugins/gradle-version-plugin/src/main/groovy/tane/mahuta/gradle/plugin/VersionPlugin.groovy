@@ -39,7 +39,7 @@ class VersionPlugin implements Plugin<ProjectInternal> {
 
     @Override
     void apply(@Nonnull final ProjectInternal target) {
-        final storage = ServiceLoaderProjectServiceFactory.getInstance(ProjectVersionStorageFactory).create(target)
+        final storage = ServiceLoaderProjectServiceFactory.getInstance(target, ProjectVersionStorageFactory).create(target)
         final version = new VersionExtension()
         version.setStorage(storage)
         target.version = version

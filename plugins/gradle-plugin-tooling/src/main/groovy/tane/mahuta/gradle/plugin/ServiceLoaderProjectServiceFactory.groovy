@@ -1,7 +1,8 @@
 package tane.mahuta.gradle.plugin
 
 import groovy.transform.CompileStatic
-import groovy.transform.PackageScope
+import org.gradle.api.Project
+
 /**
  * @author christian.heike@icloud.com
  * Created on 06.06.17.
@@ -9,31 +10,32 @@ import groovy.transform.PackageScope
 @CompileStatic
 class ServiceLoaderProjectServiceFactory<T> extends CompositeProjectServiceFactory<T> {
 
-    private static
-    final ThreadLocal<Map<Class<?>, ProjectServiceFactory<?>>> FACTORY_CACHE = new InheritableThreadLocal<Map<Class<?>, ProjectServiceFactory<?>>>() {
-        @Override
-        protected Map<Class<?>, ProjectServiceFactory<?>> initialValue() { [:] }
-    }
+    public static final String EXTENSION_NAME = "serviceFactoryCache"
 
     private ServiceLoaderProjectServiceFactory(
             final Class<? extends ProjectServiceFactory<T>> factoryInterface) {
         super(ServiceLoader.load(factoryInterface))
     }
 
-    @PackageScope
-    static void clearCache() {
-        FACTORY_CACHE.get().clear()
-    }
+    static <T> ProjectServiceFactory<T> getInstance(
+            final Project project, final Class<? extends ProjectServiceFactory<T>> factoryInterface) {
 
-    static <T> ProjectServiceFactory<T> getInstance(final Class<? extends ProjectServiceFactory<T>> factoryInterface) {
-        def cache = FACTORY_CACHE.get()
-        synchronized (cache) {
+        synchronized (project) {
+            final cache = ((project.extensions.findByName(EXTENSION_NAME) ?:
+                    createExtension(project)) as Map<Class<? extends ProjectServiceFactory<?>>, ProjectServiceFactory<?>>)
+
             def result = cache.get(factoryInterface)
             if (result == null) {
                 cache.put(factoryInterface, result = new ServiceLoaderProjectServiceFactory<T>(factoryInterface))
             }
             return result as ProjectServiceFactory<T>
         }
+
     }
 
+    private static def createExtension(Project project) {
+        def result = [:]
+        project.extensions.add(EXTENSION_NAME, result)
+        result
+    }
 }

@@ -1,4 +1,4 @@
-package tane.mahuta.gradle.plugin.version.persistence.impl
+package tane.mahuta.gradle.plugin.version.storage
 
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder

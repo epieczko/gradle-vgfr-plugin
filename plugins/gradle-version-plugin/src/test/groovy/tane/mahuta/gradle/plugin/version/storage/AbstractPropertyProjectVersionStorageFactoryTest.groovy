@@ -1,4 +1,4 @@
-package tane.mahuta.gradle.plugin.version.persistence.impl
+package tane.mahuta.gradle.plugin.version.storage
 
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -6,7 +6,6 @@ import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
 import spock.lang.Subject
-import tane.mahuta.gradle.plugin.version.storage.AbstractPropertyProjectVersionStorageFactory
 
 import javax.annotation.Nonnull
 /**

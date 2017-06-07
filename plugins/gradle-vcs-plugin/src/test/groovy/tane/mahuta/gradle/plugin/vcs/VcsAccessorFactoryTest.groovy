@@ -1,5 +1,7 @@
 package tane.mahuta.gradle.plugin.vcs
 
+import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionContainer
 import spock.lang.Specification
 import tane.mahuta.gradle.plugin.ServiceLoaderProjectServiceFactory
 import tane.mahuta.gradle.plugin.vcs.accessor.JGitFlowAccessorFactory
@@ -10,11 +12,19 @@ import tane.mahuta.gradle.plugin.vcs.accessor.JGitFlowAccessorFactory
  */
 class VcsAccessorFactoryTest extends Specification {
 
+    private final Project project = Stub(Project) {
+        getExtensions() >> Mock(ExtensionContainer) {
+            create(ServiceLoaderProjectServiceFactory.EXTENSION_NAME, HashMap) >> [:]
+        }
+    }
+
     def 'service loader finds default implementations'() {
-        expect:
-        ServiceLoaderProjectServiceFactory.getInstance(VcsAccessorFactory).factories.collect {
-            it.class
-        } == [JGitFlowAccessorFactory]
+        when:
+        final factory = ServiceLoaderProjectServiceFactory.getInstance(project, VcsAccessorFactory)
+        then:
+        factory != null
+        and:
+        factory.factories.collect { it.class } == [JGitFlowAccessorFactory]
     }
 
 }

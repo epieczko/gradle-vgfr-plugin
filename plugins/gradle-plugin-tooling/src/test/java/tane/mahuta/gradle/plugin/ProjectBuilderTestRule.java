@@ -36,12 +36,6 @@ public class ProjectBuilderTestRule extends TemporaryFolder {
         super(parentFolder);
     }
 
-    @Override
-    protected void after() {
-        super.after();
-        ServiceLoaderProjectServiceFactory.clearCache();
-    }
-
     /**
      * @see ProjectBuilder#withGradleUserHomeDir(File)
      */

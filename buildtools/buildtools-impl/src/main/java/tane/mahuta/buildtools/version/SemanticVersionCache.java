@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 /**
+ * A cache for the {@link SemanticVersion}s based on threads.
+ *
  * @author christian.heike@icloud.com
  *         Created on 06.06.17.
  */
