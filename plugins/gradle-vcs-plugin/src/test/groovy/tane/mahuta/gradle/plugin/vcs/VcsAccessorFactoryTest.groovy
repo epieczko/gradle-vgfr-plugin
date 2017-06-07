@@ -13,9 +13,7 @@ import tane.mahuta.gradle.plugin.vcs.accessor.JGitFlowAccessorFactory
 class VcsAccessorFactoryTest extends Specification {
 
     private final Project project = Stub(Project) {
-        getExtensions() >> Mock(ExtensionContainer) {
-            create(ServiceLoaderProjectServiceFactory.EXTENSION_NAME, HashMap) >> [:]
-        }
+        getExtensions() >> Mock(ExtensionContainer)
     }
 
     def 'service loader finds default implementations'() {
