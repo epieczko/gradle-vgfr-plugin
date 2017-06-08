@@ -3,6 +3,7 @@ package tane.mahuta.gradle.plugin.version
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import spock.lang.Specification
+import spock.lang.Subject
 import tane.mahuta.gradle.plugin.ServiceLoaderProjectServiceFactory
 import tane.mahuta.gradle.plugin.version.storage.GradlePropertiesProjectVersionStorageFactory
 
@@ -10,6 +11,7 @@ import tane.mahuta.gradle.plugin.version.storage.GradlePropertiesProjectVersionS
  * @author christian.heike@icloud.com
  * Created on 07.06.17.
  */
+@Subject(ProjectVersionStorageFactory)
 class ProjectVersionStorageFactoryTest extends Specification {
 
     private final Project project = Stub(Project) {

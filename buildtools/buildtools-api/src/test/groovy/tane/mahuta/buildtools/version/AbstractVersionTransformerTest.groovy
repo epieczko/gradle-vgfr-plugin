@@ -1,6 +1,7 @@
 package tane.mahuta.buildtools.version
 
 import spock.lang.Specification
+import spock.lang.Subject
 
 import javax.annotation.Nonnull
 
@@ -8,6 +9,7 @@ import javax.annotation.Nonnull
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
+@Subject(VersionTransformer.AbstractVersionTransformer)
 class AbstractVersionTransformerTest extends Specification {
 
     private final VersionTransformer mock = Mock(VersionTransformer)

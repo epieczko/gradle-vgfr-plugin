@@ -1,6 +1,7 @@
 package tane.mahuta.gradle.plugin.version
 
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 import tane.mahuta.buildtools.version.VersionTransformer
 
@@ -8,6 +9,7 @@ import tane.mahuta.buildtools.version.VersionTransformer
  * @author christian.heike@icloud.com
  * Created on 08.06.17.
  */
+@Subject(VersionTransformerFactory)
 class VersionTransformerFactoryTest extends Specification {
 
     private final VersionTransformer mock = Mock(VersionTransformer)

@@ -3,6 +3,7 @@ package tane.mahuta.gradle.plugin
 import org.eclipse.jgit.api.Git
 import org.junit.Rule
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 import tane.mahuta.buildtools.version.DefaultSemanticBranchVersion
 import tane.mahuta.buildtools.version.DefaultSemanticVersion
@@ -12,6 +13,7 @@ import tane.mahuta.gradle.plugin.version.transform.ChangeLevel
  * @author christian.heike@icloud.com
  * Created on 08.06.17.
  */
+@Subject(SemanticBranchVersionPlugin)
 class SemanticBranchVersionPluginTest extends Specification {
 
     @Rule

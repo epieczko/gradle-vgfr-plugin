@@ -15,6 +15,7 @@ import javax.annotation.Nullable
  * @author christian.heike@icloud.com
  * Created on 06.06.17.
  */
+@Subject(VersionExtension)
 class VersionExtensionTest extends Specification {
 
     @Subject

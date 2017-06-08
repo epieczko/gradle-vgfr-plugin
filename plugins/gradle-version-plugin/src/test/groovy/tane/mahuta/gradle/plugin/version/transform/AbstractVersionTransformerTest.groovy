@@ -1,15 +1,16 @@
 package tane.mahuta.gradle.plugin.version.transform
 
 import spock.lang.Specification
+import spock.lang.Subject
 import tane.mahuta.buildtools.version.Version
 import tane.mahuta.buildtools.version.VersionTransformer
 
 import javax.annotation.Nonnull
-
 /**
  * @author christian.heike@icloud.com
  * Created on 02.06.17.
  */
+@Subject(VersionTransformer.AbstractVersionTransformer)
 class AbstractVersionTransformerTest extends Specification {
 
     private final VersionTransformer mock = Mock(VersionTransformer)

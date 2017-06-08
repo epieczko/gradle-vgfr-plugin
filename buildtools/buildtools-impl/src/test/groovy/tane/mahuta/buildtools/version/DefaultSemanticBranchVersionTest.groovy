@@ -1,14 +1,18 @@
 package tane.mahuta.buildtools.version
 
 import spock.lang.Specification
+import spock.lang.Subject
+import spock.lang.Unroll
 
 /**
  * @author christian.heike@icloud.com
  * Created on 06.06.17.
  */
+@Subject(DefaultSemanticBranchVersion)
 class DefaultSemanticBranchVersionTest extends Specification {
 
-    def 'version is created correctly'() {
+    @Unroll
+    def 'version #decorated in branch #branch is created correctly as #stringRepresentation'() {
 
         when: 'creating the branch version'
         final actual = DefaultSemanticBranchVersion.of(decorated, branch)

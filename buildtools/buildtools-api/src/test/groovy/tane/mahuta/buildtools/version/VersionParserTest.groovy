@@ -1,6 +1,7 @@
 package tane.mahuta.buildtools.version
 
 import spock.lang.Specification
+import spock.lang.Subject
 
 import javax.annotation.Nullable
 
@@ -8,6 +9,7 @@ import javax.annotation.Nullable
  * @author christian.heike@icloud.com
  * Created on 08.06.17.
  */
+@Subject(VersionParser)
 class VersionParserTest extends Specification {
 
     def 'decoration works'() {

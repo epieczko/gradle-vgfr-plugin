@@ -8,7 +8,7 @@ import tane.mahuta.gradle.plugin.version.VersionExtension
  * @author christian.heike@icloud.com
  * Created on 03.06.17.
  */
-@Subject(SemanticVersionPlugin)
+@Subject(VersionPlugin)
 class VersionPluginTest extends Specification {
 
     @Rule
