@@ -20,7 +20,7 @@ class VcsPlugin implements Plugin<Project> {
         if (vcsAccessor == null) {
             throw new InvalidUserCodeException("Cannot find git repository for: {}", target)
         }
-        target.extensions.add("vcs", new VcsExtension(vcsAccessor))
+        target.extensions.create("vcs", VcsExtension, vcsAccessor)
     }
 
 }

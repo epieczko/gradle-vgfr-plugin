@@ -24,10 +24,10 @@ class DefaultSemanticBranchVersionTest extends Specification {
         actual.is(DefaultSemanticBranchVersion.of(decorated, branch))
 
         where:
-        decorated                             | branch | stringRepresentation
-        DefaultSemanticVersion.parse("1.2.3") | null   | "1.2.3"
-        DefaultSemanticVersion.parse("1.2.3") | "branch"   | "1.2.3-branch"
-        DefaultSemanticVersion.parse("1.2.3-SNAPSHOT") | null   | "1.2.3-SNAPSHOT"
+        decorated                                      | branch   | stringRepresentation
+        DefaultSemanticVersion.parse("1.2.3")          | null     | "1.2.3"
+        DefaultSemanticVersion.parse("1.2.3")          | "branch" | "1.2.3-branch"
+        DefaultSemanticVersion.parse("1.2.3-SNAPSHOT") | null     | "1.2.3-SNAPSHOT"
         DefaultSemanticVersion.parse("1.2.3-SNAPSHOT") | "branch" | "1.2.3-branch-SNAPSHOT"
 
     }

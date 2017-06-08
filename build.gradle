@@ -6,6 +6,7 @@ subprojects {
             maven { url "https://plugins.gradle.org/m2/" }
         }
         dependencies {
+            classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
             classpath "io.franzbecker:gradle-lombok:1.8"
         }
     }
@@ -20,7 +21,6 @@ subprojects {
 allprojects {
     group = 'tane.mahuta.build'
 }
-
 
 
 

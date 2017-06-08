@@ -11,3 +11,21 @@ gradlePlugin {
 
     }
 }
+
+pluginBundle {
+    website = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+    vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+    description = 'Versioning and release plugins'
+    tags = ['version', 'versioning', 'semantic-version', 'semver']
+
+    plugins {
+        versionPlugin {
+            id = 'tane.mahuta.gradle.version-plugin'
+            description = 'A plugin which provides enhanced versioning functionality'
+        }
+        semVerPlugin {
+            id = 'tane.mahuta.gradle.semver-plugin'
+            description = 'A plugin which sets a semantic version to project.version'
+        }
+    }
+}

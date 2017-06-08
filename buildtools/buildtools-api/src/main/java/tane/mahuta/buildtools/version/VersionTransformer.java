@@ -37,6 +37,8 @@ public interface VersionTransformer<V extends Version, T extends Version> {
 
         /**
          * @see VersionTransformer#transform(Version)
+         * @param version the source version
+         * @return the transformed version
          */
         protected abstract T doTransform(@Nonnull V version);
     }
