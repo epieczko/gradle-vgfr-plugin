@@ -7,7 +7,9 @@ import tane.mahuta.buildtools.version.VersionParser
 import tane.mahuta.buildtools.version.VersionStorage
 import tane.mahuta.buildtools.version.VersionTransformer
 
+import javax.annotation.Nonnull
 import javax.annotation.Nullable
+
 /**
  * @author christian.heike@icloud.com
  * Created on 04.06.17.
@@ -19,7 +21,10 @@ class VersionExtension {
     private def storageVersion
     private Version parsedVersion
 
-    private final Map<String, VersionTransformer<? extends Version, ? extends Version>> transformers = [:]
+    /**
+     * Named transformers to be invoked
+     */
+    private final Map<String, VersionTransformer> transformers = [:]
 
     private VersionStorage storage
 
@@ -56,7 +61,7 @@ class VersionExtension {
      * Sets the {@link VersionStorage}.
      * This triggers a {@link VersionExtension#load()}.
      * @param storage the storage to be used
-     * @return (this)
+     * @return ( this )
      */
     VersionExtension setStorage(@Nullable final VersionStorage storage) {
         this.storage = storage
@@ -67,7 +72,7 @@ class VersionExtension {
     /**
      * Loads the version from the storage using {@link VersionStorage#load()}
      * and sets it using {@link VersionExtension#setRawVersion(java.lang.Object)}.
-     * @return (this)
+     * @return ( this )
      */
     VersionExtension load() {
         if (storage != null) {
@@ -78,7 +83,7 @@ class VersionExtension {
 
     /**
      * Stores the version using {@link VersionStorage#store(java.lang.Object)}.
-     * @return (this)
+     * @return ( this )
      */
     VersionExtension store() {
         storage?.store(parsedVersion?.toStorable() ?: storageVersion)
@@ -96,8 +101,56 @@ class VersionExtension {
     }
 
     private void reparse() {
-        parsedVersion = this.parser != null ? this.parser.parse(storageVersion) : null
+        if (storageVersion instanceof Version) {
+            parsedVersion = storageVersion as Version
+        } else {
+            parsedVersion = this.parser != null ? this.parser.parse(storageVersion) : null
+        }
         storageVersion = parsedVersion?.toStorable() ?: storageVersion
     }
 
+    def propertyMissing(final String name) {
+        final transformer = transformers[name]
+        if (!transformer) {
+            throw new MissingPropertyException("Could not find property or transformer with name: ${name}")
+        }
+        transformer
+    }
+
+    def propertyMissing(final String name, final def arg) {
+        def args = (arg instanceof Object[] ? (Object[]) arg : [arg].findAll{ it != null }) as List<Object>
+        if (args.size() != 1) {
+            throw new IllegalArgumentException("Cannot add transformer with no implementation.")
+        }
+        def transformer = toVersionTransformer(args[0])
+        if (transformer == null) {
+            throw new IllegalArgumentException("Cannot create transformer from arguments: ${args}")
+        }
+        transformers[name] = transformer
+        transformer
+    }
+
+    def methodMissing(final String name, final def args) {
+        final transformer = transformers[name]
+        final Object[] argArr = args instanceof Object[] ? args as Object[] : [args].toArray()
+        if (!transformer) {
+            throw new MissingMethodException(name, getClass(), argArr)
+        }
+        setRawVersion(transformer.transform(parsedVersion ?: storageVersion, argArr))
+    }
+
+    @Nullable
+    private static VersionTransformer toVersionTransformer(
+            @Nonnull final Object o) {
+        if (o instanceof VersionTransformer) {
+            return o as VersionTransformer
+        }
+        if (o instanceof Closure) {
+            final Closure c = o as Closure
+            if (c.getParameterTypes().length > 0) {
+                return VersionTransformerFactory.create(c)
+            }
+        }
+        null
+    }
 }

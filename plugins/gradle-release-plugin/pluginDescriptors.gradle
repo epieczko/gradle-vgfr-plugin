@@ -1,0 +1,22 @@
+gradlePlugin {
+    plugins {
+        releasePlugin {
+            id = 'tane.mahuta.gradle.release-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.ReleasePlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+    vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+    description = 'Versioning and release plugins'
+    tags = ['vcs', 'git', 'gitflow', 'release']
+
+    plugins {
+        releasePlugin {
+            id = 'tane.mahuta.gradle.release-plugin'
+            description = 'A plugin which allows you to release via gitflow'
+        }
+    }
+}

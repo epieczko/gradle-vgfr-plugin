@@ -1,0 +1,8 @@
+apply from: rootProject.file('buildscripts/gradleProject.gradle')
+
+dependencies {
+    compile parent.project('gradle-vcs-plugin')
+    compile parent.project('gradle-version-plugin')
+
+    testCompile project(path: ':plugins:gradle-plugin-tooling', configuration: 'testArtifacts')
+}

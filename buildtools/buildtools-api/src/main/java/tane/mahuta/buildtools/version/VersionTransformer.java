@@ -11,35 +11,37 @@ import java.util.Optional;
  * @param <T> the target version type
  * @author christian.heike@icloud.com
  */
-public interface VersionTransformer<V extends Version, T extends Version> {
+public interface VersionTransformer {
 
     /**
      * Transforms the version provided.
      *
      * @param version the source version
+     * @param args    additional arguments to be used
      * @return the transformed version
      */
     @Nullable
-    T transform(@Nullable V version);
+    Object transform(@Nullable Object version, @Nonnull Object... args);
 
     /**
      * Abstract {@link VersionTransformer} handling {@code null} values.
      *
      * @author christian.heike@icloud.com
      */
-    abstract class AbstractVersionTransformer<V extends Version, T extends Version> implements VersionTransformer<V, T> {
+    abstract class AbstractVersionTransformer implements VersionTransformer {
 
         @Override
         @Nullable
-        public final T transform(@Nullable final V version) {
-            return Optional.ofNullable(version).map(this::doTransform).orElse(null);
+        public final Object transform(@Nullable final Object version, @Nonnull Object... args) {
+            return Optional.ofNullable(version).map(v -> doTransform(v, args)).orElse(null);
         }
 
         /**
-         * @see VersionTransformer#transform(Version)
          * @param version the source version
+         * @param args    additional arguments to be used
          * @return the transformed version
+         * @see VersionTransformer#transform(Object, Object[])
          */
-        protected abstract T doTransform(@Nonnull V version);
+        protected abstract Object doTransform(@Nonnull Object version, @Nonnull Object... args);
     }
 }

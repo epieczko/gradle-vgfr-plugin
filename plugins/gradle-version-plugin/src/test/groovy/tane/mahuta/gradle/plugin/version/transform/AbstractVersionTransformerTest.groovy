@@ -14,22 +14,24 @@ class AbstractVersionTransformerTest extends Specification {
 
     private final VersionTransformer mock = Mock(VersionTransformer)
 
-    private final VersionTransformer.AbstractVersionTransformer transformer = new VersionTransformer.AbstractVersionTransformer<Version, Version>() {
+    private
+    final VersionTransformer.AbstractVersionTransformer transformer = new VersionTransformer.AbstractVersionTransformer() {
         @Override
-        Version doTransform(@Nonnull final Version version) {
-            mock.transform(version)
+        Object doTransform(@Nonnull final Object version, @Nonnull Object... args) {
+            mock.transform(version, args)
         }
     }
 
     def "transform calls doTransform with non null values"() {
         setup:
+        final args = new Object[0]
         final version = Mock(Version)
         final transformed = Mock(Version)
 
         when:
-        final actual = transformer.transform(version)
+        final actual = transformer.transform(version, args)
         then:
-        1 * mock.transform(version) >> transformed
+        1 * mock.transform(version, args) >> transformed
         and:
         actual.is(transformed)
     }
@@ -38,7 +40,7 @@ class AbstractVersionTransformerTest extends Specification {
         when:
         final actual = transformer.transform(null)
         then:
-        0 * mock.transform(_)
+        0 * mock.transform(_, _)
         and:
         actual == null
     }
