@@ -7,8 +7,6 @@ import java.util.Optional;
 /**
  * Interface for a version transformer
  *
- * @param <V> the type of the version to be transformed
- * @param <T> the target version type
  * @author christian.heike@icloud.com
  */
 public interface VersionTransformer {
