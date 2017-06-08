@@ -23,9 +23,8 @@ class VersionExtensionTest extends Specification {
     private final parser = Mock(VersionParser)
     private final version = Mock(Version)
     private final storage = Mock(VersionStorage)
-    private final transformer = Mock(VersionTransformer)
 
-    def 'default version is udefined'() {
+    def 'default version is undefined'() {
         expect:
         extension as String == 'undefined'
     }

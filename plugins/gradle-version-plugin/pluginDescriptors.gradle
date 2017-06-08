@@ -8,7 +8,10 @@ gradlePlugin {
             id = 'tane.mahuta.gradle.semver-plugin'
             implementationClass = 'tane.mahuta.gradle.plugin.SemanticVersionPlugin'
         }
-
+        semVerBranchPlugin {
+            id = 'tane.mahuta.gradle.semver-branch-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.SemanticBranchVersionPlugin'
+        }
     }
 }
 
@@ -27,5 +30,10 @@ pluginBundle {
             id = 'tane.mahuta.gradle.semver-plugin'
             description = 'A plugin which sets a semantic version to project.version'
         }
+        semVerBranchPlugin {
+            id = 'tane.mahuta.gradle.semver-branch-plugin'
+            description = 'A plugin which sets a semantic version including a branch qualifier to project.version'
+        }
+
     }
 }
