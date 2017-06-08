@@ -1,5 +1,7 @@
 apply from: rootProject.file('buildscripts/gradleProject.gradle')
 
+sourceSets.main.groovy.srcDirs += ["src/main/java"]
+
 dependencies {
     compile parent.project('gradle-plugin-tooling')
     compile project(':buildtools:buildtools-impl')

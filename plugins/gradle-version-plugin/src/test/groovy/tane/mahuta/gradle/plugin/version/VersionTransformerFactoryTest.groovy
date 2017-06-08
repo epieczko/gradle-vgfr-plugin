@@ -1,7 +1,7 @@
 package tane.mahuta.gradle.plugin.version
 
 import spock.lang.Specification
-import tane.mahuta.buildtools.version.Version
+import spock.lang.Unroll
 import tane.mahuta.buildtools.version.VersionTransformer
 
 /**
@@ -12,20 +12,39 @@ class VersionTransformerFactoryTest extends Specification {
 
     private final VersionTransformer mock = Mock(VersionTransformer)
 
-    def "closure is invoked"() {
+    def "closure with no arguments returns null"() {
+        expect:
+        VersionTransformerFactory.create({ -> }) == null
+    }
+
+    def "closure with wrong argument type throws exception when transforming"() {
         setup:
-        final source = Mock(Version)
-        final args = ['x',1,2l, new Object()].toArray()
-        final transformed = Mock(Version)
+        final transformer = VersionTransformerFactory.create({ String x, String y -> x + y })
 
         when:
-        final transformer = VersionTransformerFactory.create{ v, arguments -> mock.transform(v, arguments) }
+        transformer.transform("1.2.3", 123)
+        then:
+        thrown(IllegalArgumentException)
+    }
+
+    @Unroll
+    def "closure with #count arguments is invoked"() {
+        setup:
+        final source = "1.2.3"
+        final args = ['x', 1].toArray()
+
+        when:
+        final transformer = VersionTransformerFactory.create(closure)
         and:
         final actual = transformer.transform(source, args)
         then:
-        1 * mock.transform(source, args) >> transformed
-        and:
-        actual.is(transformed)
+        actual
+
+        where:
+        count | closure
+        1     | { v -> v == '1.2.3' }
+        2     | { v, a -> v == '1.2.3' && a == 'x' }
+        3     | { v, a, b -> v == '1.2.3' && a == 'x' && b == 1 }
     }
 
 }

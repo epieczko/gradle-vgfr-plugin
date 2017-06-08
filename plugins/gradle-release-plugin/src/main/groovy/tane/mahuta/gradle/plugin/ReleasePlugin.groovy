@@ -14,7 +14,7 @@ class ReleasePlugin implements Plugin<Project> {
         target.getPluginManager().apply(VersionPlugin)
         target.getPluginManager().apply(VcsPlugin)
 
-        // TODO target.task("releaseCheck", type: ReleaseCheck)
+        target.task("releaseCheck", type: ReleaseCheck)
     }
 
 }

@@ -1,5 +1,3 @@
-apply plugin: 'java-gradle-plugin'
-apply plugin: "com.gradle.plugin-publish"
 apply plugin: 'groovy'
 
 apply from: rootProject.file('buildscripts/javaProject.gradle')
@@ -12,6 +10,8 @@ dependencies {
 
 final descriptors = file("pluginDescriptors.gradle")
 if (descriptors.isFile()) {
+    apply plugin: 'java-gradle-plugin'
+    apply plugin: "com.gradle.plugin-publish"
     apply from: descriptors
     project.properties.put('gradle.publish.secret', System.getenv("GRADLE_PUBLISH_SECRET"))
 }

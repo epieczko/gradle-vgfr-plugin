@@ -8,9 +8,9 @@ import javax.annotation.Nonnull
  */
 enum ChangeLevel {
 
-    API_EXTENSION("Extensions have been made to the API"),
-    API_INCOMPATIBILITY("The API was rendered incompatible"),
-    IMPLEMENTATION_CHANGED("Only implementations have been changed")
+    API_INCOMPATIBILITY("The API was rendered incompatible (major)"),
+    API_EXTENSION("Extensions have been made to the API (minor)"),
+    IMPLEMENTATION_CHANGED("Only implementations have been changed (micro)")
 
     final String description
 

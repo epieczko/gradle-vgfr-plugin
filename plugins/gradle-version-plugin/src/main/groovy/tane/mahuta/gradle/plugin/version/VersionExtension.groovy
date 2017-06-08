@@ -9,7 +9,6 @@ import tane.mahuta.buildtools.version.VersionTransformer
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
-
 /**
  * @author christian.heike@icloud.com
  * Created on 04.06.17.
@@ -110,24 +109,57 @@ class VersionExtension {
     }
 
     def propertyMissing(final String name) {
-        final transformer = transformers[name]
+        final transformer = getTransformer(name)
         if (!transformer) {
             throw new MissingPropertyException("Could not find property or transformer with name: ${name}")
         }
         transformer
     }
 
+    @Nullable
+    VersionTransformer getTransformer(@Nonnull String name) {
+        transformers[name]
+    }
+
+    /**
+     * Define a transformer.
+     *
+     * @param name the name of the transformer
+     * @param c the transformation closure
+     * @return ( this )
+     */
+    @Nonnull
+    VersionExtension defineTransformer(@Nonnull final String name,
+                                       @Nonnull final Closure<?> c) {
+        final transformer = VersionTransformerFactory.create(c)
+        transformer != null ? defineTransformer(name, transformer) : this
+    }
+
+    /**
+     * Define a transformer.
+     *
+     * @param name the name of the transformer
+     * @param transformer the transformer to be used
+     * @return ( this )
+     */
+    @Nonnull
+    VersionExtension defineTransformer(@Nonnull final String name,
+                                       @Nonnull final VersionTransformer transformer) {
+        transformers[name] = transformer
+        this
+    }
+
+
     def propertyMissing(final String name, final def arg) {
-        def args = (arg instanceof Object[] ? (Object[]) arg : [arg].findAll{ it != null }) as List<Object>
+        def args = (arg instanceof Object[] ? (Object[]) arg : [arg].findAll { it != null }) as List<Object>
         if (args.size() != 1) {
             throw new IllegalArgumentException("Cannot add transformer with no implementation.")
         }
-        def transformer = toVersionTransformer(args[0])
-        if (transformer == null) {
+        def result = defineTransformerFromObject(name, args[0])
+        if (result == null) {
             throw new IllegalArgumentException("Cannot create transformer from arguments: ${args}")
         }
-        transformers[name] = transformer
-        transformer
+        result
     }
 
     def methodMissing(final String name, final def args) {
@@ -136,19 +168,16 @@ class VersionExtension {
         if (!transformer) {
             throw new MissingMethodException(name, getClass(), argArr)
         }
-        setRawVersion(transformer.transform(parsedVersion ?: storageVersion, argArr))
+        transformer.transform(parsedVersion ?: storageVersion, argArr)
     }
 
-    @Nullable
-    private static VersionTransformer toVersionTransformer(
-            @Nonnull final Object o) {
+    private VersionExtension defineTransformerFromObject(@Nonnull final String name, @Nonnull final Object o) {
         if (o instanceof VersionTransformer) {
-            return o as VersionTransformer
-        }
-        if (o instanceof Closure) {
+            return defineTransformer(name, o as VersionTransformer)
+        } else if (o instanceof Closure) {
             final Closure c = o as Closure
             if (c.getParameterTypes().length > 0) {
-                return VersionTransformerFactory.create(c)
+                return defineTransformer(name, c as Closure)
             }
         }
         null
