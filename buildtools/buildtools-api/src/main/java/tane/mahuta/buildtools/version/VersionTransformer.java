@@ -28,7 +28,7 @@ public interface VersionTransformer {
      * @return the decorated transformer
      */
     default VersionTransformer decorate(@Nonnull final VersionTransformer decorator) {
-        return (version, args) -> Optional.ofNullable(transform(version)).map(v -> decorator.transform(v, args)).orElse(null);
+        return (version, args) -> Optional.ofNullable(this.transform(version, args)).map(v -> decorator.transform(v, args)).orElse(null);
     }
 
     /**

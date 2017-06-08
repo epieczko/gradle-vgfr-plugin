@@ -8,6 +8,7 @@ import tane.mahuta.buildtools.version.SemanticVersion
 import tane.mahuta.gradle.plugin.vcs.VcsExtension
 import tane.mahuta.gradle.plugin.version.TransformerName
 import tane.mahuta.gradle.plugin.version.VersionExtension
+import tane.mahuta.gradle.plugin.version.VersionParserFactory
 import tane.mahuta.gradle.plugin.version.VersionTransformerFactory
 
 import javax.annotation.Nonnull
@@ -29,17 +30,16 @@ class SemanticBranchVersionPlugin implements Plugin<Project> {
         final versionExtension = target.version as VersionExtension
         final vcsExtension = target.extensions.findByType(VcsExtension) as VcsExtension
 
-        versionExtension.parser = versionExtension.parser.decorate(
-                SemanticBranchVersionPlugin.&toSemanticBranchVersion.ncurry(1, vcsExtension))
+        final toBranchVersion = SemanticBranchVersionPlugin.&toSemanticBranchVersion.ncurry(1, vcsExtension)
 
-        final toBranchVersion = VersionTransformerFactory.create { v ->
-            toSemanticBranchVersion(v, branchNameToQualifier(vcsExtension.branch, vcsExtension.flowConfig))
-        }
+        versionExtension.parser = versionExtension.parser.decorate(VersionParserFactory.create(toBranchVersion))
+
+        def transformerDecorator = VersionTransformerFactory.create(toBranchVersion)
         versionExtension.defineTransformer(TransformerName.TO_RELEASE,
-                versionExtension.getTransformer(TransformerName.TO_RELEASE).decorate(toBranchVersion))
+                versionExtension.getTransformer(TransformerName.TO_RELEASE).decorate(transformerDecorator))
 
         versionExtension.defineTransformer(TransformerName.TO_NEXT_SNAPSHOT,
-                versionExtension.getTransformer(TransformerName.TO_NEXT_SNAPSHOT).decorate(toBranchVersion))
+                versionExtension.getTransformer(TransformerName.TO_NEXT_SNAPSHOT).decorate(transformerDecorator))
     }
 
     @Nullable
