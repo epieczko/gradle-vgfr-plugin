@@ -22,6 +22,16 @@ public interface VersionTransformer {
     Object transform(@Nullable Object version, @Nonnull Object... args);
 
     /**
+     * Decorate the provided transformer, wrapping the transformation method into the transformation method of the provided decorator.
+     *
+     * @param decorator the decorator
+     * @return the decorated transformer
+     */
+    default VersionTransformer decorate(@Nonnull final VersionTransformer decorator) {
+        return (version, args) -> Optional.ofNullable(transform(version)).map(v -> decorator.transform(v, args)).orElse(null);
+    }
+
+    /**
      * Abstract {@link VersionTransformer} handling {@code null} values.
      *
      * @author christian.heike@icloud.com

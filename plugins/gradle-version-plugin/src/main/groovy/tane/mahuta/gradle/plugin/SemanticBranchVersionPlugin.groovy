@@ -8,8 +8,7 @@ import tane.mahuta.buildtools.version.SemanticVersion
 import tane.mahuta.gradle.plugin.vcs.VcsExtension
 import tane.mahuta.gradle.plugin.version.TransformerName
 import tane.mahuta.gradle.plugin.version.VersionExtension
-import tane.mahuta.gradle.plugin.version.VersionParserFactory
-import tane.mahuta.gradle.plugin.version.transform.ChangeLevel
+import tane.mahuta.gradle.plugin.version.VersionTransformerFactory
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
@@ -26,21 +25,21 @@ class SemanticBranchVersionPlugin implements Plugin<Project> {
     void apply(@Nonnull final Project target) {
         target.pluginManager.apply(VcsPlugin)
         target.pluginManager.apply(SemanticVersionPlugin)
+
         final versionExtension = target.version as VersionExtension
         final vcsExtension = target.extensions.findByType(VcsExtension) as VcsExtension
-        versionExtension.setParser(
-                VersionParserFactory.decorate(versionExtension.parser, {
-                    toSemanticBranchVersion(it, vcsExtension)
-                })
-        )
-        final toReleaseTransformer = versionExtension.getTransformer(TransformerName.TO_RELEASE)
-        versionExtension.defineTransformer(TransformerName.TO_RELEASE, { v ->
-            toSemanticBranchVersion(toReleaseTransformer.transform(v), branchNameToQualifier(vcsExtension.branch, vcsExtension.flowConfig))
-        })
-        final toNextSnapshotTransformer = versionExtension.getTransformer(TransformerName.TO_NEXT_SNAPSHOT)
-        versionExtension.defineTransformer(TransformerName.TO_NEXT_SNAPSHOT, { v, ChangeLevel l ->
-            toSemanticBranchVersion(toNextSnapshotTransformer.transform(v, l), branchNameToQualifier(vcsExtension.branch, vcsExtension.flowConfig))
-        })
+
+        versionExtension.parser = versionExtension.parser.decorate(
+                SemanticBranchVersionPlugin.&toSemanticBranchVersion.ncurry(1, vcsExtension))
+
+        final toBranchVersion = VersionTransformerFactory.create { v ->
+            toSemanticBranchVersion(v, branchNameToQualifier(vcsExtension.branch, vcsExtension.flowConfig))
+        }
+        versionExtension.defineTransformer(TransformerName.TO_RELEASE,
+                versionExtension.getTransformer(TransformerName.TO_RELEASE).decorate(toBranchVersion))
+
+        versionExtension.defineTransformer(TransformerName.TO_NEXT_SNAPSHOT,
+                versionExtension.getTransformer(TransformerName.TO_NEXT_SNAPSHOT).decorate(toBranchVersion))
     }
 
     @Nullable
@@ -54,7 +53,6 @@ class SemanticBranchVersionPlugin implements Plugin<Project> {
     private static String branchNameToQualifier(@Nonnull final VcsExtension vcsExtension) {
         final name = vcsExtension.branch
         final flowConfig = vcsExtension.flowConfig
-        String result
         if ([flowConfig.releaseBranchPrefix, flowConfig.hotfixBranchPrefix].any(name.&startsWith) ||
                 [flowConfig.productionBranch, flowConfig.developmentBranch].any(name.&equals)) {
             return null
