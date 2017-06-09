@@ -25,6 +25,7 @@ class SemanticBranchVersionPluginTest extends Specification {
         git = Git.init().setDirectory(projectBuilder.root).call()
         new File(projectBuilder.root, "test.txt").text = "test"
         git.commit().setAll(true).setMessage("test commit").call()
+        projectBuilder.project.version = '1.0.0'
         projectBuilder.project.apply plugin: SemanticBranchVersionPlugin
     }
 
