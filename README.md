@@ -61,6 +61,6 @@ If you need to add an implementation for another VCS, you may write your own cla
 To expose the class through SPI (via `java.util.ServiceLoader`), a text file 
 `META-INF/services/tane.mahuta.buildtools.vcs.VcsAccessorFactory` must be on the classpath which contains one line with the fully qualified classname per implementation of the factory.
 
-The plugin's file is to be found [here](blob/development/plugins/gradle-vcs-plugin/src/main/resources/META-INF/services/tane.mahuta.gradle.plugin.vcs.VcsAccessorFactory).
+The plugin's file is to be found [here](plugins/gradle-vcs-plugin/src/main/resources/META-INF/services/tane.mahuta.gradle.plugin.vcs.VcsAccessorFactory).
 
  
