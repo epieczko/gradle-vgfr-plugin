@@ -18,7 +18,7 @@ class VcsPlugin implements Plugin<Project> {
         final factory = ServiceLoaderProjectServiceFactory.getInstance(target, VcsAccessorFactory)
         final vcsAccessor = factory.create(target)
         if (vcsAccessor == null) {
-            throw new InvalidUserCodeException("Cannot find git repository for: {}", target)
+            throw new InvalidUserCodeException("Cannot find git repository for: ${target}")
         }
         target.extensions.create("vcs", VcsExtension, vcsAccessor)
     }

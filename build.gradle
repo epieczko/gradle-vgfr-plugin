@@ -4,6 +4,7 @@ buildscript {
     repositories {
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
     dependencies {
         classpath 'com.palantir:jacoco-coverage:0.4.0'
@@ -34,6 +35,4 @@ subprojects {
     version = rootProject.version
 }
 
-project.task('check') {
-    dependsOn 'jacocoFullReport'
-}
+tasks.jacocoFullReport.dependsOn subprojects.collect{ tasks.withType(JacocoReport) }.findAll{ it != null && it != tasks.jacocoFullReport }
