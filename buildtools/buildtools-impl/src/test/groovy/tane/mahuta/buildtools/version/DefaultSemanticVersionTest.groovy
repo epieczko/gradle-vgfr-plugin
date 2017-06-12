@@ -14,7 +14,7 @@ class DefaultSemanticVersionTest extends Specification {
     @Unroll
     def "parse #source to (#major,#minor,#micro,#qualifier)"() {
         setup:
-        final expected = DefaultSemanticVersion.of(major, minor, micro, qualifier)
+        final expected = new DefaultSemanticVersion(major, minor, micro, qualifier)
 
         when: 'parsing the version'
         def actual = DefaultSemanticVersion.parse(source)
@@ -48,11 +48,6 @@ class DefaultSemanticVersionTest extends Specification {
         thrown(IllegalArgumentException)
     }
 
-    def "creating versions with the same parameters returns one instance"() {
-        expect:
-        DefaultSemanticVersion.parse("1.2.3-SNAPSHOT").is(DefaultSemanticVersion.of(1, 2, 3, "SNAPSHOT"))
-    }
-
     @Unroll
     def "compare(#lhs, #rhs) = #expected / #expectedEquals"() {
         setup:
@@ -81,5 +76,41 @@ class DefaultSemanticVersionTest extends Specification {
         "1.3.0-SNAPSHOT" | "1.3.0"          | -1       | false
         "1.3-SNAPSHOT"   | "1.3.0"          | -1       | false
     }
+
+    @Unroll
+    def "(#source).toRelease() returns #expected"() {
+        setup:
+        final lhsVer = DefaultSemanticVersion.parse(source)
+        final rhsVer = DefaultSemanticVersion.parse(expected)
+
+        expect:
+        lhsVer.toRelease() == rhsVer
+
+        where:
+        source           | expected
+        "1.2.3"          | "1.2.3"
+        "1.2-QA"         | "1.2-QA"
+        "1.2.3-SNAPSHOT" | "1.2.3"
+    }
+
+    @Unroll
+    def "(#source).toNextSnapshot(#level) returns #expected"() {
+        setup:
+        final lhsVer = DefaultSemanticVersion.parse(source)
+        final rhsVer = DefaultSemanticVersion.parse(expected)
+
+        expect:
+        lhsVer.toNextSnapshot(level) == rhsVer
+
+        where:
+        source   | level                              | expected
+        "1.2.3"  | ChangeLevel.IMPLEMENTATION_CHANGED | "1.2.4-SNAPSHOT"
+        "1.2.3"  | null                               | "1.3.3-SNAPSHOT"
+        "1.2.3"  | ChangeLevel.API_INCOMPATIBILITY    | "2.2.3-SNAPSHOT"
+        "1.2-QA" | ChangeLevel.IMPLEMENTATION_CHANGED | "1.2-SNAPSHOT"
+        "1.2-QA" | ChangeLevel.API_EXTENSION          | "1.3-SNAPSHOT"
+        "1.2-QA" | ChangeLevel.API_INCOMPATIBILITY    | "2.2-SNAPSHOT"
+    }
+
 
 }

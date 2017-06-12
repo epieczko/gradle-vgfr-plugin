@@ -1,29 +1,23 @@
 package tane.mahuta.gradle.plugin.version
 
 import groovy.transform.CompileStatic
-import groovy.transform.EqualsAndHashCode
+import lombok.EqualsAndHashCode
 import tane.mahuta.buildtools.version.Version
 import tane.mahuta.buildtools.version.VersionParser
 import tane.mahuta.buildtools.version.VersionStorage
-import tane.mahuta.buildtools.version.VersionTransformer
 
-import javax.annotation.Nonnull
 import javax.annotation.Nullable
+
 /**
  * @author christian.heike@icloud.com
  * Created on 04.06.17.
  */
 @CompileStatic
 @EqualsAndHashCode
-class VersionExtension {
+class VersionExtension implements Comparable<Object> {
 
     private def storageVersion
     private Version parsedVersion
-
-    /**
-     * Named transformers to be invoked
-     */
-    private final Map<String, VersionTransformer> transformers = [:]
 
     private VersionStorage storage
 
@@ -90,13 +84,41 @@ class VersionExtension {
     }
 
     @Override
-    boolean equals(final Object o) {
-        parsedVersion == o || storageVersion == o
+    String toString() {
+        internalVersion as String ?: "undefined"
     }
 
     @Override
-    String toString() {
-        (parsedVersion ?: storageVersion)?.toString() ?: "undefined"
+    int compareTo(final Object o) {
+        if (o instanceof Comparable && internalVersion instanceof Comparable) {
+            return (internalVersion as Comparable) <=> (o as Comparable)
+        }
+        return (internalVersion as String) <=> (o as String)
+    }
+
+    def propertyMissing(final String name) {
+        if (internalVersion == null) {
+            return null
+        }
+        internalVersion[name]
+    }
+
+    def propertyMissing(final String name, final def arg) {
+        if (internalVersion == null) {
+            throw new MissingPropertyException("No version set", name, getClass())
+        }
+        internalVersion[name] = arg
+    }
+
+    def methodMissing(final String name, final def args) {
+        if (!internalVersion) {
+            throw new MissingMethodException(name, getClass(), args as Object[])
+        }
+        internalVersion.invokeMethod(name, args)
+    }
+
+    private Object getInternalVersion() {
+        (parsedVersion ?: storageVersion)
     }
 
     private void reparse() {
@@ -106,80 +128,5 @@ class VersionExtension {
             parsedVersion = this.parser != null ? this.parser.parse(storageVersion) : null
         }
         storageVersion = parsedVersion?.toStorable() ?: storageVersion
-    }
-
-    def propertyMissing(final String name) {
-        final transformer = getTransformer(name)
-        if (!transformer) {
-            throw new MissingPropertyException("Could not find property or transformer with name: ${name}")
-        }
-        transformer
-    }
-
-    @Nullable
-    VersionTransformer getTransformer(@Nonnull String name) {
-        transformers[name]
-    }
-
-    /**
-     * Define a transformer.
-     *
-     * @param name the name of the transformer
-     * @param c the transformation closure
-     * @return ( this )
-     */
-    @Nonnull
-    VersionExtension defineTransformer(@Nonnull final String name,
-                                       @Nonnull final Closure<?> c) {
-        final transformer = VersionTransformerFactory.create(c)
-        transformer != null ? defineTransformer(name, transformer) : this
-    }
-
-    /**
-     * Define a transformer.
-     *
-     * @param name the name of the transformer
-     * @param transformer the transformer to be used
-     * @return ( this )
-     */
-    @Nonnull
-    VersionExtension defineTransformer(@Nonnull final String name,
-                                       @Nonnull final VersionTransformer transformer) {
-        transformers[name] = transformer
-        this
-    }
-
-
-    def propertyMissing(final String name, final def arg) {
-        def args = (arg instanceof Object[] ? (Object[]) arg : [arg].findAll { it != null }) as List<Object>
-        if (args.size() != 1) {
-            throw new IllegalArgumentException("Cannot add transformer with no implementation.")
-        }
-        def result = defineTransformerFromObject(name, args[0])
-        if (result == null) {
-            throw new IllegalArgumentException("Cannot create transformer from arguments: ${args}")
-        }
-        result
-    }
-
-    def methodMissing(final String name, final def args) {
-        final transformer = transformers[name]
-        final Object[] argArr = args instanceof Object[] ? args as Object[] : [args].toArray()
-        if (!transformer) {
-            throw new MissingMethodException(name, getClass(), argArr)
-        }
-        transformer.transform(parsedVersion ?: storageVersion, argArr)
-    }
-
-    private VersionExtension defineTransformerFromObject(@Nonnull final String name, @Nonnull final Object o) {
-        if (o instanceof VersionTransformer) {
-            return defineTransformer(name, o as VersionTransformer)
-        } else if (o instanceof Closure) {
-            final Closure c = o as Closure
-            if (c.getParameterTypes().length > 0) {
-                return defineTransformer(name, c as Closure)
-            }
-        }
-        null
     }
 }

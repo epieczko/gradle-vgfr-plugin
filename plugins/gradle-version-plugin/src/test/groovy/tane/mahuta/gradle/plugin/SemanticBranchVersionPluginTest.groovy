@@ -7,7 +7,7 @@ import spock.lang.Subject
 import spock.lang.Unroll
 import tane.mahuta.buildtools.version.DefaultSemanticBranchVersion
 import tane.mahuta.buildtools.version.DefaultSemanticVersion
-import tane.mahuta.gradle.plugin.version.transform.ChangeLevel
+import tane.mahuta.buildtools.version.ChangeLevel
 
 /**
  * @author christian.heike@icloud.com
@@ -38,12 +38,14 @@ class SemanticBranchVersionPluginTest extends Specification {
         projectBuilder.project.version = version
         final semanticVersionString = branchQualifier != null ? versionString.replace("-${branchQualifier}", "") : versionString
         final semanticVersion = DefaultSemanticVersion.parse(semanticVersionString)
-        final expectedVersion = DefaultSemanticBranchVersion.of(semanticVersion, branchQualifier)
+        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion, { -> branchQualifier})
 
         when:
         final actual = projectBuilder.project.version.toNextSnapshot(ChangeLevel.API_INCOMPATIBILITY)
         then:
         actual == expectedVersion
+        and:
+        actual.branchQualifier == expectedVersion.branchQualifier
         and:
         actual as String == versionString
 
@@ -64,12 +66,12 @@ class SemanticBranchVersionPluginTest extends Specification {
         }
         projectBuilder.project.version = version
         final semanticVersion = DefaultSemanticVersion.parse(version.replace("-SNAPSHOT", ""))
-        final expectedVersion = DefaultSemanticBranchVersion.of(semanticVersion, branchQualifier)
+        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion, { -> branchQualifier})
 
         when:
         final actual = projectBuilder.project.version.toRelease()
         then:
-        actual == expectedVersion
+        actual <=> expectedVersion == 0
         and:
         actual as String == versionString
 
@@ -90,14 +92,14 @@ class SemanticBranchVersionPluginTest extends Specification {
         }
         projectBuilder.project.version = version
         final semanticVersion = DefaultSemanticVersion.parse(version)
-        final expectedVersion = DefaultSemanticBranchVersion.of(semanticVersion, branchQualifier)
+        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion, { -> branchQualifier })
 
         expect:
-        projectBuilder.project.version == semanticVersion
-        and:
-        projectBuilder.project.version == expectedVersion
+        projectBuilder.project.version <=> expectedVersion == 0
         and:
         projectBuilder.project.version as String == versionString
+        and:
+        projectBuilder.project.version.branchQualifier == expectedVersion.branchQualifier
 
         where:
         branch              | version          | branchQualifier | versionString

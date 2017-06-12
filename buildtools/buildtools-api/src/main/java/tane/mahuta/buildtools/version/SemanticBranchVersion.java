@@ -11,7 +11,6 @@ import javax.annotation.Nullable;
 public interface SemanticBranchVersion extends SemanticVersion {
 
     /**
-     *
      * @return the qualifier for the branch
      */
     @Nullable

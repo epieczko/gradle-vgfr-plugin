@@ -6,11 +6,6 @@ import spock.lang.Unroll
 import tane.mahuta.buildtools.version.Version
 import tane.mahuta.buildtools.version.VersionParser
 import tane.mahuta.buildtools.version.VersionStorage
-import tane.mahuta.buildtools.version.VersionTransformer
-
-import javax.annotation.Nonnull
-import javax.annotation.Nullable
-
 /**
  * @author christian.heike@icloud.com
  * Created on 06.06.17.
@@ -30,6 +25,37 @@ class VersionExtensionTest extends Specification {
         extension as String == 'undefined'
     }
 
+    @Unroll
+    def 'comparing 1.2.3 and #version results in #expected'() {
+        when:
+        extension.setRawVersion("1.2.3")
+        then:
+        extension <=> version == expected
+        where:
+        version | expected
+        "1.2.3" | 0
+        "1.2.4" | -1
+        "1.2.2" | 1
+    }
+
+    @Unroll
+    def 'comparing Stub(1.2.3).toString() and #version results in #expected'() {
+        when:
+        extension.setRawVersion("1.2.3")
+        extension.setParser(VersionParserFactory.create { v ->
+            Stub(Version) {
+                toString() >> "1.2.3"
+            }
+        })
+        then:
+        extension <=> version == expected
+        where:
+        version | expected
+        "1.2.3" | 0
+        "1.2.4" | -1
+        "1.2.2" | 1
+    }
+
     def 'setting the parser parses the version'() {
         setup: 'mocking a parser and stubbing the parsed version'
         extension.setRawVersion("1.2.3")
@@ -40,8 +66,6 @@ class VersionExtensionTest extends Specification {
         extension.parser.is(parser)
         and: 'the version parser is being called'
         1 * parser.parse("1.2.3") >> version
-        and: 'and the extension equals the parsed version'
-        extension == version
         and:
         extension as String == version as String
     }
@@ -54,8 +78,6 @@ class VersionExtensionTest extends Specification {
         extension.rawVersion = "1.2.3"
         then: 'the version parser is being called'
         1 * parser.parse("1.2.3") >> version
-        and: 'and the extension equals the parsed version'
-        extension == version
         and:
         extension as String == version as String
     }
@@ -81,53 +103,64 @@ class VersionExtensionTest extends Specification {
         1 * storage.store("1.2.3")
     }
 
-    def 'not defined transformer throws exception'() {
-        when:
-        extension.toNextSnapshot
-        then:
-        thrown(MissingPropertyException)
-
+    def 'not defined method throws exception'() {
+        setup:
+        extension.setParser({ v -> Mock(Version)})
         when:
         extension.toNextSnapshot()
         then:
         thrown(MissingMethodException)
     }
 
-    @Unroll
-    def 'defining transformer property from #name throws exception'() {
+    def 'not defined version throws exception when invoking methods or properties'() {
+        expect:
+        extension.platsch == null
         when:
-        extension.toNextSnapshot = definition
+        extension.platsch = 'A'
         then:
-        thrown(IllegalArgumentException)
+        thrown(MissingPropertyException)
 
-        where:
-        name              | definition
-        'invalid closure' | { -> }
-        'string'          | 'a'
-        'array'           | [].toArray()
+        when:
+        extension.blubb()
+        then:
+        thrown(MissingMethodException)
     }
 
-    @Unroll
-    def 'defining a transformer from #name and using it'() {
+    def 'setting a raw version object uses it directly without parsing'() {
         setup:
-        extension.rawVersion = "1.2.3"
-        when:
-        extension.transformerThing = definition
-        then:
-        extension.transformerThing instanceof VersionTransformer
-        and:
-        extension.transformerThing("x") == "1.2.4"
+        final parserMock = Mock(VersionParser)
+        extension.setParser(parserMock)
+        final versionStub = Stub(Version)
 
-        where:
-        name                      | definition
-        'closure with single arg' | { v -> v == "1.2.3" ? "1.2.4" : null }
-        'closure with all args' | { v, args -> v == "1.2.3" && args[0] == "x" ? "1.2.4" : null }
-        'version transformer' | (new VersionTransformer() {
-            @Override
-            Object transform(@Nullable Object version, @Nonnull Object... args) {
-                version == "1.2.3" && args[0] == "x" ? "1.2.4" : null
-            }
-        })
+        when:
+        extension.setRawVersion(versionStub)
+        then:
+        0 * parserMock.parse(_)
+        and:
+        extension as String == versionStub as String
+    }
+
+    def 'delegates properties and methods'() {
+        setup:
+        final mock = Mock(TestVersion)
+        extension.setRawVersion(mock)
+
+        when:
+        extension.a = 'A'
+        then:
+        1 * mock.setA('A')
+
+        when:
+        final actual = extension.a
+        then:
+        1 * mock.getA() >> 'A'
+        and:
+        actual == 'A'
+    }
+
+    private static interface TestVersion extends Version {
+        void setA(String a)
+        String getA()
     }
 
 }

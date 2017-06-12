@@ -13,7 +13,7 @@ A gradle plugin collection for using
 ## Plugins
 
 ### General
-The plugin code is based on git and the semantic version scheme. 
+The plugin code is based on git-flow and the semantic version scheme. 
 
 Though this should be sufficient, you are able to extend the functionality by implementing services or using various extension points.
  
@@ -108,30 +108,12 @@ You can write your own version parsers implementing the interface `tane.mahuta.b
 The parsed `tane.mahuta.buildtools.version.Version` defines a method `toStorable()` which converts the domain object into 
 an object (`java.lang.String`, preferably) which can be stored using the version storage (you could call that unparsing).
 
-##### Transformers
-It is often necessary to define transformations for the versions, e.g. for transforming a version to a release version.
-You may define any transformation on `project.version` by simply adding a property which is a closure 
-(as known by meta class extension in groovy).
- 
-Examples:
-```groovy
-// Precondition
-version = "1.2.3-SNAPSHOT"
-// Define a transformation
-version.toRelease = { v -> v.replaceAll(/-SNAPSHOT$/, '') }
-// Use the transformation
-assert version.toRelease() == "1.2.3"
-```
-
-The release plugin uses some of the transformations create new versions in the
-release process. The names of the transformations are listed in the plugin's chapter.
-
 ### Semantic version plugin
 
 #### Introduction
 The semantic version plugin applies the version plugin and
 - adds a `VersionParser` which parses the `project`'s version to a `tane.mahuta.buildtools.version.SemanticVersion`
-- defines the transformations for the release plugin which apply to the parsed `SemanticVersion`s
+- the `SemanticVersion` defines transformations for the release plugin which apply to the parsed `SemanticVersion`s
 
 #### Usage
 Make sure your `project`'s version fits to the [SemVer Scheme](http://www.semver.org).
@@ -172,7 +154,7 @@ Semantic branch version plugin to the rescue!
 
 This plugin applies the semantic version plugin and the vcs plugin and
 - decorates the parser creating a `tane.mahuta.buildtools.version.SemanticBranchVersion`
-- decorates the transformers creating a `SemanticBranchVersion` from the `SemanticVersion`
+- defines transformers for `SemanticBranchVersion` from the `SemanticVersion`
 
 #### Usage
 ```groovy

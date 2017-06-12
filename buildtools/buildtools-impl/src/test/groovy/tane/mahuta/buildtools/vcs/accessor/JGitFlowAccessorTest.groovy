@@ -31,10 +31,9 @@ class JGitFlowAccessorTest extends Specification {
 
     def setup() {
         jGitFlow = JGitFlow.getOrInit(folder.getRoot(), INIT_CTX)
-        def file = new File(folder.getRoot(), "test.txt")
+        new File(folder.getRoot(), "test.txt").createNewFile()
         accessor = new JGitFlowAccessor(new JGitFlowWithConfig(jGitFlow))
-        file.createNewFile()
-        file.text == "Test"
+        final add = jGitFlow.git().add().addFilepattern("test.txt").call()
         head = jGitFlow.git().commit().setMessage("Test message").call().name() as String
     }
 
@@ -49,6 +48,17 @@ class JGitFlowAccessorTest extends Specification {
     def "getRevisionId returns head commit id"() {
         expect:
         accessor.revisionId == head
+    }
+
+    def 'getUncommittedFilePaths works'() {
+        expect:
+        accessor.uncommittedFilePaths.isEmpty()
+
+        when:
+        new File(folder.getRoot(), "test.txt") << "changed"
+        new File(folder.getRoot(), "test2.txt").createNewFile()
+        then:
+        accessor.uncommittedFilePaths == ['test.txt', 'test2.txt'] as Set
     }
 
     @Unroll

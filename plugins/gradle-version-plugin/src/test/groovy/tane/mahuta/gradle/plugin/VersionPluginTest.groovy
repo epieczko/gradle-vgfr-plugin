@@ -31,18 +31,14 @@ class VersionPluginTest extends Specification {
         then:
         projectBuilder.project.version instanceof VersionExtension
         and:
-        projectBuilder.project.version == "1.2.3"
-        and:
-        projectBuilder.project.version.toString() == "1.2.3"
+        projectBuilder.project.version <=> "1.2.3" == 0
 
         when:
         projectBuilder.project.version = "1.2.4"
         then:
         projectBuilder.project.version instanceof VersionExtension
         and:
-        projectBuilder.project.version == "1.2.4"
-        and:
-        projectBuilder.project.version.toString() == "1.2.4"
+        projectBuilder.project.version <=> "1.2.4" == 0
     }
 
 }

@@ -5,7 +5,7 @@ import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 import tane.mahuta.buildtools.version.DefaultSemanticVersion
-import tane.mahuta.gradle.plugin.version.transform.ChangeLevel
+import tane.mahuta.buildtools.version.ChangeLevel
 
 /**
  * @author christian.heike@icloud.com
@@ -15,33 +15,34 @@ import tane.mahuta.gradle.plugin.version.transform.ChangeLevel
 class SemanticVersionPluginTest extends Specification {
 
     @Rule
+    @Delegate
     final ProjectBuilderTestRule projectBuilder = new ProjectBuilderTestRule()
 
     def 'plugin loads version and transforms it to a semantic version'() {
         setup:
-        projectBuilder.gradleProperties.version = "1.2.3"
+        gradleProperties.version = "1.2.3"
 
         when:
-        projectBuilder.project.apply plugin: SemanticVersionPlugin
+        project.apply plugin: SemanticVersionPlugin
         then:
-        projectBuilder.project.version == DefaultSemanticVersion.parse("1.2.3")
+        project.version <=> DefaultSemanticVersion.parse("1.2.3") == 0
         and:
-        projectBuilder.project.version as String == "1.2.3"
+        project.version as String == "1.2.3"
 
         when:
-        projectBuilder.project.version = "1.2.4-SNAPSHOT"
+        project.version = "1.2.4-SNAPSHOT"
         then:
-        projectBuilder.project.version.toString() == "1.2.4-SNAPSHOT"
+        project.version.toString() == "1.2.4-SNAPSHOT"
     }
 
     @Unroll
     def 'toNextSnapshot of #version with #changeLevel is #expected'() {
         setup:
-        projectBuilder.gradleProperties.version = version
-        projectBuilder.project.apply plugin: SemanticVersionPlugin
+        gradleProperties.version = version
+        project.apply plugin: SemanticVersionPlugin
 
         expect:
-        projectBuilder.project.version.toNextSnapshot(changeLevel) == DefaultSemanticVersion.parse(expected)
+        project.version.toNextSnapshot(changeLevel) == DefaultSemanticVersion.parse(expected)
 
         where:
         version          | changeLevel                        | expected
@@ -64,11 +65,11 @@ class SemanticVersionPluginTest extends Specification {
     @Unroll
     def 'toRelease of #version is #expected'() {
         setup:
-        projectBuilder.gradleProperties.version = version
-        projectBuilder.project.apply plugin: SemanticVersionPlugin
+        gradleProperties.version = version
+        project.apply plugin: SemanticVersionPlugin
 
         expect:
-        projectBuilder.project.version.toRelease() == DefaultSemanticVersion.parse(expected)
+        project.version.toRelease() == DefaultSemanticVersion.parse(expected)
 
         where:
         version          | expected

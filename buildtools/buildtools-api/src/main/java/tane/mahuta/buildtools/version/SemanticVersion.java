@@ -1,6 +1,8 @@
 package tane.mahuta.buildtools.version;
 
 /**
+ * Interface for a semantic version defined by {@link http://www.semver.org}.
+ *
  * @author christian.heike@icloud.com
  *         Created on 06.06.17.
  */

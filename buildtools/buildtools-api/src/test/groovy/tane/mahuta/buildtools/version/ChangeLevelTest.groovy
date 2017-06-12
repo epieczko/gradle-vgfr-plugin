@@ -1,4 +1,4 @@
-package tane.mahuta.gradle.plugin.version.transform
+package tane.mahuta.buildtools.version
 
 import spock.lang.Specification
 import spock.lang.Subject
