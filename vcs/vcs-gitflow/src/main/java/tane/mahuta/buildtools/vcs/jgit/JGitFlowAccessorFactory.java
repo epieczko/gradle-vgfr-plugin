@@ -33,12 +33,12 @@ public class JGitFlowAccessorFactory implements VcsAccessorFactory {
         final File gitDir = new RepositoryBuilder().readEnvironment().findGitDir(directory).getGitDir();
         return Optional.ofNullable(gitDir)
                 .map(JGitFlowAccessorFactory::nullIfNotExists)
-                .map(this::getFormCacheOrCreate)
+                .map(this::getFromCacheOrCreate)
                 .orElse(null);
     }
 
     @SneakyThrows
-    private JGitFlowAccessor getFormCacheOrCreate(@Nonnull final File file) {
+    private JGitFlowAccessor getFromCacheOrCreate(@Nonnull final File file) {
         final String key = file.getAbsoluteFile().getCanonicalPath();
         return Optional.ofNullable(cached.get(key)).orElseGet(() -> {
             final JGitFlowAccessor result = doCreate(file);

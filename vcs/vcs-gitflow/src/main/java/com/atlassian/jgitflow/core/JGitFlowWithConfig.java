@@ -5,6 +5,8 @@ import lombok.Getter;
 import javax.annotation.Nonnull;
 
 /**
+ * Splits {@link GitFlowConfiguration} and {@link JGitFlow}.
+ *
  * @author christian.heike@icloud.com
  *         Created on 07.06.17.
  */

@@ -38,7 +38,17 @@ class JGitFlowAccessorFactoryTest extends Specification {
     }
 
     def 'service loader definition is found'() {
-        ServiceLoader.load(VcsAccessorFactory).iterator().collect{ it.class }.contains(JGitFlowAccessorFactory)
+        ServiceLoader.load(VcsAccessorFactory).iterator().collect { it.class }.contains(JGitFlowAccessorFactory)
+    }
+
+    def 'exceptions are thrown sneaky'() {
+        setup:
+        Git.init().setDirectory(temporaryFolder.root).call()
+        new File(temporaryFolder.root, ".git/config").text = "bllllaaa"
+        when:
+        final factored = factory.create(temporaryFolder.root)
+        then:
+        thrown(IllegalArgumentException)
     }
 
 }
