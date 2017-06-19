@@ -22,7 +22,7 @@ class ServiceLoaderVersionStorageFactoryTest extends Specification {
         MOCK_TL.set(factoryMock)
 
         when:
-        final actual = factoryMock.create(f)
+        final actual = ServiceLoaderVersionStorageFactory.instance.create(f)
         then:
         1 * factoryMock.create(f) >> mock
         and:
