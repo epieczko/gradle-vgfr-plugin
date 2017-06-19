@@ -1,10 +1,18 @@
+import io.franzbecker.gradle.lombok.task.DelombokTask
+
 group = 'tane.mahuta.build'
 
 buildscript {
+
     repositories {
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+
+    dependencies {
+        classpath 'io.franzbecker:gradle-lombok:1.8'
+        classpath 'com.gradle.publish:plugin-publish-plugin:0.9.7'
     }
 }
 
@@ -18,13 +26,30 @@ subprojects {
     buildscript.repositories.addAll(rootProject.buildscript.repositories)
     repositories.addAll(buildscript.repositories)
 
-    buildscript {
-        dependencies {
-            classpath 'com.gradle.publish:plugin-publish-plugin:0.9.7'
-            classpath 'io.franzbecker:gradle-lombok:1.8'
-        }
-    }
-
     group = rootProject.group
     version = rootProject.version
+
+    afterEvaluate {
+
+        if (pluginManager.hasPlugin('io.franzbecker.gradle-lombok')) {
+
+
+            task delombok(type: DelombokTask, dependsOn: compileJava) {
+                ext.outputDir = file("$buildDir/delombok")
+                outputs.dir(outputDir)
+                sourceSets.main.java.srcDirs.each {
+                    inputs.dir(it)
+                    args(it, "-d", outputDir)
+                }
+            }
+
+            javadoc {
+                dependsOn delombok
+                source = delombok.outputDir
+                failOnError = false
+            }
+        }
+
+    }
+
 }
