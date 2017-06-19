@@ -1,0 +1,8 @@
+description = 'Implemenation of the api analyzer'
+
+dependencies {
+    compile parent.project('versioning-api')
+    compile 'net.sf.clirr:clirr-core:0.6'
+    compile 'org.apache.bcel:bcel:6.0'
+    testRuntime 'org.slf4j:slf4j-simple:1.7.10'
+}
