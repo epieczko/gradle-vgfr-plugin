@@ -3,7 +3,7 @@ package tane.mahuta.gradle.plugin
 import org.junit.Rule
 import spock.lang.Specification
 import spock.lang.Subject
-import tane.mahuta.gradle.plugin.version.VersionExtension
+import tane.mahuta.buildtools.version.VersionParser
 
 /**
  * @author christian.heike@icloud.com
@@ -13,32 +13,41 @@ import tane.mahuta.gradle.plugin.version.VersionExtension
 class VersionPluginTest extends Specification {
 
     @Rule
+    @Delegate
     final ProjectBuilderTestRule projectBuilder = new ProjectBuilderTestRule()
 
-    def 'plugin without version storage returns default version'() {
+    def 'plugin application works, and version is default version'() {
         when:
         projectBuilder.project.apply plugin: VersionPlugin
         then:
         projectBuilder.project.version as String == 'unspecified'
     }
 
-    def 'plugin loads version and creates version storage'() {
+    def 'plugin creates version storage for gradle.properties'() {
         setup:
         projectBuilder.gradleProperties.version = '1.2.3'
 
         when:
-        projectBuilder.project.apply plugin: VersionPlugin
+        project.apply plugin: VersionPlugin
         then:
-        projectBuilder.project.version instanceof VersionExtension
-        and:
-        projectBuilder.project.version <=> "1.2.3" == 0
+        project.versioning.storage != null
+    }
+
+    def 'plugin uses parser'() {
+        setup:
+        final parserMock = Mock(VersionParser)
+        project.apply plugin: VersionPlugin
 
         when:
-        projectBuilder.project.version = "1.2.4"
+        project.versioning.parser = parserMock.&parse
         then:
-        projectBuilder.project.version instanceof VersionExtension
+        1 * parserMock.parse('unspecified', _) >> 'unspecified'
+        when:
+        project.version = "1.2.4"
+        then:
+        1 * parserMock.parse("1.2.4", _) >> "1.2.5"
         and:
-        projectBuilder.project.version <=> "1.2.4" == 0
+        project.version == '1.2.5'
     }
 
 }

@@ -1,13 +1,13 @@
 package tane.mahuta.gradle.plugin.release
 
 import groovy.transform.CompileStatic
-import groovy.transform.stc.ClosureParams
-import groovy.transform.stc.MapEntryOrKeyValue
 import org.gradle.api.Project
+import tane.mahuta.buildtools.version.ChangeLevel
 import tane.mahuta.gradle.plugin.vcs.VcsExtension
-import tane.mahuta.gradle.plugin.version.VersionExtension
+import tane.mahuta.gradle.plugin.version.VersioningExtension
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
 /**
  * Extension for the {@link tane.mahuta.gradle.plugin.ReleasePlugin}.
  *
@@ -19,27 +19,36 @@ class ReleaseExtension {
 
     final VcsExtension vcs
 
-    final VersionExtension version
+    final VersioningExtension version
 
-    private final Map<Project, Collection<String>> problems = [:]
+    final ProblemReport problems = new ProblemReport()
 
-    ReleaseExtension(@Nonnull final VcsExtension vcs, @Nonnull final VersionExtension version) {
-        this.vcs = vcs
-        this.version = version
+    private ChangeLevelAnalyzer changeLevelAnalyzer
+
+    ReleaseExtension(@Nonnull final Project project) {
+        this.vcs = project.extensions.findByType(VcsExtension)
+        this.version = project.extensions.findByType(VersioningExtension)
     }
 
-    ReleaseExtension addProblem(final Project project, final String problem) {
-        problems[project] = problems[project] ?: [] as Collection<String>
-        problems[project] << problem
-        this
+    /**
+     * Determines the {@link ChangeLevel} of the project.
+     * @param project the project
+     * @return the change level
+     */
+    @Nullable
+    ChangeLevel determineChangeLevel(@Nonnull final Project project) {
+        changeLevelAnalyzer?.determineChangeLevel(project)
     }
 
-    void eachProblem(@ClosureParams(MapEntryOrKeyValue.class) @Nonnull final Closure consumer) {
-        problems.each(consumer)
+    /**
+     * Set the {@link ChangeLevelAnalyzer}.
+     * @param changeLevelAnalyzer the analyzer to be used
+     */
+    void setChangeLevelAnalyzer(@Nullable final ChangeLevelAnalyzer changeLevelAnalyzer) {
+        this.changeLevelAnalyzer = changeLevelAnalyzer
     }
 
-    boolean hasProblems() {
-        !problems.isEmpty()
-    }
+    def releaseVersionOf(final Project project) {
 
+    }
 }

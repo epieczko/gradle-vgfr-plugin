@@ -1,0 +1,7 @@
+dependencies {
+
+    compile parent.project('versioning-api')
+    compile project(':vcs:vcs-api')
+    compile 'commons-lang:commons-lang:2.6'
+
+}

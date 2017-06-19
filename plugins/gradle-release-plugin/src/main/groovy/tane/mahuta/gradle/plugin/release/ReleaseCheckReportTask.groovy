@@ -1,5 +1,6 @@
 package tane.mahuta.gradle.plugin.release
 
+import groovy.transform.CompileStatic
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.tasks.TaskAction
 
@@ -9,6 +10,7 @@ import org.gradle.api.tasks.TaskAction
  * @author christian.heike@icloud.com
  * Created on 09.06.17.
  */
+@CompileStatic
 class ReleaseCheckReportTask extends AbstractReleaseExtensionTask {
 
     ReleaseCheckReportTask() {
@@ -17,16 +19,9 @@ class ReleaseCheckReportTask extends AbstractReleaseExtensionTask {
 
     @TaskAction
     void errorProblems() {
-        if (releaseExtension.hasProblems()) {
-            def countProblems = 0
-            releaseExtension.eachProblem { project, messages ->
-                logger.error("Problems on {}", project)
-                messages.each {
-                    logger.error(" - {}", it)
-                    countProblems++
-                }
-            }
-            throw new InvalidUserDataException("Cannot continue release, found {} problems.", countProblems)
+        if (releaseExtension.problems.hasErrors()) {
+            releaseExtension.problems.log(logger)
+            throw new InvalidUserDataException("Cannot continue release, problems have been found.")
         }
     }
 

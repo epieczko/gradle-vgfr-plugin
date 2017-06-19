@@ -4,7 +4,8 @@ import groovy.transform.CompileStatic
 import org.gradle.api.Plugin
 import org.gradle.api.internal.project.ProjectInternal
 import tane.mahuta.buildtools.version.DefaultSemanticVersion
-import tane.mahuta.gradle.plugin.version.VersionExtension
+import tane.mahuta.buildtools.version.DefaultSemanticVersionParser
+import tane.mahuta.gradle.plugin.version.VersioningExtension
 import tane.mahuta.gradle.plugin.version.VersionParserFactory
 
 import javax.annotation.Nonnull
@@ -29,10 +30,8 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
     @Override
     void apply(@Nonnull final ProjectInternal target) {
         target.pluginManager.apply(VersionPlugin)
-        final versionExtension = target.version as VersionExtension
-        versionExtension.setParser(VersionParserFactory.create {
-            DefaultSemanticVersion.parse(it as String)
-        })
+        final versionExtension = target.extensions.getByType(VersioningExtension)
+        versionExtension.setParser(DefaultSemanticVersionParser.instance)
     }
 
 }

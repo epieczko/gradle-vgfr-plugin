@@ -1,8 +1,7 @@
 apply from: rootProject.file('buildscripts/gradleProject.gradle')
 
 dependencies {
-    compile parent.project('gradle-plugin-tooling')
-    compile project(':buildtools:buildtools-impl')
+    compile project(':vcs:vcs-gitflow')
 
-    testCompile project(path: ':plugins:gradle-plugin-tooling', configuration: 'testArtifacts')
+    testCompile parent.project('gradle-plugin-testing')
 }

@@ -3,10 +3,8 @@ apply from: rootProject.file('buildscripts/gradleProject.gradle')
 sourceSets.main.groovy.srcDirs += ["src/main/java"]
 
 dependencies {
-
-    compile project(':buildtools:buildtools-impl')
-    compile parent.project('gradle-plugin-tooling')
+    compile project(':versioning:versioning-semver-branch')
+    compile project(':versioning:versioning-storage')
     compile parent.project('gradle-vcs-plugin')
-
-    testCompile project(path: ':plugins:gradle-plugin-tooling', configuration: 'testArtifacts')
+    testCompile parent.project('gradle-plugin-testing')
 }

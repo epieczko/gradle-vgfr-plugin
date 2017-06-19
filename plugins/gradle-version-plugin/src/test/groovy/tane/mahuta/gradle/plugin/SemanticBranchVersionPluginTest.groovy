@@ -6,8 +6,7 @@ import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 import tane.mahuta.buildtools.version.DefaultSemanticBranchVersion
-import tane.mahuta.buildtools.version.DefaultSemanticVersion
-import tane.mahuta.buildtools.version.ChangeLevel
+import tane.mahuta.buildtools.version.DefaultSemanticVersionParser
 
 /**
  * @author christian.heike@icloud.com
@@ -17,71 +16,17 @@ import tane.mahuta.buildtools.version.ChangeLevel
 class SemanticBranchVersionPluginTest extends Specification {
 
     @Rule
+    @Delegate
     final ProjectBuilderTestRule projectBuilder = new ProjectBuilderTestRule()
 
     private Git git
 
     def setup() {
-        git = Git.init().setDirectory(projectBuilder.root).call()
-        new File(projectBuilder.root, "test.txt").text = "test"
+        git = Git.init().setDirectory(root).call()
+        new File(root, "test.txt").text = "test"
         git.commit().setAll(true).setMessage("test commit").call()
-        projectBuilder.project.version = '1.0.0'
-        projectBuilder.project.apply plugin: SemanticBranchVersionPlugin
-    }
-
-    @Unroll
-    def 'toSnapshot of #version is #versionString'() {
-        setup:
-        if (git.repository.branch != branch) {
-            git.checkout().setName(branch).setCreateBranch(true).call()
-        }
-        projectBuilder.project.version = version
-        final semanticVersionString = branchQualifier != null ? versionString.replace("-${branchQualifier}", "") : versionString
-        final semanticVersion = DefaultSemanticVersion.parse(semanticVersionString)
-        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion, { -> branchQualifier})
-
-        when:
-        final actual = projectBuilder.project.version.toNextSnapshot(ChangeLevel.API_INCOMPATIBILITY)
-        then:
-        actual == expectedVersion
-        and:
-        actual.branchQualifier == expectedVersion.branchQualifier
-        and:
-        actual as String == versionString
-
-        where:
-        branch              | version | branchQualifier | versionString
-        'master'            | '1.2.3' | null            | '2.2.3-SNAPSHOT'
-        'feature/bla/blubb' | '1.2.3' | 'bla_blubb'     | '2.2.3-bla_blubb-SNAPSHOT'
-        'support/platsch'   | '1.2.3' | 'platsch'       | '2.2.3-platsch-SNAPSHOT'
-        'hotfix/1.2.3'      | '1.2.3' | null            | '2.2.3-SNAPSHOT'
-        'release/1.2.3'     | '1.2.3' | null            | '2.2.3-SNAPSHOT'
-    }
-
-    @Unroll
-    def 'toRelease of #version is #versionString'() {
-        setup:
-        if (git.repository.branch != branch) {
-            git.checkout().setName(branch).setCreateBranch(true).call()
-        }
-        projectBuilder.project.version = version
-        final semanticVersion = DefaultSemanticVersion.parse(version.replace("-SNAPSHOT", ""))
-        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion, { -> branchQualifier})
-
-        when:
-        final actual = projectBuilder.project.version.toRelease()
-        then:
-        actual <=> expectedVersion == 0
-        and:
-        actual as String == versionString
-
-        where:
-        branch              | version          | branchQualifier | versionString
-        'master'            | '1.2.3-SNAPSHOT' | null            | '1.2.3'
-        'feature/bla/blubb' | '1.2.3-SNAPSHOT' | 'bla_blubb'     | '1.2.3-bla_blubb'
-        'support/platsch'   | '1.2.3-SNAPSHOT' | 'platsch'       | '1.2.3-platsch'
-        'hotfix/1.2.3'      | '1.2.3-SNAPSHOT' | null            | '1.2.3'
-        'release/1.2.3'     | '1.2.3-SNAPSHOT' | null            | '1.2.3'
+        project.version = '1.0.0'
+        project.apply plugin: SemanticBranchVersionPlugin
     }
 
     @Unroll
@@ -90,16 +35,16 @@ class SemanticBranchVersionPluginTest extends Specification {
         if (git.repository.branch != branch) {
             git.checkout().setName(branch).setCreateBranch(true).call()
         }
-        projectBuilder.project.version = version
-        final semanticVersion = DefaultSemanticVersion.parse(version)
-        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion, { -> branchQualifier })
+        project.version = version
+        final semanticVersion = DefaultSemanticVersionParser.instance.parse(version, root)
+        final expectedVersion = new DefaultSemanticBranchVersion(semanticVersion.major, semanticVersion.minor, semanticVersion.micro, { -> branchQualifier }, semanticVersion.qualifier)
 
         expect:
-        projectBuilder.project.version <=> expectedVersion == 0
+        project.version <=> expectedVersion == 0
         and:
-        projectBuilder.project.version as String == versionString
+        project.version as String == versionString
         and:
-        projectBuilder.project.version.branchQualifier == expectedVersion.branchQualifier
+        project.version.branchQualifier == expectedVersion.branchQualifier
 
         where:
         branch              | version          | branchQualifier | versionString

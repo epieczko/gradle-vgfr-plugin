@@ -1,0 +1,6 @@
+description = 'An implementation of the semantic version with branch qualifiers'
+
+dependencies {
+    compile parent.project('versioning-semver')
+    compile project(':vcs:vcs-api')
+}

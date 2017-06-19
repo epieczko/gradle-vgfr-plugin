@@ -2,7 +2,6 @@ package tane.mahuta.gradle.plugin.version
 
 import spock.lang.Specification
 import spock.lang.Subject
-import tane.mahuta.buildtools.version.Version
 
 /**
  * @author christian.heike@icloud.com
@@ -13,11 +12,11 @@ class VersionParserFactoryTest extends Specification {
 
     def 'parse delegates to closure'() {
         setup:
-        final version = Mock(Version)
-        final parser = VersionParserFactory.create { it -> version}
+        final expected = "1.2.4"
+        final parser = VersionParserFactory.create { v, d -> expected }
 
         expect:
-        parser.parse("1.2.3") == version
+        parser.parse("1.2.3", null) == expected
     }
 
 }

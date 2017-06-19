@@ -1,8 +1,0 @@
-dependencies {
-
-    compile parent.project('buildtools-api')
-
-    compile 'external.atlassian.jgitflow:jgit-flow-core:1.0-m5.1'
-    compile 'commons-lang:commons-lang:2.6'
-
-}

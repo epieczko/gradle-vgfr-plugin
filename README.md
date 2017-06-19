@@ -35,7 +35,7 @@ project.apply plugin: 'tane.mahuta.gradle.vcs-plugin'
 
 project.vcs {
     
-    // Read only properties
+    storage
     branch      // current checked out branch
     revisionId  // revision id
     
@@ -71,7 +71,7 @@ The plugin's file is to be found [here](plugins/gradle-vcs-plugin/src/main/resou
 ### Version Plugin
 
 #### Introduction
-This plugin enhances gradle's capabilities of `project.version` setting it to a `tane.mahuta.gradle.plugin.version.VersionExtension`.
+This plugin enhances gradle's capabilities of `project.version` setting it to a `tane.mahuta.gradle.plugin.version.VersioningExtension`.
 
 It override's gradle's `project.version` which and tampers with `project.metaClass.setVersion` in the way that setting is version is delegated to the extension.
 
@@ -88,10 +88,10 @@ A version storage provides the capabilities to `VersionStorage.load()` and `Vers
 enduring the end of the build process (e.g. for releases).
 
 These storages are created using `tane.mahuta.gradle.plugin.version.ProjectVersionStorageFactory` which creates a 
-`tane.mahuta.buildtools.version.VersionStorage` for a `project`.
+`VersionStorage` for a `project`.
 
 By default the following storage factories are available:
-- `tane.mahuta.gradle.plugin.version.storage.GradlePropertiesProjectVersionStorageFactory`: uses the `version` property from `gradle.properties` to load and store the version. 
+- `GradlePropertiesProjectVersionStorageFactory`: uses the `version` property from `gradle.properties` to load and store the version. 
 
 To provide an implementation, create a file `META-INF/services/tane.mahuta.gradle.plugin.version.ProjectVersionStorageFactory` which exposes
 your custom implementation.
@@ -102,7 +102,7 @@ The plugin's file is to be found [here](plugins/gradle-vcs-plugin/src/main/resou
 ##### Version parser
 Version parsers transform stored version (`java.lang.String`, preferably) to a domain object to facilitate usage (e.g. a `SemanticVersion`).
 
-You can write your own version parsers implementing the interface `tane.mahuta.buildtools.version.VersionParser` and set it via
+You can write your own version parsers implementing the interface `VersionParser` and set it via
 `version.parser = new MyOwnVersionParser()`.
  
 The parsed `tane.mahuta.buildtools.version.Version` defines a method `toStorable()` which converts the domain object into 
@@ -112,7 +112,7 @@ an object (`java.lang.String`, preferably) which can be stored using the version
 
 #### Introduction
 The semantic version plugin applies the version plugin and
-- adds a `VersionParser` which parses the `project`'s version to a `tane.mahuta.buildtools.version.SemanticVersion`
+- adds a `VersionParser` which parses the `project`'s version to a `SemanticVersion`
 - the `SemanticVersion` defines transformations for the release plugin which apply to the parsed `SemanticVersion`s
 
 #### Usage
@@ -153,7 +153,7 @@ But this will result in a merge conflict when merging to *development*.
 Semantic branch version plugin to the rescue!
 
 This plugin applies the semantic version plugin and the vcs plugin and
-- decorates the parser creating a `tane.mahuta.buildtools.version.SemanticBranchVersion`
+- decorates the parser creating a `SemanticBranchVersion`
 - defines transformers for `SemanticBranchVersion` from the `SemanticVersion`
 
 #### Usage

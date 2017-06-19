@@ -3,7 +3,7 @@ package tane.mahuta.gradle.plugin
 import org.gradle.api.InvalidUserCodeException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import tane.mahuta.gradle.plugin.vcs.VcsAccessorFactory
+import tane.mahuta.buildtools.vcs.ServiceLoaderVcsAccessorFactory
 import tane.mahuta.gradle.plugin.vcs.VcsExtension
 
 import javax.annotation.Nonnull
@@ -15,11 +15,13 @@ class VcsPlugin implements Plugin<Project> {
 
     @Override
     void apply(@Nonnull final Project target) {
-        final factory = ServiceLoaderProjectServiceFactory.getInstance(target, VcsAccessorFactory)
-        final vcsAccessor = factory.create(target)
+
+        final vcsAccessor = ServiceLoaderVcsAccessorFactory.instance.create(target.projectDir)
+
         if (vcsAccessor == null) {
             throw new InvalidUserCodeException("Cannot find git repository for: ${target}")
         }
+
         target.extensions.create("vcs", VcsExtension, vcsAccessor)
     }
 

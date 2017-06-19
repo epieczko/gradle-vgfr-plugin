@@ -2,6 +2,5 @@ apply from: rootProject.file('buildscripts/gradleProject.gradle')
 
 dependencies {
     compile parent.project('gradle-version-plugin')
-
-    testCompile project(path: ':plugins:gradle-plugin-tooling', configuration: 'testArtifacts')
+    testCompile parent.project('gradle-plugin-testing')
 }
