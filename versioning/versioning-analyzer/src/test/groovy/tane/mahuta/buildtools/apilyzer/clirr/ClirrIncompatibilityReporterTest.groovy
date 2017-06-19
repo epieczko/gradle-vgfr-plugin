@@ -21,7 +21,7 @@ class ClirrIncompatibilityReporterTest extends Specification {
 
     def setupSpec() {
         folderRule.create()
-        ['1.1', '2.0', '2.4', '2.5'].each { version ->
+        ['1.1', '2.4', '2.5'].each { version ->
             new URL("http://central.maven.org/maven2/commons-io/commons-io/${version}/commons-io-${version}.jar").withInputStream { is ->
                 new File(root, "commons-io-${version}.jar").withOutputStream { os -> os << is }
             }
@@ -33,11 +33,19 @@ class ClirrIncompatibilityReporterTest extends Specification {
     }
 
     @Unroll
-    def 'analysis of #curVer vs #baseVer finds #definiteSize/#possibleSize classes (d/p)'() {
+    def 'analysis of #curVer vs #baseVer scope #scope packages #packages classes #classes finds #definiteSize/#possibleSize classes (d/p)'() {
         setup:
         final source = new File(root, "commons-io-${curVer}.jar")
         final target = new File(root, "commons-io-${baseVer}.jar")
-        final reporter = new ClirrIncompatibilityReporter().withScope(Scope.PUBLIC).withCurrent(source).withBaseline(target).withLogger(LoggerFactory.getLogger(getClass()))
+        final reporter = new ClirrIncompatibilityReporter()
+                .withScope(scope)
+                .withCurrent(source)
+                .withCurrentClasspath([])
+                .withBaseline(target)
+                .withBaselineClasspath([])
+                .withLogger(LoggerFactory.getLogger(getClass()))
+                .withPackages(packages.collect { "org.apache.commons.io.${it}" as String })
+                .withClasses(classes.collect { "org.apache.commons.io.${it}" as String })
         final incompatible = (definiteSize + possibleSize) > 0
         when:
         final report = reporter.buildReport()
@@ -50,12 +58,13 @@ class ClirrIncompatibilityReporterTest extends Specification {
         report.isIncompatible() == incompatible
 
         where:
-        curVer | baseVer | definiteSize | possibleSize
-        '2.5'  | '2.4'   | 0            | 0
-        '2.5'  | '1.1'   | 0            | 0
-        '2.5'  | '2.0'   | 0            | 0
-        '2.0'  | '2.4'   | 13           | 0
-        '1.1'  | '2.4'   | 85           | 0
+        curVer | baseVer | scope           | packages       | classes                         | definiteSize | possibleSize
+        '2.5'  | '2.4'   | Scope.PUBLIC    | []             | []                              | 0            | 0
+        '2.5'  | '1.1'   | Scope.PROTECTED | []             | []                              | 0            | 0
+        '2.5'  | '1.1'   | Scope.PACKAGE   | []             | []                              | 0            | 0
+        '2.5'  | '1.1'   | Scope.PRIVATE   | []             | []                              | 14           | 0
+        '1.1'  | '2.5'   | Scope.PRIVATE   | ['filefilter'] | []                              | 22           | 0
+        '1.1'  | '2.5'   | Scope.PRIVATE   | []             | ['filefilter.HiddenFileFilter'] | 1            | 0
     }
 
 }
