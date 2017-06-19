@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
  * @author christian.heike@icloud.com
  *         Created on 16.06.17.
  */
-class ProjectVersionAccessor {
+public class ProjectVersionAccessor {
 
     private final Project project;
 
