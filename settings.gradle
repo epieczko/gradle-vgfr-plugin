@@ -1,13 +1,28 @@
 rootProject.name = 'gradle-vgfr-plugin'
 
-include 'versioning:versioning-api',
-        'versioning:versioning-semver',
-        'versioning:versioning-semver-branch',
-        'versioning:versioning-storage',
-        'versioning:versioning-analyzer',
-        'vcs:vcs-api',
-        'vcs:vcs-gitflow',
-        'plugins:gradle-plugin-testing',
-        'plugins:gradle-vcs-plugin',
-        'plugins:gradle-version-plugin',
-        'plugins:gradle-release-plugin'
+[
+        'versioning'   : [
+                'semver',
+                'semver-branch',
+                'storage'
+        ],
+        'release'      : [
+                'apilyzer',
+                'flow'
+        ],
+        'vcs'          : [
+                'gitflow'
+        ],
+        'gradle-plugin': [
+                'testing',
+                'vcs',
+                'version',
+                'release'
+        ]
+
+].each { parent, subprojects ->
+    if (new File(rootProject.projectDir, "${parent}/${parent}-api").isDirectory()) {
+        include "${parent}:${parent}-api"
+    }
+    subprojects.each { include "${parent}:${parent}-${it}" }
+}
