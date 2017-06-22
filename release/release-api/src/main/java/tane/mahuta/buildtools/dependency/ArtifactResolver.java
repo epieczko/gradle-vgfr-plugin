@@ -24,10 +24,10 @@ public interface ArtifactResolver {
      * Resolves the previous release dependency for the provided descriptor.
      * The resolved artifact should contain the release version
      *
-     * @param latestDescriptor the descriptor
+     * @param currentDescriptor the descriptor
      * @return the {@link ResolvedArtifact} of the previous release version or {@code null} if no dependency was resolved
      */
     @Nullable
-    ResolvedArtifactWithDependencies resolveLastReleaseArtifact(@Nonnull GAVCDescriptor latestDescriptor);
+    ResolvedArtifactWithDependencies resolveLastReleaseArtifact(@Nonnull GAVCDescriptor currentDescriptor);
 
 }

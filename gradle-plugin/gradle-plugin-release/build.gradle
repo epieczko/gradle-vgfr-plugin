@@ -4,6 +4,7 @@ dependencies {
 
     compile parent.project('gradle-plugin-version')
     compile project(':release:release-apilyzer')
+    compile project(':release:release-logic')
 
     testCompile parent.project('gradle-plugin-testing')
 }
