@@ -43,8 +43,7 @@ public class DefaultSemanticBranchVersionParser extends AbstractSemanticVersionP
      * @return the branch qualifier or {@code null} if not to use any
      */
     protected String createBranchQualifier(@Nonnull final VcsAccessor accessor) {
-        return Optional.ofNullable(accessor.getBranch())
-                .map(b -> mapBranchName(b, accessor.getFlowConfig()))
+        return Optional.ofNullable(mapBranchName(accessor))
                 .map(b -> b.replaceAll("[^a-zA-Z0-9]+", "_"))
                 .map(b -> StringUtils.isBlank(b) ? null : b)
                 .orElse(null);
@@ -53,20 +52,32 @@ public class DefaultSemanticBranchVersionParser extends AbstractSemanticVersionP
     /**
      * Map a branch name from the {@link VcsFlowConfig}.
      *
-     * @param flowConfig the flow configuration
-     * @param name       the branch name
+     * @param accessor the vcs accessor
      * @return the branch qualifier or {@code null} if not to use any
      */
-    protected String mapBranchName(@Nonnull final String name, @Nonnull final VcsFlowConfig flowConfig) {
-        if (name.startsWith(flowConfig.getFeatureBranchPrefix())) {
-            return name.substring(flowConfig.getFeatureBranchPrefix().length());
-        } else if (name.startsWith(flowConfig.getSupportBranchPrefix())) {
-            return name.substring(flowConfig.getSupportBranchPrefix().length());
-        } else if (name.equals(flowConfig.getProductionBranch()) || name.equals(flowConfig.getDevelopmentBranch()) ||
-                name.startsWith(flowConfig.getReleaseBranchPrefix()) || name.startsWith(flowConfig.getHotfixBranchPrefix())) {
+    protected String mapBranchName(@Nonnull final VcsAccessor accessor) {
+
+        final VcsFlowConfig flowConfig = accessor.getFlowConfig();
+        final String featureBranchPrefix = flowConfig.getFeatureBranchPrefix();
+        final String supportBranchPrefix = flowConfig.getSupportBranchPrefix();
+
+        if (accessor.isOnBranch(featureBranchPrefix)) {
+
+            return accessor.removeBranchPrefix(featureBranchPrefix);
+
+        } else if (accessor.isOnBranch(supportBranchPrefix)) {
+
+            return accessor.removeBranchPrefix(supportBranchPrefix);
+
+        } else if (accessor.isOnBranch(flowConfig.getProductionBranch()) ||
+                accessor.isOnBranch(flowConfig.getDevelopmentBranch()) ||
+                accessor.isOnBranch(flowConfig.getReleaseBranchPrefix()) ||
+                accessor.isOnBranch(flowConfig.getHotfixBranchPrefix())) {
+
             return null;
         }
-        return name;
+
+        return accessor.getBranch();
     }
 
     private static class Holder {

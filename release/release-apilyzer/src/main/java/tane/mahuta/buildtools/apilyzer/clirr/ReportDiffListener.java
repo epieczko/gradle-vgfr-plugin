@@ -6,7 +6,7 @@ import net.sf.clirr.core.DiffListener;
 import net.sf.clirr.core.MessageTranslator;
 import net.sf.clirr.core.Severity;
 import org.slf4j.Logger;
-import tane.mahuta.buildtools.apilyzer.IncompatibilityReport;
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * Implementation of {@link DiffListener} for creating a {@link IncompatibilityReport}.
+ * Implementation of {@link DiffListener} for creating a {@link ApiCompatibilityReport}.
  *
  * @author christian.heike@icloud.com
  *         Created on 19.06.17.
@@ -27,8 +27,8 @@ public class ReportDiffListener implements DiffListener {
     private final Logger logger;
     private final MessageTranslator translator = new MessageTranslator();
 
-    private ClirrIncompatibilityReport reportInProgress;
-    private ClirrIncompatibilityReport finalizedReport;
+    private ClirrApiCompatibilityReport reportInProgress;
+    private ClirrApiCompatibilityReport finalizedReport;
 
     /**
      * Create a new listener with a {@link Logger}.
@@ -42,7 +42,7 @@ public class ReportDiffListener implements DiffListener {
     @Override
     public void start() {
         Optional.ofNullable(logger).ifPresent(l -> logger.info("Starting analysis..."));
-        reportInProgress = new ClirrIncompatibilityReport();
+        reportInProgress = new ClirrApiCompatibilityReport();
         finalizedReport = null;
     }
 
@@ -64,7 +64,7 @@ public class ReportDiffListener implements DiffListener {
     /**
      * @return the finalized report
      */
-    public IncompatibilityReport getReport() {
+    public ApiCompatibilityReport getReport() {
         Objects.requireNonNull(finalizedReport, "Reporting has not been finished yet.");
         return finalizedReport;
     }
@@ -94,10 +94,12 @@ public class ReportDiffListener implements DiffListener {
     }
 
     /**
+     * {@link ApiCompatibilityReport} to be created by this builder.
+     *
      * @author christian.heike@icloud.com
      *         Created on 19.06.17.
      */
-    protected static class ClirrIncompatibilityReport implements IncompatibilityReport {
+    protected static class ClirrApiCompatibilityReport implements ApiCompatibilityReport {
 
         @Getter(onMethod = @__({@Override, @Nonnull}))
         private final Set<String> possibleIncompatibleClasses = new LinkedHashSet<>();
@@ -105,8 +107,8 @@ public class ReportDiffListener implements DiffListener {
         private final Set<String> definiteIncompatibleClasses = new LinkedHashSet<>();
 
         @Override
-        public boolean isIncompatible() {
-            return !possibleIncompatibleClasses.isEmpty() || !definiteIncompatibleClasses.isEmpty();
+        public boolean isCompatible() {
+            return possibleIncompatibleClasses.isEmpty() && definiteIncompatibleClasses.isEmpty();
         }
     }
 }

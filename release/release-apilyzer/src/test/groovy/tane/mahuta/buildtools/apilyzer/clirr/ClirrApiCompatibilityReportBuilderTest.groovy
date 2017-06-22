@@ -12,7 +12,7 @@ import tane.mahuta.buildtools.apilyzer.Scope
  * @author christian.heike@icloud.com
  * Created on 19.06.17.
  */
-class ClirrIncompatibilityReporterTest extends Specification {
+class ClirrApiCompatibilityReportBuilderTest extends Specification {
 
     @ClassRule
     @Shared
@@ -37,7 +37,7 @@ class ClirrIncompatibilityReporterTest extends Specification {
         setup:
         final source = new File(root, "commons-io-${curVer}.jar")
         final target = new File(root, "commons-io-${baseVer}.jar")
-        final reporter = new ClirrIncompatibilityReporter()
+        final reporter = new ClirrApiCompatibilityReportBuilder()
                 .withScope(scope)
                 .withCurrent(source)
                 .withCurrentClasspath([])
@@ -46,7 +46,7 @@ class ClirrIncompatibilityReporterTest extends Specification {
                 .withLogger(LoggerFactory.getLogger(getClass()))
                 .withPackages(packages.collect { "org.apache.commons.io.${it}" as String })
                 .withClasses(classes.collect { "org.apache.commons.io.${it}" as String })
-        final incompatible = (definiteSize + possibleSize) > 0
+        final compatible = (definiteSize + possibleSize) == 0
         when:
         final report = reporter.buildReport()
 
@@ -55,7 +55,7 @@ class ClirrIncompatibilityReporterTest extends Specification {
         and:
         report.possibleIncompatibleClasses.size() == possibleSize
         and:
-        report.isIncompatible() == incompatible
+        report.compatible == compatible
 
         where:
         curVer | baseVer | scope           | packages       | classes                         | definiteSize | possibleSize

@@ -4,12 +4,12 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
- * Interface for a report of the compatibility of two versions.
+ * Interface for a report of the compatibility of the API of two product versions.
  *
  * @author christian.heike@icloud.com
  *         Created on 19.06.17.
  */
-public interface IncompatibilityReport {
+public interface ApiCompatibilityReport {
 
     /**
      * @return the names of classes which are possibly incompatible
@@ -24,7 +24,7 @@ public interface IncompatibilityReport {
     Set<String> getDefiniteIncompatibleClasses();
 
     /**
-     * @return true if any incompatible class was listed
+     * @return {@code true} if the API of all classes are compatible
      */
-    boolean isIncompatible();
+    boolean isCompatible();
 }

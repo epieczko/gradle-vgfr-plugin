@@ -1,6 +1,9 @@
 apply from: rootProject.file('buildscripts/gradleProject.gradle')
 
 dependencies {
+
     compile parent.project('gradle-plugin-version')
+    compile project(':release:release-apilyzer')
+
     testCompile parent.project('gradle-plugin-testing')
 }

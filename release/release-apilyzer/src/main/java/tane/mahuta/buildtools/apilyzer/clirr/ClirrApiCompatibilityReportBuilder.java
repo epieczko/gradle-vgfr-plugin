@@ -7,8 +7,8 @@ import net.sf.clirr.core.internal.bcel.BcelTypeArrayBuilder;
 import net.sf.clirr.core.spi.JavaType;
 import net.sf.clirr.core.spi.Scope;
 import org.slf4j.Logger;
-import tane.mahuta.buildtools.apilyzer.IncompatibilityReport;
-import tane.mahuta.buildtools.apilyzer.IncompatibilityReporter;
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportBuilder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,12 +18,12 @@ import java.net.URLClassLoader;
 import java.util.*;
 
 /**
- * CLIRR implementation of {@link IncompatibilityReporter}.
+ * CLIRR implementation of {@link ApiCompatibilityReportBuilder}.
  *
  * @author christian.heike@icloud.com
  *         Created on 19.06.17.
  */
-public class ClirrIncompatibilityReporter implements IncompatibilityReporter<ClirrIncompatibilityReporter> {
+public class ClirrApiCompatibilityReportBuilder implements ApiCompatibilityReportBuilder<ClirrApiCompatibilityReportBuilder> {
 
     private static final Scope DEFAULT_SCOPE = Scope.PUBLIC;
 
@@ -39,20 +39,20 @@ public class ClirrIncompatibilityReporter implements IncompatibilityReporter<Cli
     private Logger logger;
 
     @Override
-    public ClirrIncompatibilityReporter withCurrent(final File source) {
+    public ClirrApiCompatibilityReportBuilder withCurrent(final File source) {
         this.current = source;
         return this;
     }
 
     @Override
-    public ClirrIncompatibilityReporter withBaseline(final File target) {
+    public ClirrApiCompatibilityReportBuilder withBaseline(final File target) {
         this.baseline = target;
         return this;
     }
 
     @Override
-    public ClirrIncompatibilityReporter withScope(@Nullable final tane.mahuta.buildtools.apilyzer.Scope scope) {
-        checker.getScopeSelector().setScope(Optional.ofNullable(scope).map(ClirrIncompatibilityReporter::mapScope).orElse(DEFAULT_SCOPE));
+    public ClirrApiCompatibilityReportBuilder withScope(@Nullable final tane.mahuta.buildtools.apilyzer.Scope scope) {
+        checker.getScopeSelector().setScope(Optional.ofNullable(scope).map(ClirrApiCompatibilityReportBuilder::mapScope).orElse(DEFAULT_SCOPE));
         return this;
     }
 
@@ -73,32 +73,32 @@ public class ClirrIncompatibilityReporter implements IncompatibilityReporter<Cli
     }
 
     @Override
-    public ClirrIncompatibilityReporter withPackages(final Iterable<String> packageNames) {
+    public ClirrApiCompatibilityReportBuilder withPackages(final Iterable<String> packageNames) {
         return addAllIfNotnull(packageNames, this.includePackages);
     }
 
     @Override
-    public ClirrIncompatibilityReporter withClasses(final Iterable<String> classNames) {
+    public ClirrApiCompatibilityReportBuilder withClasses(final Iterable<String> classNames) {
         return addAllIfNotnull(classNames, this.includeClasses);
     }
 
     @Override
-    public ClirrIncompatibilityReporter withBaselineClasspath(final Iterable<File> sourceClasspath) {
+    public ClirrApiCompatibilityReportBuilder withBaselineClasspath(final Iterable<File> sourceClasspath) {
         return addAllIfNotnull(sourceClasspath, this.baselineCp);
     }
 
     @Override
-    public ClirrIncompatibilityReporter withLogger(final @Nullable Logger logger) {
+    public ClirrApiCompatibilityReportBuilder withLogger(final @Nullable Logger logger) {
         this.logger = logger;
         return this;
     }
 
     @Override
-    public ClirrIncompatibilityReporter withCurrentClasspath(final Iterable<File> sourceClasspath) {
+    public ClirrApiCompatibilityReportBuilder withCurrentClasspath(final Iterable<File> sourceClasspath) {
         return addAllIfNotnull(sourceClasspath, this.currentCp);
     }
 
-    private <T> ClirrIncompatibilityReporter addAllIfNotnull(final Iterable<T> source, final Collection<T> target) {
+    private <T> ClirrApiCompatibilityReportBuilder addAllIfNotnull(final Iterable<T> source, final Collection<T> target) {
         target.clear();
         Optional.ofNullable(source).map(Iterable::iterator).ifPresent(i -> i.forEachRemaining(b -> Optional.ofNullable(b).ifPresent(target::add)));
         return this;
@@ -122,7 +122,7 @@ public class ClirrIncompatibilityReporter implements IncompatibilityReporter<Cli
     }
 
     @Override
-    public IncompatibilityReport buildReport() {
+    public ApiCompatibilityReport buildReport() {
         checkConfigured();
 
         final ClassLoader sourceLoader = new URLClassLoader(filesToUrls(currentCp));

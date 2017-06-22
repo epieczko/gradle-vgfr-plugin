@@ -2,13 +2,11 @@ package tane.mahuta.buildtools.semver.branch
 
 import spock.lang.Specification
 import spock.lang.Unroll
-import tane.mahuta.buildtools.semver.branch.DefaultSemanticBranchVersionParser
 import tane.mahuta.buildtools.vcs.VcsAccessor
 import tane.mahuta.buildtools.vcs.VcsAccessorFactory
 import tane.mahuta.buildtools.vcs.VcsFlowConfig
 
 import javax.annotation.Nonnull
-
 /**
  * @author christian.heike@icloud.com
  * Created on 14.06.17.
@@ -31,6 +29,8 @@ class DefaultSemanticBranchVersionParserTest extends Specification {
                     getDevelopmentBranch() >> "development"
                     getProductionBranch() >> "master"
                 }
+                isOnBranch(_) >> { branch?.startsWith(it[0]) ?: false }
+                removeBranchPrefix(_) >> { branch?.substring(it[0].length()) }
             }
         }
         MOCK_TL.set(accessorFactory)

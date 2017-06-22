@@ -7,13 +7,13 @@ import javax.annotation.Nullable;
 import java.io.File;
 
 /**
- * Reporter with builder pattern which creates an {@link IncompatibilityReport}.
+ * Reporter with builder pattern which creates an {@link ApiCompatibilityReport}.
  *
  * @param <S> SELF for the fluent builder pattern
  * @author christian.heike@icloud.com
  *         Created on 19.06.17.
  */
-public interface IncompatibilityReporter<S extends IncompatibilityReporter<S>> {
+public interface ApiCompatibilityReportBuilder<S extends ApiCompatibilityReportBuilder<S>> {
 
     /**
      * Use the provided source jar file (current version) for comparison.
@@ -75,5 +75,19 @@ public interface IncompatibilityReporter<S extends IncompatibilityReporter<S>> {
      * Builds the report and returns the result.
      * @return the result of the analysis
      */
-    IncompatibilityReport buildReport();
+    ApiCompatibilityReport buildReport();
+
+    /**
+     * Factory interface.
+     * @param <S> the type of the report builder
+     */
+    interface Factory<S extends ApiCompatibilityReportBuilder<S>> {
+
+        /**
+         * @return a new builder
+         */
+        ApiCompatibilityReportBuilder<S> builder();
+
+    }
+
 }
