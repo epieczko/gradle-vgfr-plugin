@@ -1,22 +1,25 @@
 package tane.mahuta.buildtools.dependency.simple;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NonNull;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 import tane.mahuta.buildtools.dependency.ResolvedArtifact;
+import tane.mahuta.buildtools.dependency.ResolvedArtifactWithDependencies;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.util.Set;
 
 /**
- * Default implementation of {@link ResolvedArtifact}.
+ * Default implementation of {@link ResolvedArtifactWithDependencies}.
  *
  * @author christian.heike@icloud.com
- *         Created on 20.06.17.
+ *         Created on 22.06.17.
  */
 @Builder
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class DefaultResolvedArtifact implements ResolvedArtifact {
+public class DefaultResolvedArtifactWithDependencies implements ResolvedArtifactWithDependencies {
 
     @Getter(onMethod = @__({@Nonnull, @Override}))
     @NonNull
@@ -25,4 +28,8 @@ public class DefaultResolvedArtifact implements ResolvedArtifact {
     @Getter(onMethod = @__({@Nullable, @Override}))
     private final File localFile;
 
+    @Getter(onMethod = @__({@Nonnull, @Override}))
+    private final Set<ResolvedArtifact> classpathDependencies;
+
 }
+

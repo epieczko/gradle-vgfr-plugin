@@ -1,7 +1,7 @@
 package tane.mahuta.buildtools.release;
 
 import tane.mahuta.buildtools.dependency.DependencyContainer;
-import tane.mahuta.buildtools.dependency.ResolvedArtifact;
+import tane.mahuta.buildtools.dependency.ResolvedArtifactWithDependencies;
 import tane.mahuta.buildtools.release.reporting.ReleaseProblem;
 
 import javax.annotation.Nonnull;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
  * @author christian.heike@icloud.com
  *         Created on 20.06.17.
  */
-public interface ArtifactRelease extends ResolvedArtifact {
+public interface ArtifactRelease extends ResolvedArtifactWithDependencies {
 
     /**
      * @return all dependency containers being used by the project

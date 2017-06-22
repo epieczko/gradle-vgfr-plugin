@@ -3,7 +3,6 @@ package tane.mahuta.buildtools.dependency;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
-import java.util.Set;
 
 /**
  * Represents a resolved artifact.
@@ -24,11 +23,5 @@ public interface ResolvedArtifact {
      */
     @Nullable
     File getLocalFile();
-
-    /**
-     * @return the dependencies of the resolved artifact
-     */
-    @Nonnull
-    Set<ResolvedArtifact> getDependencies();
 
 }

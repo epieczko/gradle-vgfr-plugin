@@ -18,7 +18,7 @@ public interface ArtifactResolver {
      * @return the {@link ResolvedArtifact} or {@code null} if no dependency was resolved for the provided descriptor
      */
     @Nullable
-    ResolvedArtifact resolveArtifact(@Nonnull GAVCDescriptor descriptor);
+    ResolvedArtifactWithDependencies resolveArtifact(@Nonnull GAVCDescriptor descriptor);
 
     /**
      * Resolves the previous release dependency for the provided descriptor.
@@ -28,6 +28,6 @@ public interface ArtifactResolver {
      * @return the {@link ResolvedArtifact} of the previous release version or {@code null} if no dependency was resolved
      */
     @Nullable
-    ResolvedArtifact resolveLastReleaseArtifact(@Nonnull GAVCDescriptor latestDescriptor);
+    ResolvedArtifactWithDependencies resolveLastReleaseArtifact(@Nonnull GAVCDescriptor latestDescriptor);
 
 }
