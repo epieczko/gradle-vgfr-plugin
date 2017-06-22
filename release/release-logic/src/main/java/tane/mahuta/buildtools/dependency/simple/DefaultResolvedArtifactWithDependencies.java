@@ -18,18 +18,18 @@ import java.util.Set;
  * @author christian.heike@icloud.com
  *         Created on 22.06.17.
  */
-@Builder
-public class DefaultResolvedArtifactWithDependencies implements ResolvedArtifactWithDependencies {
+public class DefaultResolvedArtifactWithDependencies extends AbstractResolvedArtifact implements ResolvedArtifactWithDependencies {
 
     @Getter(onMethod = @__({@Nonnull, @Override}))
     @NonNull
-    private final GAVCDescriptor descriptor;
-
-    @Getter(onMethod = @__({@Nullable, @Override}))
-    private final File localFile;
-
-    @Getter(onMethod = @__({@Nonnull, @Override}))
     private final Set<ResolvedArtifact> classpathDependencies;
 
+    @Builder
+    protected DefaultResolvedArtifactWithDependencies(@Nonnull final GAVCDescriptor descriptor,
+                                                      @Nullable final File localFile,
+                                                      @Nonnull final Set<ResolvedArtifact> classpathDependencies) {
+        super(descriptor, localFile);
+        this.classpathDependencies = classpathDependencies;
+    }
 }
 

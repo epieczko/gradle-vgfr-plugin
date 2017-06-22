@@ -1,6 +1,6 @@
 package tane.mahuta.buildtools.dependency.simple;
 
-import lombok.*;
+import lombok.Builder;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 import tane.mahuta.buildtools.dependency.ResolvedArtifact;
 
@@ -14,15 +14,10 @@ import java.io.File;
  * @author christian.heike@icloud.com
  *         Created on 20.06.17.
  */
-@Builder
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class DefaultResolvedArtifact implements ResolvedArtifact {
+public class DefaultResolvedArtifact extends AbstractResolvedArtifact {
 
-    @Getter(onMethod = @__({@Nonnull, @Override}))
-    @NonNull
-    private final GAVCDescriptor descriptor;
-
-    @Getter(onMethod = @__({@Nullable, @Override}))
-    private final File localFile;
-
+    @Builder
+    public DefaultResolvedArtifact(@Nonnull final GAVCDescriptor descriptor, @Nullable final File localFile) {
+        super(descriptor, localFile);
+    }
 }
