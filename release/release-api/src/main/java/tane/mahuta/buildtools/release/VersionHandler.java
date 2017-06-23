@@ -20,7 +20,7 @@ public interface VersionHandler<V> extends VersionParser<V> {
      *
      * @param version the version to be used
      * @param apiReport the api report which
-     * @return
+     * @return the release version according to the report
      */
     @Nonnull
     V toReleaseVersionWithReport(@Nonnull V version, @Nonnull ApiCompatibilityReport apiReport);
