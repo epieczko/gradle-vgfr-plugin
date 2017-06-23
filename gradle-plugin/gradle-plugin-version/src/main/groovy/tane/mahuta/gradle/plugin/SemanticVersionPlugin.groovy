@@ -3,6 +3,7 @@ package tane.mahuta.gradle.plugin
 import groovy.transform.CompileStatic
 import org.gradle.api.Plugin
 import org.gradle.api.internal.project.ProjectInternal
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport
 import tane.mahuta.buildtools.semver.DefaultSemanticVersion
 import tane.mahuta.buildtools.semver.DefaultSemanticVersionParser
 import tane.mahuta.buildtools.version.SemanticVersion
@@ -32,11 +33,32 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
         final versionExtension = target.extensions.getByType(VersioningExtension)
         versionExtension.setParser(DefaultSemanticVersionParser.instance)
         versionExtension.setComparatorClosure({ v1, v2 -> v1 <=> v2 })
-        versionExtension.setReleaseTransformerClosure({ SemanticVersion v ->
-            new DefaultSemanticVersion(v.major, v.minor, v.micro, null)
-        })
+        versionExtension.setReleaseTransformerClosure(this.&transformToRelease)
+        versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport)
 
+    }
 
+    private SemanticVersion transformToRelease(@Nonnull final SemanticVersion v) {
+        new DefaultSemanticVersion(v.major, v.minor, v.micro, v.isSnapshot() ? null : v.qualifier)
+    }
+
+    @Nonnull
+    private SemanticVersion transformReleaseForReport(@Nonnull final SemanticVersion v, @Nonnull final ApiCompatibilityReport report) {
+        int major = v.major, minor = v.minor
+        Integer micro = v.micro
+        if (!report.definiteIncompatibleClasses.isEmpty()) {
+            major++
+            minor = 0
+            micro = micro != null ? 0 : null
+        } else if (!report.possibleIncompatibleClasses.isEmpty()) {
+            minor++
+            micro = micro != null ? 0 : null
+        } else if (micro != null) {
+            micro++
+        } else {
+            minor++
+        }
+        new DefaultSemanticVersion(major, minor, micro, v.isSnapshot() ? null : v.qualifier)
     }
 
 }
