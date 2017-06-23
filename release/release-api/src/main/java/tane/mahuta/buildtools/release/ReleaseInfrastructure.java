@@ -8,19 +8,18 @@ import tane.mahuta.buildtools.version.VersionStorage;
 import javax.annotation.Nonnull;
 
 /**
- * Bundled services for the release.
+ * Bundled services for the release of a single project.
  *
- * @param <V> the version type
  * @author christian.heike@icloud.com
  *         Created on 20.06.17.
  */
-public interface ReleaseInfrastructure<V> {
+public interface ReleaseInfrastructure {
 
     /**
      * @return the version handler to be used
      */
     @Nonnull
-    VersionHandler<V> getVersionHandler();
+    VersionHandler<? super Object> getVersionHandler();
 
     /**
      * @return the version storage to be used

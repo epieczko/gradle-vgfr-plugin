@@ -19,11 +19,11 @@ import javax.annotation.Nonnull;
  */
 @Builder
 @RequiredArgsConstructor
-public class DefaultReleaseInfrastructure<V> implements ReleaseInfrastructure<V> {
+public class DefaultReleaseInfrastructure implements ReleaseInfrastructure {
 
     @NonNull
     @Getter(onMethod = @__({@Override, @Nonnull}))
-    private final VersionHandler<V> versionHandler;
+    private final VersionHandler<? super Object> versionHandler;
 
     @NonNull
     @Getter(onMethod = @__({@Override, @Nonnull}))

@@ -16,20 +16,23 @@ import java.util.function.Function
 class FunctionalVersionHandlerTest extends Specification {
 
 
-    def "delegates correctly"() {
-       setup:
-       final releaseReportMock = Mock(BiFunction)
-       final releaseMock = Mock(Function)
-       final parser = Mock(VersionParser)
-       final handler = FunctionalVersionHandler.builder()
-               .parser(parser)
-               .toReleaseVersionWithReportHandler(releaseReportMock)
-               .toReleaseVersionHandler(releaseMock).build()
+    def "builds correctly"() {
+        setup:
+        final releaseReportMock = Mock(BiFunction)
+        final releaseMock = Mock(Function)
+        final parser = Mock(VersionParser)
+        final comparator = Mock(Comparator)
+        final handler = FunctionalVersionHandler.builder()
+                .parser(parser)
+                .toReleaseVersionWithReportHandler(releaseReportMock)
+                .toReleaseVersionHandler(releaseMock)
+                .comparator(comparator)
+                .build()
 
         when:
         def actual = handler.parse("YY", new File('.'))
         then:
-        parser.parse(_, _ ) >> "Z"
+        parser.parse(_, _) >> "Z"
         and:
         actual == "Z"
 
@@ -46,6 +49,11 @@ class FunctionalVersionHandlerTest extends Specification {
         releaseReportMock.apply("Z", _) >> "Q"
         and:
         actual == "Q"
+
+        when:
+        actual = handler.comparator
+        then:
+        actual.is(comparator)
     }
 
 

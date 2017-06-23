@@ -4,6 +4,7 @@ import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
 import tane.mahuta.buildtools.version.VersionParser;
 
 import javax.annotation.Nonnull;
+import java.util.Comparator;
 
 /**
  * Interface for a handler which transforms for the different steps in the release process.
@@ -31,5 +32,10 @@ public interface VersionHandler<V> extends VersionParser<V> {
      */
     @Nonnull
     V toReleaseVersion(@Nonnull V version);
-    
+
+    /**
+     * @return the version comparator
+     */
+    Comparator<V> getComparator();
+
 }

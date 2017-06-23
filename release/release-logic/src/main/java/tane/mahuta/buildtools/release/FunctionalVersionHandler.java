@@ -1,12 +1,14 @@
 package tane.mahuta.buildtools.release;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
 import tane.mahuta.buildtools.version.VersionParser;
 
 import javax.annotation.Nonnull;
+import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -26,6 +28,9 @@ public class FunctionalVersionHandler<V> implements VersionHandler<V> {
     @NonNull
     @Delegate
     private final VersionParser<V> parser;
+    @NonNull
+    @Getter(onMethod = @__({@Nonnull, @Override}))
+    private final Comparator<V> comparator;
 
     @Nonnull
     @Override
@@ -38,4 +43,5 @@ public class FunctionalVersionHandler<V> implements VersionHandler<V> {
     public V toReleaseVersion(@Nonnull V version) {
         return toReleaseVersionHandler.apply(version);
     }
+
 }

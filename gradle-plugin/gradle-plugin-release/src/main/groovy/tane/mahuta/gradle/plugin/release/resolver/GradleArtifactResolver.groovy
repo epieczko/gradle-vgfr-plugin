@@ -62,7 +62,7 @@ class GradleArtifactResolver implements ArtifactResolver {
         resolveArtifact(descriptor)
     }
 
-    protected Set<tane.mahuta.buildtools.dependency.ResolvedArtifact> factorDependencies(ResolvedConfiguration configuration, GAVCDescriptor excludeDescriptor) {
+    protected static Set<tane.mahuta.buildtools.dependency.ResolvedArtifact> factorDependencies(ResolvedConfiguration configuration, GAVCDescriptor excludeDescriptor) {
         configuration.resolvedArtifacts.findAll {
             !artifactMatchesDescriptor(excludeDescriptor, it)
         }.collect {
@@ -72,7 +72,7 @@ class GradleArtifactResolver implements ArtifactResolver {
         } as Set
     }
 
-    protected GAVCDescriptor artifactDescriptor(@Nonnull final ResolvedArtifact it) {
+    protected static GAVCDescriptor artifactDescriptor(@Nonnull final ResolvedArtifact it) {
         def id = it.moduleVersion.id
         DefaultGAVCDescriptor.builder()
                 .group(id.group)
@@ -82,8 +82,8 @@ class GradleArtifactResolver implements ArtifactResolver {
                 .build()
     }
 
-    protected boolean artifactMatchesDescriptor(@Nonnull final GAVCDescriptor descriptor,
-                                                @Nonnull final org.gradle.api.artifacts.ResolvedArtifact artifact) {
+    protected static boolean artifactMatchesDescriptor(@Nonnull final GAVCDescriptor descriptor,
+                                                       @Nonnull final ResolvedArtifact artifact) {
         final id = artifact.moduleVersion.id
         id.group == descriptor.group && id.name == descriptor.artifact && artifact.classifier == descriptor.classifier
     }
