@@ -42,7 +42,7 @@ class ArtifactHelper {
     static boolean artifactMatchesDescriptor(@Nonnull final GAVCDescriptor descriptor,
                                              @Nonnull final ResolvedArtifact artifact) {
         final id = artifact.moduleVersion.id
-        final classifier = StringUtils.isBlank(descriptor.classifier) ? null : descriptor.classifier
-        id.group == descriptor.group && id.name == descriptor.artifact && artifact.classifier == classifier
+        final classifier = StringUtils.isBlank(artifact.classifier) ? null : artifact.classifier
+        id.group == descriptor.group && id.name == descriptor.artifact && classifier == descriptor.classifier
     }
 }
