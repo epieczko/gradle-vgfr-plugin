@@ -1,6 +1,7 @@
 package tane.mahuta.buildtools.dependency.simple;
 
 import lombok.*;
+import org.apache.commons.lang.StringUtils;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 
 import javax.annotation.Nonnull;
@@ -14,6 +15,8 @@ import javax.annotation.Nullable;
  */
 @Builder
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode
+@ToString
 public class DefaultGAVCDescriptor implements GAVCDescriptor {
 
     @Getter(onMethod = @__({@Nonnull, @Override}))
@@ -28,7 +31,11 @@ public class DefaultGAVCDescriptor implements GAVCDescriptor {
     @NonNull
     private final String version;
 
-    @Getter(onMethod = @__({@Nullable, @Override}))
     private final String classifier;
 
+    @Override
+    @Nullable
+    public String getClassifier() {
+        return StringUtils.isBlank(classifier) ? null : classifier;
+    }
 }

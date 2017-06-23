@@ -1,6 +1,7 @@
 package tane.mahuta.gradle.plugin.release.resolver
 
 import groovy.transform.CompileStatic
+import org.apache.commons.lang.StringUtils
 import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.ResolvedConfiguration
 import tane.mahuta.buildtools.dependency.GAVCDescriptor
@@ -8,7 +9,6 @@ import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
 import tane.mahuta.buildtools.dependency.simple.DefaultResolvedArtifact
 
 import javax.annotation.Nonnull
-
 /**
  * @author christian.heike@icloud.com
  * Created on 23.06.17.
@@ -38,9 +38,11 @@ class ArtifactHelper {
                 .build()
     }
 
+
     static boolean artifactMatchesDescriptor(@Nonnull final GAVCDescriptor descriptor,
                                              @Nonnull final ResolvedArtifact artifact) {
         final id = artifact.moduleVersion.id
-        id.group == descriptor.group && id.name == descriptor.artifact && artifact.classifier == descriptor.classifier
+        final classifier = StringUtils.isBlank(descriptor.classifier) ? null : descriptor.classifier
+        id.group == descriptor.group && id.name == descriptor.artifact && artifact.classifier == classifier
     }
 }

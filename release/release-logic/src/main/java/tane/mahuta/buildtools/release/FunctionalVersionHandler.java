@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.experimental.Delegate;
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
 import tane.mahuta.buildtools.version.VersionParser;
+import tane.mahuta.buildtools.version.VersionStorage;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
@@ -31,6 +32,9 @@ public class FunctionalVersionHandler<V> implements VersionHandler<V> {
     @NonNull
     @Getter(onMethod = @__({@Nonnull, @Override}))
     private final Comparator<V> comparator;
+    @NonNull
+    @Getter(onMethod = @__({@Nonnull, @Override}))
+    private final VersionStorage storage;
 
     @Nonnull
     @Override

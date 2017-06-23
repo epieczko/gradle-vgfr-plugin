@@ -26,10 +26,13 @@ import javax.annotation.Nonnull
  */
 class VersionPlugin implements Plugin<ProjectInternal> {
 
+
+    public static final String EXTENSION = "versioning"
+
     @Override
     void apply(@Nonnull final ProjectInternal target) {
 
-        final versioningExtension = target.extensions.create("versioning", VersioningExtension, target)
+        final versioningExtension = target.extensions.create(EXTENSION, VersioningExtension, target)
 
         versioningExtension.storage = ServiceLoaderVersionStorageFactory.getInstance().create(target.projectDir)
 

@@ -9,6 +9,7 @@ import tane.mahuta.buildtools.release.ArtifactRelease
 import tane.mahuta.buildtools.release.DefaultReleaseInfrastructure
 import tane.mahuta.buildtools.release.FunctionalVersionHandler
 import tane.mahuta.buildtools.release.ReleaseInfrastructure
+import tane.mahuta.gradle.plugin.VersionPlugin
 import tane.mahuta.gradle.plugin.release.resolver.GradleArtifactResolver
 import tane.mahuta.gradle.plugin.vcs.VcsExtension
 import tane.mahuta.gradle.plugin.version.VersioningExtension
@@ -23,7 +24,6 @@ import javax.annotation.Nonnull
  */
 @CompileStatic
 class ReleaseExtension {
-
 
     private final Project project
     private final ArtifactResolver artifactResolver
@@ -65,8 +65,14 @@ class ReleaseExtension {
 
     @Nonnull
     private FunctionalVersionHandler factorVersionHandler() {
+        Objects.requireNonNull(versionExtension.parser, "Could not find version parser, please set project.${VersionPlugin.EXTENSION}.parser")
+        Objects.requireNonNull(versionExtension.storage, "Could not find version storage, please set project.${VersionPlugin.EXTENSION}.storage")
+        Objects.requireNonNull(versionExtension.releaseTransformer, "Could not find release transformer, please set project.${VersionPlugin.EXTENSION}.releaseTransformer")
+        Objects.requireNonNull(versionExtension.releaseTransformerForReport, "Could not find release transformer, please set project.${VersionPlugin.EXTENSION}.releaseTransformerForReport")
+        Objects.requireNonNull(versionExtension.comparator, "Could not find version comparator, please set project.${VersionPlugin.EXTENSION}.comparator")
         FunctionalVersionHandler.builder()
                 .parser(versionExtension.parser)
+                .storage(versionExtension.storage)
                 .toReleaseVersionHandler(versionExtension.releaseTransformer)
                 .toReleaseVersionWithReportHandler(versionExtension.releaseTransformerForReport)
                 .comparator(versionExtension.comparator).build()

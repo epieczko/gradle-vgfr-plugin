@@ -1,6 +1,8 @@
 package tane.mahuta.gradle.plugin.release
 
 import groovy.transform.CompileStatic
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 import groovy.transform.TupleConstructor
 import org.gradle.api.Project
 import org.gradle.api.artifacts.PublishArtifact
@@ -21,6 +23,8 @@ import javax.annotation.Nonnull
  */
 @CompileStatic
 @TupleConstructor
+@EqualsAndHashCode
+@ToString
 class PublishArtifactRelease extends AbstractArtifactRelease {
 
     @Nonnull

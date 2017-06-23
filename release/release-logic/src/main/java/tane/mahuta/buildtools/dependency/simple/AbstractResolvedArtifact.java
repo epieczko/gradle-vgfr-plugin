@@ -1,8 +1,6 @@
 package tane.mahuta.buildtools.dependency.simple;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 import tane.mahuta.buildtools.dependency.ResolvedArtifact;
 
@@ -17,6 +15,8 @@ import java.io.File;
  *         Created on 22.06.17.
  */
 @RequiredArgsConstructor
+@EqualsAndHashCode
+@ToString
 public abstract class AbstractResolvedArtifact implements ResolvedArtifact {
 
     @Getter(onMethod = @__({@Nonnull, @Override}))

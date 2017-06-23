@@ -4,6 +4,7 @@ import spock.lang.Specification
 import spock.lang.Subject
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport
 import tane.mahuta.buildtools.version.VersionParser
+import tane.mahuta.buildtools.version.VersionStorage
 
 import java.util.function.BiFunction
 import java.util.function.Function
@@ -15,18 +16,19 @@ import java.util.function.Function
 @Subject(FunctionalVersionHandler)
 class FunctionalVersionHandlerTest extends Specification {
 
-
     def "builds correctly"() {
         setup:
         final releaseReportMock = Mock(BiFunction)
         final releaseMock = Mock(Function)
         final parser = Mock(VersionParser)
         final comparator = Mock(Comparator)
+        final storage = Mock(VersionStorage)
         final handler = FunctionalVersionHandler.builder()
                 .parser(parser)
                 .toReleaseVersionWithReportHandler(releaseReportMock)
                 .toReleaseVersionHandler(releaseMock)
                 .comparator(comparator)
+                .storage(storage)
                 .build()
 
         when:
@@ -50,10 +52,9 @@ class FunctionalVersionHandlerTest extends Specification {
         and:
         actual == "Q"
 
-        when:
-        actual = handler.comparator
-        then:
-        actual.is(comparator)
+        expect:
+        handler.comparator.is(comparator)
+        handler.storage.is(storage)
     }
 
 
