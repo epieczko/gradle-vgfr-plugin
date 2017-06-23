@@ -23,7 +23,7 @@ public class DefaultReleaseInfrastructure implements ReleaseInfrastructure {
 
     @NonNull
     @Getter(onMethod = @__({@Override, @Nonnull}))
-    private final VersionHandler<? super Object> versionHandler;
+    private final VersionHandler versionHandler;
 
     @NonNull
     @Getter(onMethod = @__({@Override, @Nonnull}))

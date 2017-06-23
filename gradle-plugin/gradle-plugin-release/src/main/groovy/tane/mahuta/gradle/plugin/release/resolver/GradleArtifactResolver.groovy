@@ -46,12 +46,7 @@ class GradleArtifactResolver implements ArtifactResolver {
     @Override
     ResolvedArtifactWithDependencies resolveLastReleaseArtifact(@Nonnull final GAVCDescriptor currentDescriptor) {
         final StringBuilder sb = new StringBuilder(currentDescriptor.version)
-        final m = currentDescriptor.version =~ /.\d/
-        if (m.find()) {
-            sb.delete(m.start(), sb.length())
-        } else {
-            sb.delete(0, sb.length())
-        }
+        removeLastVersionPart(sb)
         sb.append("+")
         final descriptor = DefaultGAVCDescriptor.builder()
                 .group(currentDescriptor.group)
@@ -62,7 +57,23 @@ class GradleArtifactResolver implements ArtifactResolver {
         resolveArtifact(descriptor)
     }
 
-    protected static Set<tane.mahuta.buildtools.dependency.ResolvedArtifact> factorDependencies(ResolvedConfiguration configuration, GAVCDescriptor excludeDescriptor) {
+    protected void removeLastVersionPart(final StringBuilder sb) {
+        // Match the default semantic version scheme
+        final m = sb.toString() =~ /^\d+(\.\d+){0,2}/
+        if (m.find()) {
+            // If found, remove the rest of the version string
+            sb.delete(m.start(), sb.length())
+            final matched = m.group(0)
+            if (matched.contains('.')) {
+                sb.insert(m.start(), matched.substring(0, matched.lastIndexOf('.')))
+            }
+        } else {
+            sb.delete(0, sb.length())
+        }
+    }
+
+    protected
+    static Set<tane.mahuta.buildtools.dependency.ResolvedArtifact> factorDependencies(ResolvedConfiguration configuration, GAVCDescriptor excludeDescriptor) {
         configuration.resolvedArtifacts.findAll {
             !artifactMatchesDescriptor(excludeDescriptor, it)
         }.collect {

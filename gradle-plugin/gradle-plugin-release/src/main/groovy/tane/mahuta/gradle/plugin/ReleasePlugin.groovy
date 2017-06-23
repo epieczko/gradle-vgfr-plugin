@@ -4,8 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import tane.mahuta.gradle.plugin.release.ReleaseCheckReportTask
-import tane.mahuta.gradle.plugin.release.ReleaseCheckSnapshotDependenciesTask
-import tane.mahuta.gradle.plugin.release.ReleaseCheckUncommittedChangesTask
+
 import tane.mahuta.gradle.plugin.release.ReleaseExtension
 
 import javax.annotation.Nonnull

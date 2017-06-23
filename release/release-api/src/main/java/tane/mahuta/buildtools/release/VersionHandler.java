@@ -18,12 +18,12 @@ public interface VersionHandler<V> extends VersionParser<V> {
     /**
      * Get the next release version for the provided version using the API report.
      *
-     * @param version the version to be used
-     * @param apiReport the api report which
+     * @param lastRelease the last release version
+     * @param apiReport the api report which provides information about changes
      * @return the release version according to the report
      */
     @Nonnull
-    V toReleaseVersionWithReport(@Nonnull V version, @Nonnull ApiCompatibilityReport apiReport);
+    V toNextReleaseVersion(@Nonnull V lastRelease, @Nonnull ApiCompatibilityReport apiReport);
 
     /**
      * Get the release version of the provided version.

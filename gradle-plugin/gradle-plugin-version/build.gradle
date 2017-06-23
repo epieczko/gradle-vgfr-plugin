@@ -5,6 +5,8 @@ sourceSets.main.groovy.srcDirs += ["src/main/java"]
 dependencies {
     compile project(':versioning:versioning-semver-branch')
     compile project(':versioning:versioning-storage')
+    compile project(':release:release-api')
     compile parent.project('gradle-plugin-vcs')
+
     testCompile parent.project('gradle-plugin-testing')
 }

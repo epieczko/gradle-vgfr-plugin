@@ -5,11 +5,14 @@ import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.FromString
 import lombok.EqualsAndHashCode
 import org.gradle.api.Project
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport
 import tane.mahuta.buildtools.version.VersionParser
 import tane.mahuta.buildtools.version.VersionStorage
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
+import java.util.function.BiFunction
+import java.util.function.Function
 
 /**
  * @author christian.heike@icloud.com
@@ -31,6 +34,23 @@ class VersioningExtension {
      */
     VersionParser<?> parser
 
+    /**
+     * The release transformer
+     */
+    Function<?, ?> releaseTransformer
+    /**
+     * The release transformer for an {@link ApiCompatibilityReport}
+     */
+    BiFunction<?, ApiCompatibilityReport, ?> releaseTransformerForReport
+    /**
+     * The comparator for parsed versions
+     */
+    Comparator<?> comparator
+
+    /**
+     * Creates a new extension for the project.
+     * @param project the project
+     */
     VersioningExtension(@Nonnull final Project project) {
         this.versionAccessor = new ProjectVersionAccessor(project)
         this.sourceDirectory = project.projectDir
@@ -50,9 +70,54 @@ class VersioningExtension {
      * @param parser the parser to be set
      */
     void setParserClosure(@Nullable
-                              @ClosureParams(value = FromString, options = ["java.lang.Object", "java.io.File"])
-                              final Closure<?> parser) {
+                          @ClosureParams(value = FromString, options = ["java.lang.Object", "java.io.File"])
+                          final Closure<?> parser) {
         setParser(parser != null ? VersionParserFactory.create(parser) : null)
+    }
+
+    /**
+     * Set a closure as the comparator.
+     * @param comparator the closure comparing two versions
+     */
+    void setComparatorClosure(@Nonnull
+                              @ClosureParams(value = FromString, options = ["java.lang.Object", "java.lang.Object"])
+                              final Closure<Integer> comparator) {
+        this.comparator = new Comparator<Object>() {
+            @Override
+            int compare(final Object o1, final Object o2) {
+                comparator.call(o1, o2)
+            }
+        }
+    }
+
+    /**
+     * Set a closure for transforming the version to a release version.
+     * @param transformer the transformation closure
+     */
+    void setReleaseTransformerClosure(@Nonnull
+                                      @ClosureParams(value = FromString, options = ["java.lang.Object"])
+                                      final Closure<?> transformer) {
+        this.releaseTransformer = new Function<Object, Object>() {
+            @Override
+            Object apply(@Nonnull final Object o) {
+                return transformer.call(o)
+            }
+        }
+    }
+
+    /**
+     * Set a closure for transforming the version to a release version using an {@link ApiCompatibilityReport}
+     * @param transformer the transformation closure
+     */
+    void setReleaseTransformerForReportClosure(@Nonnull
+                                               @ClosureParams(value = FromString, options = ["java.lang.Object", "tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport"])
+                                               final Closure<?> transformer) {
+        this.releaseTransformerForReport = new BiFunction<Object, ApiCompatibilityReport, Object>() {
+            @Override
+            Object apply(@Nonnull final Object o, @Nonnull final ApiCompatibilityReport compatibilityReport) {
+                return transformer.call(o, compatibilityReport)
+            }
+        }
     }
 
     /**

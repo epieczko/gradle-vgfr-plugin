@@ -44,7 +44,7 @@ class FunctionalVersionHandlerTest extends Specification {
         actual == "A"
 
         when:
-        actual = handler.toReleaseVersionWithReport("Z", Mock(ApiCompatibilityReport))
+        actual = handler.toNextReleaseVersion("Z", Mock(ApiCompatibilityReport))
         then:
         releaseReportMock.apply("Z", _) >> "Q"
         and:

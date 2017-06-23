@@ -34,8 +34,8 @@ public class FunctionalVersionHandler<V> implements VersionHandler<V> {
 
     @Nonnull
     @Override
-    public V toReleaseVersionWithReport(@Nonnull final V version, @Nonnull final ApiCompatibilityReport apiReport) {
-        return toReleaseVersionWithReportHandler.apply(version, apiReport);
+    public V toNextReleaseVersion(@Nonnull final V lastRelease, @Nonnull final ApiCompatibilityReport apiReport) {
+        return toReleaseVersionWithReportHandler.apply(lastRelease, apiReport);
     }
 
     @Nonnull

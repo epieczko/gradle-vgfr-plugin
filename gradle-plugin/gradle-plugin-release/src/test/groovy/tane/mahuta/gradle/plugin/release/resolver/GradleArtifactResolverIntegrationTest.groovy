@@ -38,20 +38,19 @@ class GradleArtifactResolverIntegrationTest extends Specification {
 
         then:
         actualDescriptor.descriptor.group == expectedDescriptor.group
-        and:
         actualDescriptor.descriptor.artifact == expectedDescriptor.artifact
-        and:
         actualDescriptor.descriptor.version == expectedDescriptor.version
-        and:
         actualDescriptor.descriptor.classifier == expectedDescriptor.classifier
-        and:
         actualDescriptor.classpathDependencies.size() == expectedDependencies
 
         where:
-        group        | artifact     | version         | expectedVersion | expectedDependencies
-        'commons-io' | 'commons-io' | '2.4'           | '2.5'           | 0
-        'commons-io' | 'commons-io' | '1.8-SNAPSHOT'  | '1.4'           | 0
-        'junit'      | 'junit'      | '4.14-SNAPSHOT' | '4.12'          | 1
+        group              | artifact           | version                | expectedVersion        | expectedDependencies
+        'commons-io'       | 'commons-io'       | '2.4'                  | '2.5'                  | 0
+        'commons-io'       | 'commons-io'       | '1.8-SNAPSHOT'         | '1.4'                  | 0
+        'junit'            | 'junit'            | '4.14-SNAPSHOT'        | '4.12'                 | 1
+        'org.json'         | 'json'             | '20160810'             | '20170516'             | 0
+        'org.eclipse.jgit' | 'org.eclipse.jgit' | '4.7.0.201704051617-r' | '4.7.1.201706071930-r' | 7
+
     }
 
 }

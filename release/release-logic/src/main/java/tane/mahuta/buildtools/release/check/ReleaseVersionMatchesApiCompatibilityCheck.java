@@ -58,10 +58,14 @@ public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
                 .version(parsedCurrentReleaseVersion.toString()).build();
 
         final ResolvedArtifactWithDependencies lastRelease = releaseInfrastructure.getArtifactResolver().resolveLastReleaseArtifact(releaseDescriptor);
+        if (lastRelease == null) {
+            return; // No last release
+        }
+        final Object parsedLastReleaseVersion = releaseInfrastructure.getVersionHandler().parse(lastRelease.getDescriptor().getVersion(), release.getProjectDir());
 
         Optional.ofNullable(lastRelease)
                 .map(r -> createApiCompatibilityReport(r, release, releaseInfrastructure))
-                .map(report -> releaseInfrastructure.getVersionHandler().toReleaseVersionWithReport(parsedCurrentVersion, report))
+                .map(report -> releaseInfrastructure.getVersionHandler().toNextReleaseVersion(parsedLastReleaseVersion, report))
                 .ifPresent(necessaryReleaseVersion -> {
                     if (releaseInfrastructure.getVersionHandler().getComparator().compare(necessaryReleaseVersion, parsedCurrentReleaseVersion) > 0) {
                         release.describeProblem(b -> b.severity(Severity.PROBLEM)
