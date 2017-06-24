@@ -3,10 +3,10 @@ package tane.mahuta.gradle.plugin.release.resolver
 import groovy.transform.CompileStatic
 import org.gradle.api.Project
 import tane.mahuta.buildtools.dependency.ArtifactResolver
+import tane.mahuta.buildtools.dependency.ArtifactWithClasspath
 import tane.mahuta.buildtools.dependency.GAVCDescriptor
-import tane.mahuta.buildtools.dependency.ResolvedArtifactWithDependencies
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
-import tane.mahuta.buildtools.dependency.simple.DefaultResolvedArtifactWithDependencies
+import tane.mahuta.gradle.plugin.release.GradleAdapter
 
 import javax.annotation.Nonnull
 /**
@@ -23,24 +23,15 @@ class GradleArtifactResolver implements ArtifactResolver {
     }
 
     @Override
-    ResolvedArtifactWithDependencies resolveArtifact(@Nonnull final GAVCDescriptor descriptor) {
+    ArtifactWithClasspath resolveArtifact(@Nonnull final GAVCDescriptor descriptor) {
         final configuration = descriptor.with {
             project.configurations.detachedConfiguration(project.dependencies.create(group: group, name: artifact, version: version, classifier: classifier)).resolvedConfiguration
         }
-
-        final artifact = configuration.resolvedArtifacts.find(ArtifactHelper.&artifactMatchesDescriptor.curry(descriptor))
-
-        final classpathDependencies = ArtifactHelper.factorDependencies(configuration, descriptor)
-
-        DefaultResolvedArtifactWithDependencies.builder()
-                .descriptor(ArtifactHelper.artifactDescriptor(artifact))
-                .localFile(artifact.file)
-                .classpathDependencies(classpathDependencies)
-                .build()
+        GradleAdapter.instance.createArtifactWithClasspath(descriptor, configuration.resolvedArtifacts)
     }
 
     @Override
-    ResolvedArtifactWithDependencies resolveLastReleaseArtifact(@Nonnull final GAVCDescriptor currentDescriptor) {
+    ArtifactWithClasspath resolveLastReleaseArtifact(@Nonnull final GAVCDescriptor currentDescriptor) {
         final StringBuilder sb = new StringBuilder(currentDescriptor.version)
         removeLastVersionPart(sb)
         sb.append("+")
@@ -67,7 +58,5 @@ class GradleArtifactResolver implements ArtifactResolver {
             sb.delete(0, sb.length())
         }
     }
-
-
 
 }

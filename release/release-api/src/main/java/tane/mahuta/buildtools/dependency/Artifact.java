@@ -10,7 +10,7 @@ import java.io.File;
  * @author christian.heike@icloud.com
  *         Created on 22.06.17.
  */
-public interface ResolvedArtifact {
+public interface Artifact {
 
     /**
      * @return the descriptor of the

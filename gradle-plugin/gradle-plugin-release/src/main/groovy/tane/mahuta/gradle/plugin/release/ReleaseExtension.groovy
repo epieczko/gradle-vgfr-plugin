@@ -79,9 +79,10 @@ class ReleaseExtension {
     }
 
     private Set<ArtifactRelease> factorArtifactReleases() {
-        project.configurations.collect { it.artifacts }.collect { artifacts ->
-            artifacts.collect { PublishArtifactRelease.create(project, it as PublishArtifact) } as Set<ArtifactRelease>
-        }.flatten() as Set<ArtifactRelease>
+        (project.configurations
+                .collect { it.artifacts }
+                .flatten() as Collection<PublishArtifact>)
+                .collect { GradleAdapter.instance.createArtifactRelease(project, it) } as Set<ArtifactRelease>
     }
 
 }

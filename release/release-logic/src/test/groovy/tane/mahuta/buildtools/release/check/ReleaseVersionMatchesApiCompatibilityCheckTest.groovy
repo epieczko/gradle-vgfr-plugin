@@ -4,7 +4,7 @@ import spock.lang.Unroll
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportBuilder
 import tane.mahuta.buildtools.dependency.GAVCDescriptor
-import tane.mahuta.buildtools.dependency.ResolvedArtifactWithDependencies
+import tane.mahuta.buildtools.dependency.ArtifactWithClasspath
 
 /**
  * @author christian.heike@icloud.com
@@ -63,11 +63,11 @@ class ReleaseVersionMatchesApiCompatibilityCheckTest extends AbstractReleaseStep
         artifactRelease.problems.isEmpty()
     }
 
-    protected ResolvedArtifactWithDependencies stubReleaseArtifact(final String lastRelease) {
+    protected ArtifactWithClasspath stubReleaseArtifact(final String lastRelease) {
         if (lastRelease == null) {
             return null // No release
         }
-        final result = Stub(ResolvedArtifactWithDependencies)
+        final result = Stub(ArtifactWithClasspath)
         result.getClasspathDependencies() >> ([] as Set)
         result.getLocalFile() >> (new File(folder.root, "other.jar"))
         result.getDescriptor() >> Stub(GAVCDescriptor) {

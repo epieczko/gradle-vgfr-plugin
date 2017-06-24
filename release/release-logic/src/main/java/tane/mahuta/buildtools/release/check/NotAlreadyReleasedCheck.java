@@ -3,7 +3,7 @@ package tane.mahuta.buildtools.release.check;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
-import tane.mahuta.buildtools.dependency.ResolvedArtifact;
+import tane.mahuta.buildtools.dependency.Artifact;
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor;
 import tane.mahuta.buildtools.release.ArtifactRelease;
 import tane.mahuta.buildtools.release.ReleaseInfrastructure;
@@ -42,7 +42,7 @@ public class NotAlreadyReleasedCheck implements ReleaseStep {
                 .artifact(currentDescriptor.getArtifact())
                 .version(releaseVersion).build();
 
-        final ResolvedArtifact releasedArtifact = releaseInfrastructure.getArtifactResolver().resolveArtifact(releaseDescriptor);
+        final Artifact releasedArtifact = releaseInfrastructure.getArtifactResolver().resolveArtifact(releaseDescriptor);
 
         Optional.ofNullable(releasedArtifact).ifPresent(r ->
                 release.describeProblem(b -> b.severity(Severity.PROBLEM)

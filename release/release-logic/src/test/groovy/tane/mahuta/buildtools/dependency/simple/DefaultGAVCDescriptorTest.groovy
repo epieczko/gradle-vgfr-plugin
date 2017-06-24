@@ -27,15 +27,15 @@ class DefaultGAVCDescriptorTest extends Specification {
         when:
         DefaultGAVCDescriptor.builder().group(null).artifact('x').version('y').build()
         then:
-        thrown(NullPointerException)
+        thrown(RuntimeException)
         when:
         DefaultGAVCDescriptor.builder().group('x').artifact(null).version('y').build()
         then:
-        thrown(NullPointerException)
+        thrown(RuntimeException)
         when:
         DefaultGAVCDescriptor.builder().group('x').artifact('y').version(null).build()
         then:
-        thrown(NullPointerException)
+        thrown(RuntimeException)
 
     }
 

@@ -8,7 +8,7 @@ import tane.mahuta.buildtools.dependency.GAVCDescriptor
  * @author christian.heike@icloud.com
  * Created on 22.06.17.
  */
-@Subject(DefaultResolvedArtifact)
+@Subject(DefaultArtifact)
 class DefaultResolvedArtifactTest extends Specification {
 
     def 'builder builds correctly'() {
@@ -16,7 +16,7 @@ class DefaultResolvedArtifactTest extends Specification {
         final descriptorMock = Mock(GAVCDescriptor)
         final file = new File('.')
         when:
-        final actual = DefaultResolvedArtifact.builder().descriptor(descriptorMock).localFile(file).build()
+        final actual = DefaultArtifact.builder().descriptor(descriptorMock).localFile(file).build()
         then:
         actual.descriptor.is(descriptorMock)
         and:
@@ -25,9 +25,9 @@ class DefaultResolvedArtifactTest extends Specification {
 
     def 'null throws exception'() {
         when:
-        DefaultResolvedArtifact.builder().descriptor(null).build()
+        DefaultArtifact.builder().descriptor(null).build()
         then:
-        thrown(NullPointerException)
+        thrown(RuntimeException)
     }
 
 }

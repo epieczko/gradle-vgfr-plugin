@@ -46,8 +46,7 @@ class ReferencesSnapshotDependenciesCheckTest extends AbstractReleaseStepSpecifi
             }
             Mock(DependencyContainer) {
                 getName() >> name
-                iterator() >> { convertedDeps.iterator() }
-                spliterator() >> { Spliterators.spliteratorUnknownSize(convertedDeps.iterator(), 0) }
+                getDependencies() >> convertedDeps
             }
         } as Set)
     }

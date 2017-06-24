@@ -2,14 +2,14 @@ package tane.mahuta.buildtools.dependency.simple;
 
 import lombok.*;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
-import tane.mahuta.buildtools.dependency.ResolvedArtifact;
+import tane.mahuta.buildtools.dependency.Artifact;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 
 /**
- * Abstract implementation of {@link ResolvedArtifact}.
+ * Abstract implementation of {@link Artifact}.
  *
  * @author christian.heike@icloud.com
  *         Created on 22.06.17.
@@ -17,7 +17,7 @@ import java.io.File;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public abstract class AbstractResolvedArtifact implements ResolvedArtifact {
+public abstract class AbstractArtifact implements Artifact {
 
     @Getter(onMethod = @__({@Nonnull, @Override}))
     @NonNull

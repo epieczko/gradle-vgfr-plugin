@@ -4,17 +4,17 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
- * A {@link ResolvedArtifact} with its dependencies.
+ * A {@link Artifact} with its dependencies.
  *
  * @author christian.heike@icloud.com
  *         Created on 22.06.17.
  */
-public interface ResolvedArtifactWithDependencies extends ResolvedArtifact {
+public interface ArtifactWithClasspath extends Artifact {
 
     /**
      * @return the class path dependencies of the resolved artifact
      */
     @Nonnull
-    Set<ResolvedArtifact> getClasspathDependencies();
+    Set<? extends Artifact> getClasspathDependencies();
 
 }

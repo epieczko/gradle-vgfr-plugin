@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
 import tane.mahuta.buildtools.apilyzer.Scope;
+import tane.mahuta.buildtools.dependency.Artifact;
+import tane.mahuta.buildtools.dependency.ArtifactWithClasspath;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
-import tane.mahuta.buildtools.dependency.ResolvedArtifact;
-import tane.mahuta.buildtools.dependency.ResolvedArtifactWithDependencies;
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor;
 import tane.mahuta.buildtools.release.ArtifactRelease;
 import tane.mahuta.buildtools.release.ReleaseInfrastructure;
@@ -57,7 +57,7 @@ public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
                 .artifact(currentDescriptor.getArtifact())
                 .version(parsedCurrentReleaseVersion.toString()).build();
 
-        final ResolvedArtifactWithDependencies lastRelease = releaseInfrastructure.getArtifactResolver().resolveLastReleaseArtifact(releaseDescriptor);
+        final ArtifactWithClasspath lastRelease = releaseInfrastructure.getArtifactResolver().resolveLastReleaseArtifact(releaseDescriptor);
         if (lastRelease == null) {
             return; // No last release
         }
@@ -76,7 +76,7 @@ public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
     }
 
     @Nullable
-    protected ApiCompatibilityReport createApiCompatibilityReport(@Nonnull final ResolvedArtifactWithDependencies baseLineArtifact,
+    protected ApiCompatibilityReport createApiCompatibilityReport(@Nonnull final ArtifactWithClasspath baseLineArtifact,
                                                                   @Nonnull final ArtifactRelease release,
                                                                   @Nonnull final ReleaseInfrastructure releaseInfrastructure) {
 
@@ -94,8 +94,8 @@ public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
     }
 
     @Nonnull
-    protected static Set<File> collectFiles(@Nonnull final Set<ResolvedArtifact> artifacts) {
-        return artifacts.stream().map(ResolvedArtifact::getLocalFile).filter(Objects::nonNull).collect(Collectors.toSet());
+    protected static Set<File> collectFiles(@Nonnull final Set<? extends Artifact> artifacts) {
+        return artifacts.stream().map(Artifact::getLocalFile).filter(Objects::nonNull).collect(Collectors.toSet());
     }
 
 }

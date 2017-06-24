@@ -1,8 +1,6 @@
 package tane.mahuta.buildtools.release.reporting;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,6 +15,7 @@ import java.util.Optional;
  */
 @EqualsAndHashCode
 @ToString
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReleaseProblem {
 
     @Getter(onMethod = @__(@Nonnull))
@@ -26,16 +25,18 @@ public class ReleaseProblem {
     @Getter(onMethod = @__(@Nonnull))
     private final Object[] formatArguments;
 
-    public ReleaseProblem(final Severity severity, final String messageFormat, final Object[] formatArguments) {
-        this.severity = severity;
-        this.messageFormat = messageFormat;
-        this.formatArguments = formatArguments;
-    }
-
+    /**
+     * @return a new {@link ReleaseProblemBuilder}
+     */
     public static ReleaseProblem.ReleaseProblemBuilder builder() {
         return new ReleaseProblem.ReleaseProblemBuilder();
     }
 
+    /**
+     * The builder for {@link ReleaseProblem}.
+     *
+     * @author christian.heike@icloud.com
+     */
     public static class ReleaseProblemBuilder {
 
         private static final Object[] EMPTY_ARGS = new Object[0];
@@ -44,21 +45,48 @@ public class ReleaseProblem {
         private String messageFormat;
         private Object[] formatArgs;
 
+        /**
+         * Set the severity for the problem.
+         *
+         * @param severity the severity
+         * @return {@code this}
+         */
+        @Nonnull
         public ReleaseProblemBuilder severity(@Nonnull final Severity severity) {
             this.severity = severity;
             return this;
         }
 
-        public ReleaseProblemBuilder formatArgs(@Nullable final Object... args) {
-            this.formatArgs = args;
-            return this;
-        }
-
+        /**
+         * Set the message text for formatting.
+         *
+         * @param message the text
+         * @return {@code this}
+         */
+        @Nonnull
         public ReleaseProblemBuilder messageFormat(@Nonnull final String message) {
             this.messageFormat = message;
             return this;
         }
 
+        /**
+         * Set the arguments to format the text with.
+         *
+         * @param args the arguments
+         * @return {@code this}
+         */
+        @Nonnull
+        public ReleaseProblemBuilder formatArgs(@Nullable final Object... args) {
+            this.formatArgs = args;
+            return this;
+        }
+
+        /**
+         * Build the {@link ReleaseProblem}.
+         *
+         * @return the built problem
+         */
+        @Nonnull
         public ReleaseProblem build() {
             Objects.requireNonNull(severity, "Severity was not set.");
             Objects.requireNonNull(messageFormat, "Message format was not set.");

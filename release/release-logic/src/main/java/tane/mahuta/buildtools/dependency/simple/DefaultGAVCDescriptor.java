@@ -13,8 +13,6 @@ import javax.annotation.Nullable;
  * @author christian.heike@icloud.com
  *         Created on 20.06.17.
  */
-@Builder
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
 public class DefaultGAVCDescriptor implements GAVCDescriptor {
@@ -31,11 +29,18 @@ public class DefaultGAVCDescriptor implements GAVCDescriptor {
     @NonNull
     private final String version;
 
+    @Getter(onMethod = @__({@Nullable, @Override}))
     private final String classifier;
 
-    @Override
-    @Nullable
-    public String getClassifier() {
-        return StringUtils.isBlank(classifier) ? null : classifier;
+    @Builder
+    protected DefaultGAVCDescriptor(@Nonnull @NonNull final String group,
+                                    @Nonnull @NonNull final String artifact,
+                                    @Nonnull @NonNull final String version,
+                                    @Nullable final String classifier) {
+        this.group = group;
+        this.artifact = artifact;
+        this.version = version;
+        this.classifier = StringUtils.isBlank(classifier) ? null : classifier;
     }
+
 }

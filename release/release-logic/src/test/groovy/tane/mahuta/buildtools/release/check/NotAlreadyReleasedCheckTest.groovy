@@ -2,7 +2,7 @@ package tane.mahuta.buildtools.release.check
 
 import spock.lang.Subject
 import spock.lang.Unroll
-import tane.mahuta.buildtools.dependency.ResolvedArtifactWithDependencies
+import tane.mahuta.buildtools.dependency.ArtifactWithClasspath
 /**
  * @author christian.heike@icloud.com
  * Created on 23.06.17.
@@ -23,7 +23,7 @@ class NotAlreadyReleasedCheckTest extends AbstractReleaseStepSpecification {
         then:
         1 * infrastructure.artifactResolver.resolveArtifact({
             it.group == descriptor.group && it.artifact == descriptor.artifact && it.version == releaseVersion && it.classifier == descriptor.classifier
-        }) >> (released ? Mock(ResolvedArtifactWithDependencies) : null)
+        }) >> (released ? Mock(ArtifactWithClasspath) : null)
         and:
         artifactRelease.getProblems().size() == problems
 

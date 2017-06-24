@@ -11,17 +11,14 @@ class DefaultDependencyContainerTest extends Specification {
     def 'builder works'() {
         setup:
         final name = 'a'
-        final dependenciesIterator = Mock(Iterator)
-        final dependencies = Mock(Iterable) {
-            iterator() >> dependenciesIterator
-        }
+        final dependencies = [] as Set
 
         when:
         final actual = DefaultDependencyContainer.builder().name(name).dependencies(dependencies).build()
         then:
         actual.name.is(name)
         and:
-        actual.iterator().is(dependenciesIterator)
+        actual.dependencies.is(dependencies)
     }
 
 }

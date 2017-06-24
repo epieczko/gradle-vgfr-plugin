@@ -11,7 +11,6 @@ import tane.mahuta.buildtools.release.reporting.Severity;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Checks if the project references any snapshot dependencies.
@@ -34,7 +33,7 @@ public class ReferencesSnapshotDependenciesCheck implements ReleaseStep {
     public void apply(@Nonnull final ArtifactRelease release, @Nonnull final ReleaseInfrastructure releaseInfrastructure) {
         release.getDependencyContainers().forEach(container -> {
 
-            final List<String> snapshotDependencies = StreamSupport.stream(container.spliterator(), false)
+            final List<String> snapshotDependencies = container.getDependencies().stream()
                     .filter(GAVCDescriptor::isSnapshot)
                     .map(GAVCDescriptor::toStringDescriptor)
                     .collect(Collectors.toList());

@@ -15,19 +15,19 @@ public interface ArtifactResolver {
      * Resolve the dependency for the provided descriptor.
      *
      * @param descriptor the descriptor
-     * @return the {@link ResolvedArtifact} or {@code null} if no dependency was resolved for the provided descriptor
+     * @return the {@link Artifact} or {@code null} if no dependency was resolved for the provided descriptor
      */
     @Nullable
-    ResolvedArtifactWithDependencies resolveArtifact(@Nonnull GAVCDescriptor descriptor);
+    ArtifactWithClasspath resolveArtifact(@Nonnull GAVCDescriptor descriptor);
 
     /**
      * Resolves the previous release dependency for the provided descriptor.
      * The resolved artifact should contain the release version
      *
      * @param currentDescriptor the descriptor
-     * @return the {@link ResolvedArtifact} of the previous release version or {@code null} if no dependency was resolved
+     * @return the {@link Artifact} of the previous release version or {@code null} if no dependency was resolved
      */
     @Nullable
-    ResolvedArtifactWithDependencies resolveLastReleaseArtifact(@Nonnull GAVCDescriptor currentDescriptor);
+    ArtifactWithClasspath resolveLastReleaseArtifact(@Nonnull GAVCDescriptor currentDescriptor);
 
 }
