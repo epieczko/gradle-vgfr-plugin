@@ -15,6 +15,7 @@ import tane.mahuta.gradle.plugin.vcs.VcsExtension
 import tane.mahuta.gradle.plugin.version.VersioningExtension
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 /**
  * Extension for the {@link tane.mahuta.gradle.plugin.ReleasePlugin}.
@@ -37,23 +38,30 @@ class ReleaseExtension {
     }
 
     protected VersioningExtension getVersionExtension() {
-        project.extensions.findByType(VersioningExtension)
+        findExtension(VersioningExtension)
     }
 
     protected VcsExtension getVcs() {
-        project.extensions.findByType(VcsExtension)
+        findExtension(VcsExtension)
     }
 
+    /**
+     * @return the infrastructure for the project
+     */
     @Nonnull
     ReleaseInfrastructure getInfrastructure() {
         releaseInfrastructure = releaseInfrastructure ?: factorReleaseInfrastructure()
     }
 
+    /**
+     * @return the artifact releases for the project
+     */
     @Nonnull
     Set<ArtifactRelease> getArtifactReleases() {
         artifactReleases = artifactReleases ?: factorArtifactReleases()
     }
 
+    @Nonnull
     private ReleaseInfrastructure factorReleaseInfrastructure() {
         DefaultReleaseInfrastructure.builder().artifactResolver(artifactResolver)
                 .versionHandler(factorVersionHandler())
@@ -78,11 +86,24 @@ class ReleaseExtension {
                 .comparator(versionExtension.comparator).build()
     }
 
+    @Nonnull
     private Set<ArtifactRelease> factorArtifactReleases() {
         (project.configurations
                 .collect { it.artifacts }
                 .flatten() as Collection<PublishArtifact>)
                 .collect { GradleAdapter.instance.createArtifactRelease(project, it) } as Set<ArtifactRelease>
+    }
+
+    @Nullable
+    private <E> E findExtension(@Nonnull final Class<E> extensionClass) {
+        def curProject = project
+        while (curProject) {
+            final extension = project.extensions.findByType(extensionClass)
+            if (extension) {
+                return extension
+            }
+            curProject = curProject.parent
+        }
     }
 
 }
