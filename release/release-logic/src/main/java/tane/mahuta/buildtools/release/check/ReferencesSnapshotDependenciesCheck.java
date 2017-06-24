@@ -46,4 +46,10 @@ public class ReferencesSnapshotDependenciesCheck implements ReleaseStep {
         });
     }
 
+    @Nonnull
+    @Override
+    public String getDescription() {
+        return "Checks if the artifact references any snapshot dependencies";
+    }
+
 }

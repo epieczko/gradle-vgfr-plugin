@@ -27,4 +27,10 @@ class ReleasableBranchCheckTest extends AbstractReleaseStepSpecification {
         'hotfix/1.2.3'  | 0
         'support/xy'    | 0
     }
+
+    def 'description is set'() {
+        expect:
+        ReleasableBranchCheck.instance.description != null
+    }
+
 }

@@ -20,7 +20,8 @@ import javax.annotation.Nonnull
  */
 class ReleasePlugin implements Plugin<Project> {
 
-    public static final String TASK_RELEASE_CHECK = "releaseCheck"
+    static final String EXTENSION = "release"
+    static final String TASK_RELEASE_CHECK = "releaseCheck"
 
     @Override
     void apply(final Project target) {
@@ -33,7 +34,7 @@ class ReleasePlugin implements Plugin<Project> {
         target.getPluginManager().apply(VcsPlugin)
 
         target.allprojects.each {
-            it.extensions.create(ReleaseExtension, it)
+            it.extensions.create(EXTENSION, ReleaseExtension, it)
         }
 
         final releaseCheck = target.task(TASK_RELEASE_CHECK, type: ReleaseCheckReportTask).dependsOn(
@@ -66,7 +67,7 @@ class ReleasePlugin implements Plugin<Project> {
     static Task createStepTask(@Nonnull final Project project,
                                @Nonnull final String name,
                                @Nonnull final ReleaseStep releaseStep) {
-        project.task(name, type: ReleaseExtensionTask, {
+        project.task(name, type: ReleaseExtensionTask, description: releaseStep.description, {
             doFirst {
                 (delegate as ReleaseExtensionTask).invokeStep(releaseStep)
             }

@@ -7,6 +7,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 import tane.mahuta.buildtools.apilyzer.Scope
+import tane.mahuta.gradle.plugin.OnlineRule
 
 /**
  * @author christian.heike@icloud.com
@@ -19,11 +20,19 @@ class ClirrApiCompatibilityReportBuilderTest extends Specification {
     @Delegate
     static final TemporaryFolder folderRule = new TemporaryFolder()
 
+    @ClassRule
+    @Shared
+    static final OnlineRule onlineRule = new OnlineRule()
+
     def setupSpec() {
+        onlineRule.assumeOnline()
         folderRule.create()
-        ['1.1', '2.4', '2.5'].each { version ->
-            new URL("http://central.maven.org/maven2/commons-io/commons-io/${version}/commons-io-${version}.jar").withInputStream { is ->
-                new File(root, "commons-io-${version}.jar").withOutputStream { os -> os << is }
+
+        if (onlineRule.isOnline()) {
+            ['1.1', '2.4', '2.5'].each { version ->
+                new URL("http://central.maven.org/maven2/commons-io/commons-io/${version}/commons-io-${version}.jar").withInputStream { is ->
+                    new File(root, "commons-io-${version}.jar").withOutputStream { os -> os << is }
+                }
             }
         }
     }

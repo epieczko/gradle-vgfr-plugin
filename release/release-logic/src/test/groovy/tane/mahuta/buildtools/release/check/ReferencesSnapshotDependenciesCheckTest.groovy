@@ -50,4 +50,10 @@ class ReferencesSnapshotDependenciesCheckTest extends AbstractReleaseStepSpecifi
             }
         } as Set)
     }
+
+    def 'description is set'() {
+        expect:
+        ReferencesSnapshotDependenciesCheck.instance.description != null
+    }
+
 }

@@ -75,6 +75,12 @@ public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
                 });
     }
 
+    @Nonnull
+    @Override
+    public String getDescription() {
+        return "Checks if the release version matches the API compatibility";
+    }
+
     @Nullable
     protected ApiCompatibilityReport createApiCompatibilityReport(@Nonnull final ArtifactWithClasspath baseLineArtifact,
                                                                   @Nonnull final ArtifactRelease release,

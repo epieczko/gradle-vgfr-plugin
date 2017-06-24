@@ -52,6 +52,12 @@ public class ReleasableBranchCheck implements ReleaseStep {
         }
     }
 
+    @Nonnull
+    @Override
+    public String getDescription() {
+        return "Checks if the release is happening on a releasable branch";
+    }
+
     /**
      * Get the releasable branch names and prefixes from the {@link VcsFlowConfig}.
      *

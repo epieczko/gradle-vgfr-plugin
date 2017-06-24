@@ -1,13 +1,15 @@
 package tane.mahuta.gradle.plugin.release
 
 import org.eclipse.jgit.api.Git
+import org.junit.ClassRule
 import org.junit.Rule
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
+import tane.mahuta.gradle.plugin.OnlineRule
 import tane.mahuta.gradle.plugin.ProjectBuilderTestRule
 import tane.mahuta.gradle.plugin.SemanticVersionPlugin
 import tane.mahuta.gradle.plugin.VcsPlugin
-
 /**
  * @author christian.heike@icloud.com
  * Created on 23.06.17.
@@ -19,7 +21,15 @@ class ReleaseExtensionIntegrationTest extends Specification {
     @Rule
     final ProjectBuilderTestRule projectBuilder = new ProjectBuilderTestRule()
 
+    @ClassRule
+    @Shared
+    static final OnlineRule onlineRule = new OnlineRule()
+
     private ReleaseExtension extension
+
+    def setupSpec() {
+        onlineRule.assumeOnline()
+    }
 
     def setup() {
         Git.init().setDirectory(project.projectDir).call()
@@ -40,7 +50,6 @@ class ReleaseExtensionIntegrationTest extends Specification {
     }
 
     def 'creates artifact releases'() {
-        setup:
         project.apply plugin: 'java'
         new File(project.projectDir, "src/main/java/A.java").with {
             parentFile.mkdirs()
@@ -90,6 +99,5 @@ class ReleaseExtensionIntegrationTest extends Specification {
         expect:
         releases.is(extension.artifactReleases)
     }
-
 
 }

@@ -18,4 +18,9 @@ public interface ReleaseStep {
      */
     void apply(@Nonnull final ArtifactRelease release, @Nonnull final ReleaseInfrastructure releaseInfrastructure);
 
+    /**
+     * @return a textual description for the step
+     */
+    @Nonnull
+    String getDescription();
 }

@@ -24,4 +24,11 @@ class UncommittedChangesCheckTest extends AbstractReleaseStepSpecification {
         1       | 1
         23      | 1
     }
+
+
+    def 'description is set'() {
+        expect:
+        UncommittedChangesCheck.instance.description != null
+    }
+
 }

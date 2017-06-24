@@ -33,5 +33,9 @@ class NotAlreadyReleasedCheckTest extends AbstractReleaseStepSpecification {
         true     | 1
     }
 
+    def 'description is set'() {
+        expect:
+        NotAlreadyReleasedCheck.instance.description != null
+    }
 
 }

@@ -51,4 +51,10 @@ public class NotAlreadyReleasedCheck implements ReleaseStep {
         );
 
     }
+
+    @Nonnull
+    @Override
+    public String getDescription() {
+        return "Checks if the artifact is not released yet.";
+    }
 }

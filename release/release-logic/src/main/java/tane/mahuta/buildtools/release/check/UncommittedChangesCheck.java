@@ -36,4 +36,10 @@ public class UncommittedChangesCheck implements ReleaseStep {
                     .formatArgs(uncommitted));
         }
     }
+
+    @Nonnull
+    @Override
+    public String getDescription() {
+        return "Checks if there are uncommitted VCS changes";
+    }
 }

@@ -1,10 +1,13 @@
 package tane.mahuta.gradle.plugin.release.resolver
 
+import org.junit.ClassRule
 import org.junit.Rule
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
+import tane.mahuta.gradle.plugin.OnlineRule
 import tane.mahuta.gradle.plugin.ProjectBuilderTestRule
 
 /**
@@ -18,7 +21,15 @@ class GradleArtifactResolverIntegrationTest extends Specification {
     @Delegate
     final ProjectBuilderTestRule projectBuilder = new ProjectBuilderTestRule()
 
+    @ClassRule
+    @Shared
+    static final OnlineRule onlineRule = new OnlineRule()
+
     private GradleArtifactResolver resolver
+
+    def setupSpec() {
+        onlineRule.assumeOnline()
+    }
 
     def setup() {
         project.repositories {

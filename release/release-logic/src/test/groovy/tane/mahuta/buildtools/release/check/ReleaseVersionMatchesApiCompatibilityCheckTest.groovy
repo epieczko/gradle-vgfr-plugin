@@ -63,6 +63,11 @@ class ReleaseVersionMatchesApiCompatibilityCheckTest extends AbstractReleaseStep
         artifactRelease.problems.isEmpty()
     }
 
+    def 'description is set'() {
+        expect:
+        ReleaseVersionMatchesApiCompatibilityCheck.instance.description != null
+    }
+
     protected ArtifactWithClasspath stubReleaseArtifact(final String lastRelease) {
         if (lastRelease == null) {
             return null // No release
