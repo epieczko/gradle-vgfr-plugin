@@ -9,6 +9,7 @@ import tane.mahuta.buildtools.release.check.*
 import tane.mahuta.gradle.plugin.release.ReleaseCheckReportTask
 import tane.mahuta.gradle.plugin.release.ReleaseExtension
 import tane.mahuta.gradle.plugin.release.ReleaseExtensionTask
+import tane.mahuta.gradle.plugin.release.ReleaseTask
 
 import javax.annotation.Nonnull
 
@@ -21,7 +22,9 @@ import javax.annotation.Nonnull
 class ReleasePlugin implements Plugin<Project> {
 
     static final String EXTENSION = "release"
+
     static final String TASK_RELEASE_CHECK = "releaseCheck"
+    static final String TASK_RELEASE = "release"
 
     @Override
     void apply(final Project target) {
@@ -37,13 +40,15 @@ class ReleasePlugin implements Plugin<Project> {
             it.extensions.create(EXTENSION, ReleaseExtension, it)
         }
 
-        final releaseCheck = target.task(TASK_RELEASE_CHECK, type: ReleaseCheckReportTask).dependsOn(
+        final releaseCheckTask = target.task(TASK_RELEASE_CHECK, type: ReleaseCheckReportTask).dependsOn(
                 createCheckTask(target, UncommittedChangesCheck.instance),
                 createCheckTask(target, ReleasableBranchCheck.instance),
                 createCheckTask(target, ReferencesSnapshotDependenciesCheck.instance),
                 createCheckTask(target, NotAlreadyReleasedCheck.instance),
                 createCheckTask(target, ReleaseVersionMatchesApiCompatibilityCheck.instance)
         )
+
+        final releaseCheck = target.task(TASK_RELEASE, type: ReleaseTask)
     }
 
     private Set<String> findAlreadyAppliedTo(Project target) {

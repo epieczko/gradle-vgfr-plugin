@@ -38,6 +38,39 @@ public interface VcsAccessor {
     VcsFlowConfig getFlowConfig();
 
     /**
+     * Start the release branch, if not already on one.
+     *
+     * @param version the release version
+     */
+    void startReleaseBranch(@Nonnull final String version);
+
+    /**
+     * Finish the release branch.
+     *
+     * @param version the release version
+     * @return {@code true} if no problems occured, {@code false}
+     */
+    boolean finishReleaseBranch(@Nonnull final String version);
+
+    /**
+     * Commits all changed files.
+     * @param message the message for the commit
+     */
+    void commitFiles(@Nonnull final String message);
+
+    /**
+     * Pushes the changes to the remote.
+     */
+    void push();
+
+    /**
+     * Checks out the provided branch.
+     *
+     * @param branch the branch to be checked out
+     */
+    void checkout(@Nonnull String branch);
+
+    /**
      * Removes the branch prefix from the current branch.
      * If the branch is not prefixed with the provided one, will return {@code null}.
      *

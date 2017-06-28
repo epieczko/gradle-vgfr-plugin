@@ -32,6 +32,30 @@ class ServiceLoaderVcsAccessorFactoryTest extends Specification {
 
                 @Override
                 VcsFlowConfig getFlowConfig() { null }
+
+                @Override
+                void startReleaseBranch(@Nonnull String version) {
+                }
+
+                @Override
+                boolean finishReleaseBranch(@Nonnull String version) {
+                    return false
+                }
+
+                @Override
+                void commitFiles(@Nonnull String message) {
+
+                }
+
+                @Override
+                void push() {
+
+                }
+
+                @Override
+                void checkout(@Nonnull String branch) {
+
+                }
             }
         }
     }
