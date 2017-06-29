@@ -5,6 +5,8 @@ import org.gradle.api.InvalidUserCodeException
 import org.gradle.api.Project
 import org.gradle.api.internal.AbstractTask
 import tane.mahuta.buildtools.release.ReleaseStep
+import tane.mahuta.buildtools.release.reporting.ReleaseProblem
+import tane.mahuta.buildtools.release.reporting.Severity
 
 import javax.annotation.Nonnull
 
@@ -41,6 +43,19 @@ class ReleaseExtensionTask extends AbstractTask {
                 throw new InvalidUserCodeException("The ${p} has no release extension applied, this is probably due to a wrong configuration.")
             }
             extension.artifactReleases.each(step.&apply.ncurry(1, extension.infrastructure))
+        }
+    }
+
+    /**
+     * Log the provided problem with the appropriate logger.
+     * @param problem the problem to be logged
+     */
+    protected void logProblem(@Nonnull final ReleaseProblem problem) {
+        switch (problem.severity) {
+            case Severity.WARNING:
+                logger.warn(problem.messageFormat, problem.formatArguments)
+            case Severity.PROBLEM:
+                logger.error(problem.messageFormat, problem.formatArguments)
         }
     }
 

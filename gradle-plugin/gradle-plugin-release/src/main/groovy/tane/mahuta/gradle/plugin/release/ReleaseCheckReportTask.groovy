@@ -24,15 +24,8 @@ class ReleaseCheckReportTask extends ReleaseExtensionTask {
         project.allprojects.each{ p ->
             final extension = releaseExtensionOf(p)
             extension.artifactReleases.each{ artifactRelease ->
-                artifactRelease.problems.each { problem ->
-                    switch (problem.severity) {
-                        case Severity.WARNING:
-                            logger.warn(problem.messageFormat, problem.formatArguments)
-                        case Severity.PROBLEM:
-                            logger.error(problem.messageFormat, problem.formatArguments)
-                            problemCount++
-                    }
-                }
+                artifactRelease.problems.each(this.&logProblem)
+                problemCount += artifactRelease.problems.count{ it.severity == Severity.PROBLEM}
             }
         }
         if (problemCount > 0) {

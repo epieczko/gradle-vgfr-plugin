@@ -48,7 +48,7 @@ class ReleasePlugin implements Plugin<Project> {
                 createCheckTask(target, ReleaseVersionMatchesApiCompatibilityCheck.instance)
         )
 
-        final releaseCheck = target.task(TASK_RELEASE, type: ReleaseTask)
+        final releaseTask = target.task(TASK_RELEASE, type: ReleaseTask)
     }
 
     private Set<String> findAlreadyAppliedTo(Project target) {
