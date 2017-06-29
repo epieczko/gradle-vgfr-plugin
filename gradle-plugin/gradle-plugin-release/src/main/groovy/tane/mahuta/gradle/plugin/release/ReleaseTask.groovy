@@ -2,8 +2,7 @@ package tane.mahuta.gradle.plugin.release
 
 import groovy.transform.CompileStatic
 import org.gradle.api.InvalidUserCodeException
-import org.gradle.api.internal.TaskInternal
-import org.gradle.api.specs.Spec
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import tane.mahuta.buildtools.dependency.Artifact
 import tane.mahuta.buildtools.dependency.DependencyContainer
@@ -24,13 +23,20 @@ import tane.mahuta.buildtools.release.reporting.Severity
 @CompileStatic
 class ReleaseTask extends ReleaseExtensionTask {
 
-    List<ReleaseStep> steps = [
+    @Input
+    List<? extends ReleaseStep> steps = [
             StartReleaseStep.instance,
             CommitReleaseVersionStep.instance,
             RunReleaseBuildStep.instance,
             FinishReleaseStep.instance,
             CommitNextDevelopmentVersionStep.instance
     ]
+
+    ReleaseTask() {
+        onlyIf {
+            !(steps?.isEmpty())
+        }
+    }
 
     @TaskAction
     void runSteps() {
@@ -85,14 +91,5 @@ class ReleaseTask extends ReleaseExtensionTask {
             File getLocalFile() { project.buildFile }
         }
     }
-
-    @Override
-    Spec<? super TaskInternal> getOnlyIf() {
-        return new Spec<TaskInternal>() {
-            @Override
-            boolean isSatisfiedBy(TaskInternal taskInternal) {
-                return !(steps?.isEmpty())
-            }
-        }
-    }
+   
 }
