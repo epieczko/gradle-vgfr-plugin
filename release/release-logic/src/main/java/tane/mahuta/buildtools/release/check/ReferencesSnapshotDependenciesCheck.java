@@ -3,9 +3,9 @@ package tane.mahuta.buildtools.release.check;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
+import tane.mahuta.buildtools.release.AbstractGuardedReleaseStep;
 import tane.mahuta.buildtools.release.ArtifactRelease;
 import tane.mahuta.buildtools.release.ReleaseInfrastructure;
-import tane.mahuta.buildtools.release.ReleaseStep;
 import tane.mahuta.buildtools.release.reporting.Severity;
 
 import javax.annotation.Nonnull;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  *         Created on 23.06.17.
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReferencesSnapshotDependenciesCheck implements ReleaseStep {
+public class ReferencesSnapshotDependenciesCheck extends AbstractGuardedReleaseStep {
 
     private static class InstanceHolder {
         private static final ReferencesSnapshotDependenciesCheck INSTANCE = new ReferencesSnapshotDependenciesCheck();
@@ -30,7 +30,9 @@ public class ReferencesSnapshotDependenciesCheck implements ReleaseStep {
     }
 
     @Override
-    public void apply(@Nonnull final ArtifactRelease release, @Nonnull final ReleaseInfrastructure releaseInfrastructure) {
+    protected void doApply(@Nonnull final ArtifactRelease release,
+                           @Nonnull final ReleaseInfrastructure releaseInfrastructure,
+                           @Nonnull final Object version) {
         release.getDependencyContainers().forEach(container -> {
 
             final List<String> snapshotDependencies = container.getDependencies().stream()

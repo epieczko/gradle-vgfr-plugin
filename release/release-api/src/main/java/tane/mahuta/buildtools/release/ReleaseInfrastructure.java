@@ -45,4 +45,10 @@ public interface ReleaseInfrastructure {
     @Nonnull
     ApiCompatibilityReportBuilder.Factory getApiCompatibilityReportBuilderFactory();
 
+    /**
+     * @return the adapter to interact with the build tool
+     */
+    @Nonnull
+    BuildToolAdapter getBuildToolAdapter();
+
 }

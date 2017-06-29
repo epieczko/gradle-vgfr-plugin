@@ -2,6 +2,7 @@ package tane.mahuta.buildtools.release.check;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import tane.mahuta.buildtools.release.AbstractGuardedReleaseStep;
 import tane.mahuta.buildtools.release.ArtifactRelease;
 import tane.mahuta.buildtools.release.ReleaseInfrastructure;
 import tane.mahuta.buildtools.release.ReleaseStep;
@@ -22,7 +23,7 @@ import java.util.stream.Stream;
  *         Created on 23.06.17.
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReleasableBranchCheck implements ReleaseStep {
+public class ReleasableBranchCheck extends AbstractGuardedReleaseStep {
 
     private static final List<Function<VcsFlowConfig, String>> DEFAULT_RELEASABLE_BRANCHES = Arrays.asList(
             VcsFlowConfig::getDevelopmentBranch,
@@ -40,7 +41,9 @@ public class ReleasableBranchCheck implements ReleaseStep {
     }
 
     @Override
-    public void apply(@Nonnull final ArtifactRelease release, @Nonnull final ReleaseInfrastructure releaseInfrastructure) {
+    protected void doApply(@Nonnull final ArtifactRelease release,
+                        @Nonnull final ReleaseInfrastructure releaseInfrastructure,
+                        @Nonnull final Object version) {
         final VcsAccessor vcs = releaseInfrastructure.getVcs();
         final String branch = vcs.getBranch();
         if (branch != null) {

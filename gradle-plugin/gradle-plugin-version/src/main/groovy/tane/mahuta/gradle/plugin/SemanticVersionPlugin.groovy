@@ -1,6 +1,5 @@
 package tane.mahuta.gradle.plugin
 
-import groovy.transform.CompileStatic
 import org.gradle.api.Plugin
 import org.gradle.api.internal.project.ProjectInternal
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport
@@ -35,15 +34,20 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
         versionExtension.setComparatorClosure({ v1, v2 -> v1 <=> v2 })
         versionExtension.setReleaseTransformerClosure(this.&transformToRelease)
         versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport)
-
+        versionExtension.setNextDevelopmentTransformerClosure(this.&transformNextDevelopment)
     }
 
     private SemanticVersion transformToRelease(@Nonnull final SemanticVersion v) {
         new DefaultSemanticVersion(v.major, v.minor, v.micro, v.isSnapshot() ? null : v.qualifier)
     }
 
+    private SemanticVersion transformNextDevelopment(@Nonnull final SemanticVersion v) {
+        new DefaultSemanticVersion(v.major, v.minor + 1, v.micro, "SNAPSHOT")
+    }
+
     @Nonnull
-    private SemanticVersion transformReleaseForReport(@Nonnull final SemanticVersion v, @Nonnull final ApiCompatibilityReport report) {
+    private SemanticVersion transformReleaseForReport(
+            @Nonnull final SemanticVersion v, @Nonnull final ApiCompatibilityReport report) {
         int major = v.major, minor = v.minor
         Integer micro = v.micro
         if (!report.definiteIncompatibleClasses.isEmpty()) {

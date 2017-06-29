@@ -6,7 +6,7 @@ import tane.mahuta.buildtools.dependency.ArtifactResolver
 import tane.mahuta.buildtools.dependency.ArtifactWithClasspath
 import tane.mahuta.buildtools.dependency.GAVCDescriptor
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
-import tane.mahuta.gradle.plugin.release.GradleAdapter
+import tane.mahuta.gradle.plugin.release.GradleDomainObjectAdapter
 
 import javax.annotation.Nonnull
 /**
@@ -27,7 +27,7 @@ class GradleArtifactResolver implements ArtifactResolver {
         final configuration = descriptor.with {
             project.configurations.detachedConfiguration(project.dependencies.create(group: group, name: artifact, version: version, classifier: classifier)).resolvedConfiguration
         }
-        GradleAdapter.instance.createArtifactWithClasspath(descriptor, configuration.resolvedArtifacts)
+        GradleDomainObjectAdapter.instance.createArtifactWithClasspath(descriptor, configuration.resolvedArtifacts)
     }
 
     @Override

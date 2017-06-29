@@ -56,7 +56,7 @@ class ReleaseVersionMatchesApiCompatibilityCheckTest extends AbstractReleaseStep
         and:
         ReleaseVersionMatchesApiCompatibilityCheck.instance.apply(artifactRelease, infrastructure)
         then:
-        0 * infrastructure.versionHandler./.+/(_)
+        0 * infrastructure.versionHandler.toNextReleaseVersion(_, _)
         0 * infrastructure.artifactResolver./.+/(_)
 
         and:

@@ -24,14 +24,21 @@ public class FunctionalVersionHandler<V> implements VersionHandler<V> {
 
     @NonNull
     private final BiFunction<V, ApiCompatibilityReport, V> toReleaseVersionWithReportHandler;
+
     @NonNull
     private final Function<V, V> toReleaseVersionHandler;
+
+    @NonNull
+    private final Function<V, V> toNextDevelopmentVersionHandler;
+
     @NonNull
     @Delegate
     private final VersionParser<V> parser;
+
     @NonNull
     @Getter(onMethod = @__({@Nonnull, @Override}))
     private final Comparator<V> comparator;
+
     @NonNull
     @Getter(onMethod = @__({@Nonnull, @Override}))
     private final VersionStorage storage;
@@ -44,8 +51,14 @@ public class FunctionalVersionHandler<V> implements VersionHandler<V> {
 
     @Nonnull
     @Override
-    public V toReleaseVersion(@Nonnull V version) {
+    public V toReleaseVersion(@Nonnull final V version) {
         return toReleaseVersionHandler.apply(version);
+    }
+
+    @Nonnull
+    @Override
+    public V toNextDevelopmentVersion(@Nonnull final V version) {
+        return toNextDevelopmentVersionHandler.apply(version);
     }
 
 }

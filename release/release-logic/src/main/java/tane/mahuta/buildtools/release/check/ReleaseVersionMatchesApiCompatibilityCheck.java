@@ -9,9 +9,9 @@ import tane.mahuta.buildtools.dependency.Artifact;
 import tane.mahuta.buildtools.dependency.ArtifactWithClasspath;
 import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor;
+import tane.mahuta.buildtools.release.AbstractGuardedReleaseStep;
 import tane.mahuta.buildtools.release.ArtifactRelease;
 import tane.mahuta.buildtools.release.ReleaseInfrastructure;
-import tane.mahuta.buildtools.release.ReleaseStep;
 import tane.mahuta.buildtools.release.reporting.Severity;
 
 import javax.annotation.Nonnull;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Slf4j
-public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
+public class ReleaseVersionMatchesApiCompatibilityCheck extends AbstractGuardedReleaseStep {
 
     private static final class InstanceHolder {
         private static final ReleaseVersionMatchesApiCompatibilityCheck INSTANCE = new ReleaseVersionMatchesApiCompatibilityCheck();
@@ -41,7 +41,9 @@ public class ReleaseVersionMatchesApiCompatibilityCheck implements ReleaseStep {
     }
 
     @Override
-    public void apply(@Nonnull ArtifactRelease release, @Nonnull ReleaseInfrastructure releaseInfrastructure) {
+    protected void doApply(@Nonnull final ArtifactRelease release,
+                        @Nonnull final ReleaseInfrastructure releaseInfrastructure,
+                        @Nonnull final Object version) {
 
         if (release.getLocalFile() == null) {
             log.debug("releaseVersionMatchesAtLeastApiCompatibility: Release does not provide an artifact, skipping check.");

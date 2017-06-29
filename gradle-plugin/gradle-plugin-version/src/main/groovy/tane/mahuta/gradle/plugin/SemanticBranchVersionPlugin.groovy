@@ -31,6 +31,7 @@ class SemanticBranchVersionPlugin implements Plugin<Project> {
         versionExtension.parser = DefaultSemanticBranchVersionParser.instance
         versionExtension.setReleaseTransformerClosure(this.&transformToRelease.curry(versionExtension.releaseTransformer))
         versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport.curry(versionExtension.releaseTransformerForReport))
+        versionExtension.setNextDevelopmentTransformer(this.&transformToNextDevelopmentVersion.curry(versionExtension.nextDevelopmentTransformer))
 
     }
 
@@ -47,6 +48,14 @@ class SemanticBranchVersionPlugin implements Plugin<Project> {
             @Nonnull final BiFunction<SemanticVersion, ApiCompatibilityReport, SemanticVersion> original,
             @Nonnull final SemanticBranchVersion v, @Nonnull final ApiCompatibilityReport report) {
         final SemanticVersion transformed = original.apply(v, report)
+        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, v.&getBranchQualifier, transformed.qualifier)
+    }
+
+    @Nonnull
+    private SemanticBranchVersion transformToNextDevelopmentVersion(
+            @Nonnull final Function<SemanticVersion, SemanticVersion> original,
+            @Nonnull final SemanticBranchVersion v) {
+        final SemanticVersion transformed = original.apply(v)
         new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, v.&getBranchQualifier, transformed.qualifier)
     }
 

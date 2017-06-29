@@ -36,6 +36,14 @@ public interface VersionHandler<V> extends VersionParser<V> {
     V toReleaseVersion(@Nonnull V version);
 
     /**
+     * Get the next development iteration version.
+     * @param version the current version
+     * @return the next development version
+     */
+    @Nonnull
+    V toNextDevelopmentVersion(@Nonnull V version);
+
+    /**
      * @return the storage for the version
      */
     @Nonnull

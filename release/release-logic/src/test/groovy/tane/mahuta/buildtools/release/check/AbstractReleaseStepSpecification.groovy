@@ -6,14 +6,12 @@ import spock.lang.Specification
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportBuilder
 import tane.mahuta.buildtools.dependency.ArtifactResolver
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
-import tane.mahuta.buildtools.release.ArtifactRelease
-import tane.mahuta.buildtools.release.DefaultReleaseInfrastructure
-import tane.mahuta.buildtools.release.ReleaseInfrastructure
-import tane.mahuta.buildtools.release.VersionHandler
+import tane.mahuta.buildtools.release.*
 import tane.mahuta.buildtools.release.reporting.ReleaseProblem
 import tane.mahuta.buildtools.vcs.VcsAccessor
 import tane.mahuta.buildtools.vcs.VcsFlowConfig
 import tane.mahuta.buildtools.version.VersionStorage
+
 /**
  * @author christian.heike@icloud.com
  * Created on 23.06.17.
@@ -59,6 +57,11 @@ abstract class AbstractReleaseStepSpecification extends Specification {
     final ApiCompatibilityReportBuilder.Factory apiCompatibilityFactory = Mock(ApiCompatibilityReportBuilder.Factory)
 
     /**
+     * the {@link BuildToolAdapter} mock
+     */
+    private final BuildToolAdapter buildToolAdapter = Mock(BuildToolAdapter)
+
+    /**
      * the {@link ReleaseInfrastructure} bundling the mocks
      */
     protected final ReleaseInfrastructure infrastructure = DefaultReleaseInfrastructure.builder().vcs(vcs)
@@ -66,6 +69,7 @@ abstract class AbstractReleaseStepSpecification extends Specification {
             .versionHandler(versionHandler)
             .artifactResolver(artifactResolver)
             .apiCompatibilityReportBuilderFactory(apiCompatibilityFactory)
+            .buildToolAdapter(buildToolAdapter)
             .build()
 
     /**
@@ -86,5 +90,6 @@ abstract class AbstractReleaseStepSpecification extends Specification {
             problems << b.build()
         }
         artifactRelease.getProblems() >> problems
+        this.versionHandler.toReleaseVersion(_) >> "1.0.0"
     }
 }

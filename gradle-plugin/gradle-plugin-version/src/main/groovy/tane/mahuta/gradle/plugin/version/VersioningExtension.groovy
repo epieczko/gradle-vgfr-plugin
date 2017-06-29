@@ -35,17 +35,21 @@ class VersioningExtension {
     VersionParser<?> parser
 
     /**
-     * The release transformer
+     * The release version transformer
      */
     Function<?, ?> releaseTransformer
     /**
-     * The release transformer for an {@link ApiCompatibilityReport}
+     * The release version transformer for an {@link ApiCompatibilityReport}
      */
     BiFunction<?, ApiCompatibilityReport, ?> releaseTransformerForReport
     /**
      * The comparator for parsed versions
      */
     Comparator<?> comparator
+    /**
+     * The next development iteration version transformer
+     */
+    Function<?, ?> nextDevelopmentTransformer
 
     /**
      * Creates a new extension for the project.
@@ -116,6 +120,21 @@ class VersioningExtension {
             @Override
             Object apply(@Nonnull final Object o, @Nonnull final ApiCompatibilityReport compatibilityReport) {
                 return transformer.call(o, compatibilityReport)
+            }
+        }
+    }
+
+    /**
+     * Set a closure for transforming the version to a release version.
+     * @param transformer the transformation closure
+     */
+    void setNextDevelopmentTransformerClosure(@Nonnull
+                                              @ClosureParams(value = FromString, options = ["java.lang.Object"])
+                                              final Closure<?> transformer) {
+        this.nextDevelopmentTransformer = new Function<Object, Object>() {
+            @Override
+            Object apply(@Nonnull final Object o) {
+                return transformer.call(o)
             }
         }
     }

@@ -3,6 +3,7 @@ package tane.mahuta.gradle.plugin.release
 import groovy.transform.CompileStatic
 import org.gradle.api.Project
 import org.gradle.api.artifacts.PublishArtifact
+import org.gradle.api.internal.project.ProjectInternal
 import tane.mahuta.buildtools.apilyzer.clirr.ClirrApiCompatibilityReportBuilder
 import tane.mahuta.buildtools.dependency.ArtifactResolver
 import tane.mahuta.buildtools.release.ArtifactRelease
@@ -26,13 +27,15 @@ import javax.annotation.Nullable
 @CompileStatic
 class ReleaseExtension {
 
-    private final Project project
+    private final ProjectInternal project
     private final ArtifactResolver artifactResolver
 
     private ReleaseInfrastructure releaseInfrastructure
     private Set<ArtifactRelease> artifactReleases
 
-    ReleaseExtension(@Nonnull final Project project) {
+    List<String> releaseTasks = []
+
+    ReleaseExtension(@Nonnull final ProjectInternal project) {
         this.project = project
         this.artifactResolver = new GradleArtifactResolver(project)
     }
@@ -66,6 +69,7 @@ class ReleaseExtension {
         DefaultReleaseInfrastructure.builder().artifactResolver(artifactResolver)
                 .versionHandler(factorVersionHandler())
                 .vcs(vcs)
+                .buildToolAdapter(new GradleBuildAdapter(project))
                 .apiCompatibilityReportBuilderFactory({ -> new ClirrApiCompatibilityReportBuilder() })
                 .versionStorage(versionExtension.storage)
                 .build()
@@ -83,6 +87,7 @@ class ReleaseExtension {
                 .storage(versionExtension.storage)
                 .toReleaseVersionHandler(versionExtension.releaseTransformer)
                 .toReleaseVersionWithReportHandler(versionExtension.releaseTransformerForReport)
+        .toNextDevelopmentVersionHandler(versionExtension.nextDevelopmentTransformer)
                 .comparator(versionExtension.comparator).build()
     }
 
@@ -91,7 +96,7 @@ class ReleaseExtension {
         (project.configurations
                 .collect { it.artifacts }
                 .flatten() as Collection<PublishArtifact>)
-                .collect { GradleAdapter.instance.createArtifactRelease(project, it) } as Set<ArtifactRelease>
+                .collect { GradleDomainObjectAdapter.instance.createArtifactRelease(project, it) } as Set<ArtifactRelease>
     }
 
     @Nullable

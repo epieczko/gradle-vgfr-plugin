@@ -26,7 +26,7 @@ import javax.annotation.Nullable
  */
 @CompileStatic
 @Singleton
-class GradleAdapter {
+class GradleDomainObjectAdapter {
 
     /**
      * Factors the {@link Artifact} for a {@link ResolvedArtifact}.
@@ -113,7 +113,7 @@ class GradleAdapter {
         final dependencyContainers = findConfigurations(project, ['compile']).collect {
 
             final Collection<Artifact> dependencies = it.resolvedConfiguration.resolvedArtifacts
-                    .collect(tane.mahuta.gradle.plugin.release.GradleAdapter.instance.&createArtifact)
+                    .collect(GradleDomainObjectAdapter.instance.&createArtifact)
 
             classpathDependencies.addAll(dependencies)
 

@@ -20,6 +20,7 @@ class FunctionalVersionHandlerTest extends Specification {
         setup:
         final releaseReportMock = Mock(BiFunction)
         final releaseMock = Mock(Function)
+        final nextDevelopmentMock = Mock(Function)
         final parser = Mock(VersionParser)
         final comparator = Mock(Comparator)
         final storage = Mock(VersionStorage)
@@ -27,6 +28,7 @@ class FunctionalVersionHandlerTest extends Specification {
                 .parser(parser)
                 .toReleaseVersionWithReportHandler(releaseReportMock)
                 .toReleaseVersionHandler(releaseMock)
+                .toNextDevelopmentVersionHandler(nextDevelopmentMock)
                 .comparator(comparator)
                 .storage(storage)
                 .build()
@@ -46,6 +48,13 @@ class FunctionalVersionHandlerTest extends Specification {
         actual == "A"
 
         when:
+        actual = handler.toNextDevelopmentVersion("Z")
+        then:
+        nextDevelopmentMock.apply("Z") >> "B"
+        and:
+        actual == "B"
+
+        when:
         actual = handler.toNextReleaseVersion("Z", Mock(ApiCompatibilityReport))
         then:
         releaseReportMock.apply("Z", _) >> "Q"
@@ -56,6 +65,5 @@ class FunctionalVersionHandlerTest extends Specification {
         handler.comparator.is(comparator)
         handler.storage.is(storage)
     }
-
 
 }

@@ -21,24 +21,23 @@ class DefaultReleaseInfrastructureTest extends Specification {
         final resolver = Mock(ArtifactResolver)
         final vcs = Mock(VcsAccessor)
         final storage = Mock(VersionStorage)
+        final buildTool = Mock(BuildToolAdapter)
 
         when:
         final actual = DefaultReleaseInfrastructure.builder()
                 .apiCompatibilityReportBuilderFactory(reportFactory)
                 .artifactResolver(resolver)
                 .vcs(vcs)
+                .buildToolAdapter(buildTool)
                 .versionStorage(storage)
                 .versionHandler(handler).build()
         then:
         actual.apiCompatibilityReportBuilderFactory.is(reportFactory)
-        and:
         actual.artifactResolver.is(resolver)
-        and:
         actual.vcs.is(vcs)
-        and:
         actual.versionHandler.is(handler)
-        and:
         actual.versionStorage.is(storage)
+        actual.buildToolAdapter.is(buildTool)
     }
 
 }

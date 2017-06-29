@@ -41,4 +41,8 @@ public class DefaultReleaseInfrastructure implements ReleaseInfrastructure {
     @Getter(onMethod = @__({@Override, @Nonnull}))
     private final ApiCompatibilityReportBuilder.Factory apiCompatibilityReportBuilderFactory;
 
+    @NonNull
+    @Getter(onMethod = @__({@Override, @Nonnull}))
+    private final BuildToolAdapter buildToolAdapter;
+
 }
