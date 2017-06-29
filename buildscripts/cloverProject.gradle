@@ -3,3 +3,5 @@ apply plugin: 'com.bmuschko.clover'
 dependencies {
     clover 'org.openclover:clover:4.2.0'
 }
+
+tasks.withType(Test).each{ it.finalizedBy tasks.cloverGenerateReport }
