@@ -38,6 +38,7 @@ class ReleasePlugin implements Plugin<Project> {
 
         target.allprojects.each {
             it.extensions.create(EXTENSION, ReleaseExtension, it)
+            target.logger.info("Created release extension for {}", it)
         }
 
         final releaseCheckTask = target.task(TASK_RELEASE_CHECK, type: ReleaseCheckReportTask).dependsOn(
@@ -65,7 +66,7 @@ class ReleasePlugin implements Plugin<Project> {
 
     static Task createCheckTask(@Nonnull final Project project,
                                 @Nonnull final ReleaseStep releaseStep) {
-        final String name = releaseStep.getClass().getName().replaceAll(/Check$/, "")
+        final String name = releaseStep.getClass().simpleName.replaceAll(/Check$/, "")
         createStepTask(project, TASK_RELEASE_CHECK + name.capitalize(), releaseStep)
     }
 

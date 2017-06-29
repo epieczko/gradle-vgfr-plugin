@@ -1,0 +1,8 @@
+plugins {
+    id 'tane.mahuta.gradle.semver-branch-plugin'
+    id 'tane.mahuta.gradle.release-plugin'
+}
+
+subprojects {
+    apply plugin: 'java'
+}

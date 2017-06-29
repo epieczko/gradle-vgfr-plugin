@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 
 /**
- * Implementation of {@link VersionStorageFactory} for {@code gradle.storage} file.
+ * Implementation of {@link VersionStorageFactory} for {@code gradle.properties} file.
  *
  * @author christian.heike@icloud.com
  *         Created on 28.05.17.
@@ -16,7 +16,7 @@ public class GradlePropertiesProjectVersionStorageFactory extends AbstractProper
     @Override
     @Nullable
     protected File propertyVersionFileIn(@Nonnull final File directory) {
-        return new File(directory, "gradle.storage");
+        return new File(directory, "gradle.properties");
     }
 
     @Override

@@ -1,7 +1,6 @@
 package tane.mahuta.gradle.plugin.release
 
 import groovy.transform.CompileStatic
-import org.gradle.api.Project
 import org.gradle.api.artifacts.PublishArtifact
 import org.gradle.api.internal.project.ProjectInternal
 import tane.mahuta.buildtools.apilyzer.clirr.ClirrApiCompatibilityReportBuilder
@@ -17,7 +16,6 @@ import tane.mahuta.gradle.plugin.version.VersioningExtension
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
-
 /**
  * Extension for the {@link tane.mahuta.gradle.plugin.ReleasePlugin}.
  *
@@ -53,7 +51,7 @@ class ReleaseExtension {
      */
     @Nonnull
     ReleaseInfrastructure getInfrastructure() {
-        releaseInfrastructure = releaseInfrastructure ?: factorReleaseInfrastructure()
+        releaseInfrastructure = (releaseInfrastructure ?: factorReleaseInfrastructure()) as ReleaseInfrastructure
     }
 
     /**
@@ -61,7 +59,7 @@ class ReleaseExtension {
      */
     @Nonnull
     Set<ArtifactRelease> getArtifactReleases() {
-        artifactReleases = artifactReleases ?: factorArtifactReleases()
+        artifactReleases = (artifactReleases ?: factorArtifactReleases()) as Set<ArtifactRelease>
     }
 
     @Nonnull

@@ -39,7 +39,7 @@ class ReleaseExtensionTask extends AbstractTask {
     void invokeStep(@Nonnull final ReleaseStep step) {
         project.allprojects { p ->
             final extension = releaseExtensionOf(p)
-            if (extension != null) {
+            if (extension == null) {
                 throw new InvalidUserCodeException("The ${p} has no release extension applied, this is probably due to a wrong configuration.")
             }
             extension.artifactReleases.each(step.&apply.ncurry(1, extension.infrastructure))

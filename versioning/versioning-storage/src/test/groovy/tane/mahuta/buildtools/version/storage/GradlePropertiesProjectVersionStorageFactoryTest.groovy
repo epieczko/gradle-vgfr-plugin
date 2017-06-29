@@ -20,7 +20,7 @@ class GradlePropertiesProjectVersionStorageFactoryTest extends Specification {
 
     def "propertyVersionFileIn returns gradle.properties"() {
         expect:
-        storageFactory.propertyVersionFileIn(folder.getRoot()) == new File(folder.getRoot(), "gradle.storage")
+        storageFactory.propertyVersionFileIn(folder.getRoot()) == new File(folder.getRoot(), "gradle.properties")
     }
 
     def "propertyName returns version"() {

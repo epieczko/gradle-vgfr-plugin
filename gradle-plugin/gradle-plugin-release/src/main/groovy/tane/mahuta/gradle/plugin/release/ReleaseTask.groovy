@@ -45,7 +45,7 @@ class ReleaseTask extends ReleaseExtensionTask {
         final extension = releaseExtensionOf(project)
         final artifactRelease = createStubArtifactRelease()
         final infrastructure = extension.infrastructure
-        steps?.findAll { it != null }?.each { step ->
+        steps?.findAll{ it != null }?.each { ReleaseStep step ->
             if (!artifactRelease.getProblems().isEmpty()) {
                 step.apply(artifactRelease, infrastructure)
             }
@@ -91,5 +91,5 @@ class ReleaseTask extends ReleaseExtensionTask {
             File getLocalFile() { project.buildFile }
         }
     }
-   
+
 }

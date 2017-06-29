@@ -23,8 +23,8 @@ public class GradlePropertiesFile implements Map<Object, Object> {
     }
 
     private void storeProperties() {
-        try (FileWriter w = new FileWriter(new File(testRule.getRoot(), "gradle.storage"))) {
-            properties.store(w, "Test gradle.storage");
+        try (FileWriter w = new FileWriter(new File(testRule.getRoot(), "gradle.properties"))) {
+            properties.store(w, "Test gradle.properties");
         } catch (IOException e) {
             throw new IllegalStateException("Could not write property file");
         }

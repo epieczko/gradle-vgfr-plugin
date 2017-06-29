@@ -70,7 +70,7 @@ class GradleDomainObjectAdapter {
     ArtifactWithClasspath createArtifactWithClasspath(
             @Nonnull final GAVCDescriptor descriptor, @Nonnull final Set<ResolvedArtifact> resolvedArtifacts) {
         final matchingArtifact = resolvedArtifacts.find(this.&matchesDescriptor.curry(descriptor))
-        createArtifactWithClasspath(descriptor, matchingArtifact?.file, resolvedArtifacts)
+        createArtifactWithClasspath(descriptor, (matchingArtifact as ResolvedArtifact)?.file, resolvedArtifacts)
     }
 
     /**
