@@ -42,7 +42,7 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
     }
 
     private SemanticVersion transformNextDevelopment(@Nonnull final SemanticVersion v) {
-        new DefaultSemanticVersion(v.major, v.minor + 1, v.micro, "SNAPSHOT")
+        new DefaultSemanticVersion(v.major, v.minor + 1, v.micro != 0 ? 0 : null, "SNAPSHOT")
     }
 
     @Nonnull

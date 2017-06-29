@@ -93,5 +93,23 @@ class SemanticVersionPluginTest extends Specification {
         1 | 1 | '1.2.3'          | '2.0.0'
     }
 
+    @Unroll
+    def 'toNextDevelopmentVersion(#version) returns #expectedVersion'() {
+        setup:
+        project.version = version
+        project.apply plugin: SemanticVersionPlugin
+
+        expect:
+        project.extensions.versioning.nextDevelopmentTransformer.apply(project.version) == DefaultSemanticVersionParser.instance.parse(expectedVersion, project.projectDir)
+
+        where:
+        version          | expectedVersion
+        '1.2.3-SNAPSHOT' | '1.3.0-SNAPSHOT'
+        '1.2.3'          | '1.3.0-SNAPSHOT'
+        '1.2.3-RELEASE'  | '1.3.0-SNAPSHOT'
+        '1.2-SNAPSHOT'   | '1.3-SNAPSHOT'
+        '1.2'            | '1.3-SNAPSHOT'
+    }
+
 
 }
