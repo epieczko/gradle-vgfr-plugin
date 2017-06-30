@@ -1,0 +1,28 @@
+plugins {
+    id 'maven'
+    id 'tane.mahuta.gradle.release-plugin'
+    id 'tane.mahuta.gradle.semver-branch-plugin'
+}
+
+
+final localMavenRepository = new File(rootProject.projectDir, ".repository").toURI().toURL().toExternalForm().replace('file:/', 'file://localhost/')
+println "Local maven repository: ${localMavenRepository}"
+
+allprojects {
+    group = 'test.group'
+    repositories {
+        jcenter()
+    }
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: localMavenRepository)
+            }
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    version = rootProject.version
+}

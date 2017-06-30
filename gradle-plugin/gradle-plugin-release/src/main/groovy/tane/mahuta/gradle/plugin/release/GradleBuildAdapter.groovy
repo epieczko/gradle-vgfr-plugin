@@ -8,7 +8,6 @@ import tane.mahuta.buildtools.release.BuildToolAdapter
 import tane.mahuta.gradle.plugin.version.VersioningExtension
 
 import javax.annotation.Nonnull
-
 /**
  * The gradle implementation for {@link BuildToolAdapter}.
  * @author christian.heike@icloud.com
@@ -42,7 +41,7 @@ class GradleBuildAdapter implements BuildToolAdapter {
         startParameter.setCurrentDir(project.projectDir)
         startParameter.setProjectDir(project.projectDir)
         startParameter.setTaskNames(tasks)
-        final build = buildFactory.nestedInstanceWithNewSession(startParameter)
+        final build = buildFactory.nestedInstance(startParameter)
         try {
             build.run()
         } finally {

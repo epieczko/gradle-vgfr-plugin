@@ -62,6 +62,9 @@ class VcsAccessorTest extends Specification {
 
             @Override
             void checkout(@Nonnull String branch) {}
+
+            @Override
+            void pushTags() {}
         }
     }
 

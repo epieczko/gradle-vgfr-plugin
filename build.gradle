@@ -22,6 +22,10 @@ repositories {
     mavenCentral()
 }
 
+allprojects {
+    apply plugin: 'maven'
+}
+
 apply from: file('buildscripts/cloverProject.gradle')
 
 subprojects {

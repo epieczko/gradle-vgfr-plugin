@@ -4,7 +4,9 @@ dependencies {
     clover 'org.openclover:clover:4.2.0'
 }
 
-tasks.withType(Test).each { it.finalizedBy tasks.cloverGenerateReport }
+tasks.withType(Test).each {
+    it.finalizedBy tasks.cloverGenerateReport
+}
 tasks.whenTaskAdded {
     if (it instanceof Test) {
         it.finalizedBy tasks.cloverGenerateReport

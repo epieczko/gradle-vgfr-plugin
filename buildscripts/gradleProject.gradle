@@ -19,34 +19,40 @@ if (descriptors.isFile()) {
 sourceSets {
     integrationTest {
         java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDirs = [file('src/integration-test/java')]
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDirs = [file('src/integrationTest/java')]
         }
         groovy {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDirs = [file('src/integration-test/groovy')]
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDirs = [file('src/integrationTest/groovy')]
         }
-        resources.srcDirs = [file('src/integration-test/resources')]
+        resources.srcDirs = [file('src/integrationTest/resources')]
     }
 }
 
 configurations {
-    integrationTestRuntime.extendsFrom testRuntime
     integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
 }
 
 dependencies {
     integrationTestCompile gradleTestKit()
 }
 
-tasks.check.dependsOn task('integrationTest', type: Test) {
+tasks.check.dependsOn task('integrationTest', type: Test, description: 'Runs the integration tests.', group: 'Verification') {
+    dependsOn tasks.integrationTestClasses
     mustRunAfter tasks.test
+    classpath += sourceSets.integrationTest.runtimeClasspath
+    classpath += sourceSets.integrationTest.runtimeClasspath
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath + configurations.clover.asFileTree
 }
 
 clover {
-    excludeTasks = ['integrationTest']
+    excludeTasks = ['integrationTest'] // For the moment I can't get to work :(
+    additionalTestSourceSet {
+        srcDirs = sourceSets.integrationTest.allSource.srcDirs
+        classesDir = sourceSets.integrationTest.output.classesDir
+    }
 }

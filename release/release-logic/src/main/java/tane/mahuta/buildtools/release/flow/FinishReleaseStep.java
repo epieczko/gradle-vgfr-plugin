@@ -33,5 +33,6 @@ public class FinishReleaseStep extends AbstractGuardedReleaseStep {
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
                            @Nonnull final Object version) throws Exception {
         releaseInfrastructure.getVcs().finishReleaseBranch(version.toString());
+        releaseInfrastructure.getVcs().pushTags();
     }
 }

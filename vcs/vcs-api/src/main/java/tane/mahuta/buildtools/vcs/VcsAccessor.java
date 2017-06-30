@@ -95,4 +95,9 @@ public interface VcsAccessor {
                 .map(b -> b.startsWith(prefixOrBranchName))
                 .orElse(false);
     }
+
+    /**
+     * Pushs the local tags.
+     */
+    void pushTags();
 }

@@ -44,17 +44,18 @@ class ServiceLoaderVcsAccessorFactoryTest extends Specification {
 
                 @Override
                 void commitFiles(@Nonnull String message) {
-
                 }
 
                 @Override
                 void push() {
-
                 }
 
                 @Override
                 void checkout(@Nonnull String branch) {
+                }
 
+                @Override
+                void pushTags() {
                 }
             }
         }

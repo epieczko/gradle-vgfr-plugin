@@ -114,6 +114,12 @@ public class JGitFlowAccessor implements VcsAccessor {
         getJGitFlow().git().checkout().setName(branch).call();
     }
 
+    @Override
+    @SneakyThrows
+    public void pushTags() {
+        getJGitFlow().git().push().setPushTags().call();
+    }
+
     private JGitFlow getJGitFlow() {
         return jGitFlowWithConfig.getJGitFlow();
     }

@@ -163,6 +163,17 @@ class JGitFlowAccessorTest extends Specification {
         remote.repository.allRefs.keySet() == ['refs/heads/xy'] as Set
     }
 
+    def 'pushes tags'() {
+        setup:
+        jGitFlow.git().tag().setMessage("xy").setName("xy").call()
+
+        when:
+        accessor.pushTags()
+
+        then:
+        remote.repository.getRef("refs/tags/xy") != null
+    }
+
     private boolean isMerged(final String commitId) {
         def revWalk
         try {

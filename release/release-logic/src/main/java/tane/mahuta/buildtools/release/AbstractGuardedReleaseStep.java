@@ -20,7 +20,7 @@ public abstract class AbstractGuardedReleaseStep implements ReleaseStep {
         } catch (final Exception ex) {
             log.error("Failed to run step {}", getDescription(), ex);
             release.describeProblem(b -> b
-                    .severity(Severity.PROBLEM).messageFormat("Could not run release step {}: {} {}")
+                    .severity(Severity.PROBLEM).messageFormat("Could not run release step '{}': {} {}")
                     .formatArgs(getDescription(), ex.getClass(), ex.getMessage()));
         }
     }

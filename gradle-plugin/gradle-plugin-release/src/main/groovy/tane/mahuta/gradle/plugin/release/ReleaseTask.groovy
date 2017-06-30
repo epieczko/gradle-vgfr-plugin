@@ -46,10 +46,11 @@ class ReleaseTask extends ReleaseExtensionTask {
         final artifactRelease = createStubArtifactRelease()
         final infrastructure = extension.infrastructure
         steps?.findAll{ it != null }?.each { ReleaseStep step ->
-            if (!artifactRelease.getProblems().isEmpty()) {
+            if (artifactRelease.getProblems().isEmpty()) {
+                logger.info("Running step: {}", step.description)
                 step.apply(artifactRelease, infrastructure)
             }
-            if (!artifactRelease.getProblems().isEmpty()) {
+            if (artifactRelease.getProblems().isEmpty()) {
                 stepsCompleted << step.description
             } else {
                 stepsToBeDone << step.description

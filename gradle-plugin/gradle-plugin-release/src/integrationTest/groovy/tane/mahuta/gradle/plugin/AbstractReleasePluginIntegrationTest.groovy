@@ -7,6 +7,7 @@ import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
+
 /**
  * @author christian.heike@icloud.com
  * Created on 29.06.17.
@@ -14,6 +15,7 @@ import spock.lang.Specification
 @Slf4j
 abstract class AbstractReleasePluginIntegrationTest extends Specification {
 
+    @Rule TemporaryFolder remoteRepositoryDir = new TemporaryFolder()
     @Rule
     final TemporaryFolder testProjectDir = new TemporaryFolder()
 
@@ -22,13 +24,16 @@ abstract class AbstractReleasePluginIntegrationTest extends Specification {
                 .withProjectDir(testProjectDir.root)
                 .withPluginClasspath()
                 .withDebug(true)
+//                .forwardOutput()
     }
 
-    private Git git
+    private Git remoteGit, git
 
     def setup() {
-        git = Git.init().setDirectory(testProjectDir.root).call()
+        remoteGit = Git.init().setBare(true).setDirectory(remoteRepositoryDir.root).call()
+        git = Git.cloneRepository().setDirectory(testProjectDir.root).setURI(remoteRepositoryDir.root.toURI().toASCIIString()).call()
         log.info("Created git repository at {}", testProjectDir.root)
+        new File(testProjectDir.root, '.repository').mkdirs()
         new File(testProjectDir.root, ".gitignore") << """.gradle
 build
 .repository
@@ -57,9 +62,11 @@ build
         return new File(url.toURI())
     }
 
-def cleanup() {
-    testProjectDir.root.eachFile{ f ->
-        log.info(f.absolutePath.substring(testProjectDir.root.absolutePath.length()))
+    boolean hasLocalTag(final String name) {
+        git.repository.getRef("refs/tags/${name}") != null
     }
-}
+
+    boolean hasRemoteTag(final String name) {
+        remoteGit.repository.getRef("refs/tags/${name}") != null
+    }
 }
