@@ -3,6 +3,7 @@ package tane.mahuta.gradle.plugin.release
 import groovy.transform.CompileStatic
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.PublishArtifact
 import org.gradle.api.artifacts.ResolvedArtifact
 import tane.mahuta.buildtools.dependency.Artifact
@@ -31,11 +32,23 @@ class GradleDomainObjectAdapter {
     /**
      * Factors the {@link Artifact} for a {@link ResolvedArtifact}.
      * @param resolveArtifact the resolved artifact
+     * @param projectDependencies the internal dependency declarations
      * @return the artifact
      */
     @Nonnull
-    Artifact createArtifact(@Nonnull final ResolvedArtifact resolveArtifact) {
-        DefaultArtifact.builder().descriptor(createGAVDescriptor(resolveArtifact)).localFile(resolveArtifact.file).build()
+    Artifact createArtifact(@Nonnull final ResolvedArtifact resolveArtifact,
+                            @Nonnull final Set<ProjectDependency> projectDependencies = [] as Set) {
+        final descriptor = createGAVDescriptor(resolveArtifact)
+        final internal = projectDependencies.any {
+            it.name == descriptor.artifact &&
+                    it.group == descriptor.group &&
+                    it.version == descriptor.version
+        }
+        DefaultArtifact.builder()
+                .descriptor(descriptor)
+                .localFile(resolveArtifact.file)
+                .internalArtifact(internal)
+                .build()
     }
 
     /**
@@ -88,6 +101,7 @@ class GradleDomainObjectAdapter {
             @Nonnull final Set<ResolvedArtifact> resolvedArtifacts) {
 
         final matchingArtifact = resolvedArtifacts.find(this.&matchesDescriptor.curry(descriptor))
+
         final classpathDependencies = resolvedArtifacts.findAll {
             it != matchingArtifact
         }.collect(this.&createArtifact) as Set
@@ -106,20 +120,27 @@ class GradleDomainObjectAdapter {
      * @return the release
      */
     @Nonnull
-    ArtifactRelease createArtifactRelease(@Nonnull final Project project, @Nonnull final PublishArtifact artifact) {
+    ArtifactRelease createArtifactRelease(@Nonnull final Project project,
+                                          @Nonnull final PublishArtifact artifact) {
 
         final classpathDependencies = [] as Set
 
         final dependencyContainers = findConfigurations(project, ['compile']).collect {
 
+            final Set<ProjectDependency> projectDependencies = it.dependencies.findAll {
+                it instanceof ProjectDependency
+            }.collect { it as ProjectDependency } as Set
             final Collection<Artifact> dependencies = it.resolvedConfiguration.resolvedArtifacts
-                    .collect(GradleDomainObjectAdapter.instance.&createArtifact)
+                    .collect(GradleDomainObjectAdapter.instance.&createArtifact.ncurry(1, projectDependencies))
 
             classpathDependencies.addAll(dependencies)
-
-            DefaultDependencyContainer.builder().name(it.name).dependencies(dependencies.collect {
+            DefaultDependencyContainer.builder()
+                    .name(it.name)
+                    .externalDependencies(dependencies.findAll { !it.internalArtifact }.collect {
                 it.descriptor
-            } as Set).build()
+            } as Set)
+                    .internalDependencies(dependencies.findAll { it.internalArtifact }.collect { it.descriptor } as Set)
+                    .build()
         } as Set
 
         DefaultArtifactRelease.builder()

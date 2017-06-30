@@ -1,9 +1,9 @@
 package tane.mahuta.buildtools.dependency.simple;
 
 import lombok.*;
-import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 import tane.mahuta.buildtools.dependency.Artifact;
 import tane.mahuta.buildtools.dependency.ArtifactWithClasspath;
+import tane.mahuta.buildtools.dependency.GAVCDescriptor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,8 +27,9 @@ public class DefaultArtifactWithClasspath extends AbstractArtifact implements Ar
     @Builder
     protected DefaultArtifactWithClasspath(@Nonnull final GAVCDescriptor descriptor,
                                            @Nullable final File localFile,
-                                           @Nonnull final Set<? extends Artifact> classpathDependencies) {
-        super(descriptor, localFile);
+                                           @Nonnull final Set<? extends Artifact> classpathDependencies,
+                                           final boolean internalArtifact) {
+        super(descriptor, localFile, internalArtifact);
         this.classpathDependencies = classpathDependencies;
     }
 }

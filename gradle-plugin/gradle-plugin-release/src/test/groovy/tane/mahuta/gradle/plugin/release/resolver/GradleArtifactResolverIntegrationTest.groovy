@@ -8,6 +8,7 @@ import spock.lang.Unroll
 import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
 import tane.mahuta.gradle.plugin.OnlineCheck
 import tane.mahuta.gradle.plugin.ProjectBuilderTestRule
+
 /**
  * @author christian.heike@icloud.com
  * Created on 22.06.17.
@@ -52,7 +53,14 @@ class GradleArtifactResolverIntegrationTest extends Specification {
         'junit'            | 'junit'            | '4.14-SNAPSHOT'        | '4.12'                 | 1
         'org.json'         | 'json'             | '20160810'             | '20170516'             | 0
         'org.eclipse.jgit' | 'org.eclipse.jgit' | '4.7.0.201704051617-r' | '4.7.1.201706071930-r' | 7
+    }
 
+    @Requires({ OnlineCheck.online })
+    def 'latest release for not available returns null'() {
+        expect:
+        resolver.resolveLastReleaseArtifact(
+                DefaultGAVCDescriptor.builder().group('unknown').artifact('unknown').version('1.0.0').build()
+        ) == null
     }
 
 }

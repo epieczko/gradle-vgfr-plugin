@@ -86,7 +86,7 @@ class ReleaseExtensionIntegrationTest extends Specification {
         dependencyDescriptor.version == '2.4'
         dependencyDescriptor.classifier == null
         container.name == 'compile'
-        container.dependencies.size() == 1
+        container.externalDependencies.size() == 1
 
         expect:
         releases.is(extension.artifactReleases)

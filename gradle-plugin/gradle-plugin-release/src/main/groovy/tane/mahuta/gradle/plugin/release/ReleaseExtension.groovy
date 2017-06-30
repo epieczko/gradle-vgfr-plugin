@@ -101,7 +101,7 @@ class ReleaseExtension {
     private <E> E findExtension(@Nonnull final Class<E> extensionClass) {
         def curProject = project
         while (curProject) {
-            final extension = project.extensions.findByType(extensionClass)
+            final extension = curProject.extensions.findByType(extensionClass)
             if (extension) {
                 return extension
             }

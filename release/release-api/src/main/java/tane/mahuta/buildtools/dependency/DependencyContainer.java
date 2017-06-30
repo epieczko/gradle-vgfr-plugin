@@ -18,9 +18,13 @@ public interface DependencyContainer {
     String getName();
 
     /**
-     * @return the dependencies as {@link GAVCDescriptor}s
+     * @return the external (non-project) dependencies as {@link GAVCDescriptor}s
      */
     @Nonnull
-    Set<? extends GAVCDescriptor> getDependencies();
+    Set<? extends GAVCDescriptor> getExternalDependencies();
 
+    /**
+     * @return the internal (project) dependencies as {@link GAVCDescriptor}s
+     */
+    Set<? extends GAVCDescriptor> getInternalDependencies();
 }

@@ -41,4 +41,6 @@ public class DefaultArtifactRelease extends AbstractArtifactRelease {
     @Getter(onMethod = @__({@Nonnull, @Override}))
     private final Set<? extends DependencyContainer> dependencyContainers;
 
+    @Getter(onMethod = @__(@Override))
+    private final boolean internalArtifact;
 }

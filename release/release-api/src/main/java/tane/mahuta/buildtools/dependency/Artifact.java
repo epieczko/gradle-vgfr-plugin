@@ -24,4 +24,8 @@ public interface Artifact {
     @Nullable
     File getLocalFile();
 
+    /**
+     * @return {@code true} if this artifact is built by the project, {@code false} otherwise
+     */
+    boolean isInternalArtifact();
 }

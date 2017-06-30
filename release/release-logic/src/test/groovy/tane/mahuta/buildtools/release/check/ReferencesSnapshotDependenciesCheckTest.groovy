@@ -46,7 +46,7 @@ class ReferencesSnapshotDependenciesCheckTest extends AbstractReleaseStepSpecifi
             }
             Mock(DependencyContainer) {
                 getName() >> name
-                getDependencies() >> convertedDeps
+                getExternalDependencies() >> convertedDeps
             }
         } as Set)
     }

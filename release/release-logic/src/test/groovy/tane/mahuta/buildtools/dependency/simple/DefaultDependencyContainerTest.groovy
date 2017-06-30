@@ -11,14 +11,19 @@ class DefaultDependencyContainerTest extends Specification {
     def 'builder works'() {
         setup:
         final name = 'a'
-        final dependencies = [] as Set
+        final externalDependencies = [] as Set
+        final internalDependencies = [] as Set
 
         when:
-        final actual = DefaultDependencyContainer.builder().name(name).dependencies(dependencies).build()
+        final actual = DefaultDependencyContainer.builder()
+                .name(name)
+                .externalDependencies(externalDependencies)
+                .internalDependencies(internalDependencies)
+                .build()
         then:
         actual.name.is(name)
-        and:
-        actual.dependencies.is(dependencies)
+        actual.externalDependencies.is(externalDependencies)
+        actual.internalDependencies.is(internalDependencies)
     }
 
 }

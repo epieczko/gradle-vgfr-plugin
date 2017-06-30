@@ -35,7 +35,7 @@ public class ReferencesSnapshotDependenciesCheck extends AbstractGuardedReleaseS
                            @Nonnull final Object version) {
         release.getDependencyContainers().forEach(container -> {
 
-            final List<String> snapshotDependencies = container.getDependencies().stream()
+            final List<String> snapshotDependencies = container.getExternalDependencies().stream()
                     .filter(GAVCDescriptor::isSnapshot)
                     .map(GAVCDescriptor::toStringDescriptor)
                     .collect(Collectors.toList());

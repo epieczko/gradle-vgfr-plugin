@@ -29,7 +29,7 @@ class ReleaseCheckReportTask extends ReleaseExtensionTask {
             }
         }
         if (problemCount > 0) {
-            throw new InvalidUserDataException("Found ${problemCount} for the release, please consult the log.")
+            throw new InvalidUserDataException("Found ${problemCount} problems for the release, please consult the log.")
         }
     }
 

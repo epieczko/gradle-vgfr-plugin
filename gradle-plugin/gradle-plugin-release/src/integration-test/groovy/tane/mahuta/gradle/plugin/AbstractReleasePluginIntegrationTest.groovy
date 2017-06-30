@@ -7,7 +7,6 @@ import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
-
 /**
  * @author christian.heike@icloud.com
  * Created on 29.06.17.
@@ -19,7 +18,10 @@ abstract class AbstractReleasePluginIntegrationTest extends Specification {
     final TemporaryFolder testProjectDir = new TemporaryFolder()
 
     protected def getGradleRunner() {
-        GradleRunner.create().withProjectDir(testProjectDir.root).withDebug(true)
+        GradleRunner.create()
+                .withProjectDir(testProjectDir.root)
+                .withPluginClasspath()
+                .withDebug(true)
     }
 
     private Git git
@@ -27,7 +29,10 @@ abstract class AbstractReleasePluginIntegrationTest extends Specification {
     def setup() {
         git = Git.init().setDirectory(testProjectDir.root).call()
         log.info("Created git repository at {}", testProjectDir.root)
-        new File(testProjectDir.root, "readme.md") << "* Just a test"
+        new File(testProjectDir.root, ".gitignore") << """.gradle
+build
+.repository
+"""
         commit("Initial commit")
         git.checkout().setCreateBranch(true).setName("develop").call()
         log.info("Checked out development branch.")
@@ -52,5 +57,9 @@ abstract class AbstractReleasePluginIntegrationTest extends Specification {
         return new File(url.toURI())
     }
 
-
+def cleanup() {
+    testProjectDir.root.eachFile{ f ->
+        log.info(f.absolutePath.substring(testProjectDir.root.absolutePath.length()))
+    }
+}
 }

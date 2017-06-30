@@ -1,4 +1,6 @@
 package tane.mahuta.gradle.plugin
+
+import org.gradle.testkit.runner.TaskOutcome
 /**
  * @author christian.heike@icloud.com
  * Created on 29.06.17.
@@ -6,11 +8,9 @@ package tane.mahuta.gradle.plugin
 class ReleasePluginNormalReleaseTest extends AbstractReleasePluginIntegrationTest {
 
     def 'stub'() {
-        expect:
-        true
-        /*when:
+        when:
         final result = gradleRunner.withPluginClasspath().withArguments('release', '--stacktrace', '--info').build()
         then:
-        result.task(':release').outcome == SUCCESSFUL*/
+        result.task(':release').outcome == TaskOutcome.SUCCESS
     }
 }

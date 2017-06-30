@@ -16,11 +16,11 @@ class DefaultResolvedArtifactTest extends Specification {
         final descriptorMock = Mock(GAVCDescriptor)
         final file = new File('.')
         when:
-        final actual = DefaultArtifact.builder().descriptor(descriptorMock).localFile(file).build()
+        final actual = DefaultArtifact.builder().descriptor(descriptorMock).localFile(file).internalArtifact(true).build()
         then:
         actual.descriptor.is(descriptorMock)
-        and:
         actual.localFile.is(file)
+        actual.internalArtifact == true
     }
 
     def 'null throws exception'() {

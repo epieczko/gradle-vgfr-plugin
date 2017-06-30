@@ -26,4 +26,7 @@ public abstract class AbstractArtifact implements Artifact {
     @Getter(onMethod = @__({@Nullable, @Override}))
     private final File localFile;
 
+    @Getter(onMethod = @__(@Nonnull))
+    private final boolean internalArtifact;
+
 }

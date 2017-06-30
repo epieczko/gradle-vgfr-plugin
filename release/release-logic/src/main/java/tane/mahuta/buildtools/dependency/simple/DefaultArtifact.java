@@ -21,7 +21,7 @@ import java.io.File;
 public class DefaultArtifact extends AbstractArtifact {
 
     @Builder
-    protected DefaultArtifact(@Nonnull final GAVCDescriptor descriptor, @Nullable final File localFile) {
-        super(descriptor, localFile);
+    protected DefaultArtifact(@Nonnull final GAVCDescriptor descriptor, @Nullable final File localFile, final boolean internalArtifact) {
+        super(descriptor, localFile, internalArtifact);
     }
 }

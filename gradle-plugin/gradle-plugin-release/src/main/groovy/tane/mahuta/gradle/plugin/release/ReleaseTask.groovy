@@ -89,6 +89,11 @@ class ReleaseTask extends ReleaseExtensionTask {
 
             @Override
             File getLocalFile() { project.buildFile }
+
+            @Override
+            boolean isInternalArtifact() {
+                true
+            }
         }
     }
 

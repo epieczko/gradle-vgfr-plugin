@@ -25,6 +25,10 @@ public class DefaultDependencyContainer implements DependencyContainer {
 
     @NonNull
     @Getter(onMethod = @__({@Override, @Nonnull}))
-    private final Set<? extends GAVCDescriptor> dependencies;
+    private final Set<? extends GAVCDescriptor> externalDependencies;
+
+    @NonNull
+    @Getter(onMethod = @__({@Override, @Nonnull}))
+    private final Set<? extends GAVCDescriptor> internalDependencies;
 
 }

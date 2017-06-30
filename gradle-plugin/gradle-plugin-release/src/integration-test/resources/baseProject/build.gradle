@@ -1,8 +1,23 @@
 plugins {
     id 'tane.mahuta.gradle.semver-branch-plugin'
     id 'tane.mahuta.gradle.release-plugin'
+    id 'maven'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: new File(rootProject.projectDir, ".repository").toURI().toURL())
+            }
+        }
+    }
 }
 
 subprojects {
     apply plugin: 'java'
+    version = rootProject.version
 }

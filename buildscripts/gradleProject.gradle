@@ -44,5 +44,9 @@ dependencies {
 tasks.check.dependsOn task('integrationTest', type: Test) {
     mustRunAfter tasks.test
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
+    classpath = sourceSets.integrationTest.runtimeClasspath + configurations.clover.asFileTree
+}
+
+clover {
+    excludeTasks = ['integrationTest']
 }

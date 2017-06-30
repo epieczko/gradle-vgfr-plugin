@@ -1,6 +1,7 @@
 package tane.mahuta.gradle.plugin.release.resolver
 
 import groovy.transform.CompileStatic
+import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import tane.mahuta.buildtools.dependency.ArtifactResolver
 import tane.mahuta.buildtools.dependency.ArtifactWithClasspath
@@ -9,11 +10,13 @@ import tane.mahuta.buildtools.dependency.simple.DefaultGAVCDescriptor
 import tane.mahuta.gradle.plugin.release.GradleDomainObjectAdapter
 
 import javax.annotation.Nonnull
+
 /**
  * @author christian.heike@icloud.com
  * Created on 22.06.17.
  */
 @CompileStatic
+@Slf4j
 class GradleArtifactResolver implements ArtifactResolver {
 
     private final Project project
@@ -25,9 +28,13 @@ class GradleArtifactResolver implements ArtifactResolver {
     @Override
     ArtifactWithClasspath resolveArtifact(@Nonnull final GAVCDescriptor descriptor) {
         final configuration = descriptor.with {
-            project.configurations.detachedConfiguration(project.dependencies.create(group: group, name: artifact, version: version, classifier: classifier)).resolvedConfiguration
+            project.configurations.detachedConfiguration(project.dependencies.create(group: group, name: artifact, version: version, classifier: classifier)).resolvedConfiguration.lenientConfiguration
         }
-        GradleDomainObjectAdapter.instance.createArtifactWithClasspath(descriptor, configuration.resolvedArtifacts)
+        if (!configuration.unresolvedModuleDependencies.isEmpty()) {
+            log.warn("Could not resolve the following modules: {}", configuration.unresolvedModuleDependencies)
+            return null
+        }
+        GradleDomainObjectAdapter.instance.createArtifactWithClasspath(descriptor, configuration.artifacts)
     }
 
     @Override

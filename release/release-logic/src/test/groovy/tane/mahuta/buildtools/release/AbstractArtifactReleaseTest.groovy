@@ -4,9 +4,9 @@ import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
 import spock.lang.Subject
+import tane.mahuta.buildtools.dependency.Artifact
 import tane.mahuta.buildtools.dependency.DependencyContainer
 import tane.mahuta.buildtools.dependency.GAVCDescriptor
-import tane.mahuta.buildtools.dependency.Artifact
 import tane.mahuta.buildtools.release.reporting.Severity
 
 /**
@@ -29,6 +29,7 @@ class AbstractArtifactReleaseTest extends Specification {
             final Set<Artifact> classpathDependencies = [] as Set
             final GAVCDescriptor descriptor = descriptorMock
             final File localFile = new File(folder.root, "my.jar")
+            final boolean internalArtifact = true
         }
     }
 
