@@ -51,8 +51,4 @@ tasks.check.dependsOn task('integrationTest', type: Test, description: 'Runs the
 
 clover {
     excludeTasks = ['integrationTest'] // For the moment I can't get to work :(
-    additionalTestSourceSet {
-        srcDirs = sourceSets.integrationTest.allSource.srcDirs
-        classesDir = sourceSets.integrationTest.output.classesDir
-    }
 }

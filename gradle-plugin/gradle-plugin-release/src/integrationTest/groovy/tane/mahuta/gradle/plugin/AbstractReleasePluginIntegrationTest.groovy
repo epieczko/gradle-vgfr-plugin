@@ -15,7 +15,8 @@ import spock.lang.Specification
 @Slf4j
 abstract class AbstractReleasePluginIntegrationTest extends Specification {
 
-    @Rule TemporaryFolder remoteRepositoryDir = new TemporaryFolder()
+    @Rule
+    TemporaryFolder remoteRepositoryDir = new TemporaryFolder()
     @Rule
     final TemporaryFolder testProjectDir = new TemporaryFolder()
 
@@ -24,7 +25,10 @@ abstract class AbstractReleasePluginIntegrationTest extends Specification {
                 .withProjectDir(testProjectDir.root)
                 .withPluginClasspath()
                 .withDebug(true)
-//                .forwardOutput()
+    }
+
+    protected def getGradleReleaseRunner() {
+        gradleRunner.withArguments('release', '--stacktrace')
     }
 
     private Git remoteGit, git
@@ -68,5 +72,13 @@ build
 
     boolean hasRemoteTag(final String name) {
         remoteGit.repository.getRef("refs/tags/${name}") != null
+    }
+
+    File getImplementationFile() {
+        new File(testProjectDir.root, "impl/src/main/java/com/example/SomeImplementation.java")
+    }
+
+    File getApiFile() {
+        new File(testProjectDir.root, "api/src/main/java/com/example/SomeInterface.java")
     }
 }

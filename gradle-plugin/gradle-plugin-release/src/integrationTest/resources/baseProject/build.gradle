@@ -19,6 +19,14 @@ allprojects {
                 repository(url: localMavenRepository)
             }
         }
+        doLast {
+            project.configurations.default.artifacts.each{ artifact ->
+                project.copy {
+                    from (artifact.file)
+                    into "${localMavenRepository}/${project.group.replace('.', '/')}/${project.name}}/"
+                }
+            }
+        }
     }
 }
 

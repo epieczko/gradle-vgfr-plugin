@@ -7,14 +7,23 @@ import org.gradle.testkit.runner.TaskOutcome
  */
 class ReleasePluginNormalReleaseTest extends AbstractReleasePluginIntegrationTest {
 
-    def 'stub'() {
+    def 'create release'() {
         when:
-        final result = gradleRunner.withPluginClasspath().withArguments('release', '--stacktrace').build()
+        def result = gradleReleaseRunner.build()
         then:
         result.task(':release').outcome == TaskOutcome.SUCCESS // The release was successful
         and:
         hasLocalTag('version/1.0.0')
         and:
         hasRemoteTag('version/1.0.0')
+
+        when:
+        implementationFile.text = implementationFile.text.replace('String s', 'int s')
+        apiFile.text = apiFile.text.replace('String s', 'int s')
+        and:
+        result = gradleReleaseRunner.buildAndFail()
+        then:
+        result.task(':releaseCheck')?.outcome == TaskOutcome.FAILED
+        result.task(':release') == null // Not run
     }
 }
