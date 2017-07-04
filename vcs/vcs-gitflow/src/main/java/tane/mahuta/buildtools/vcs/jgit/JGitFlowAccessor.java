@@ -84,10 +84,10 @@ public class JGitFlowAccessor implements VcsAccessor {
     public boolean finishReleaseBranch(@Nonnull final String version) {
         if (isOnBranch(flowConfig.getHotfixBranchPrefix())) {
             log.debug("Finishing hotfix branch for version: {}", version);
-            return handleAndReturn(getJGitFlow().hotfixFinish(version));
+            return handleAndReturn(getJGitFlow().hotfixFinish(version).setMessage("Release ${version}").setPush(true));
         } else if (isOnBranch(flowConfig.getReleaseBranchPrefix())) {
             log.debug("Finishing release branch for version: {}", version);
-            return handleAndReturn(getJGitFlow().releaseFinish(version));
+            return handleAndReturn(getJGitFlow().releaseFinish(version).setMessage("Release ${version}").setPush(true));
         } else {
             log.error("Could not determine correct path to finish branch: {}", getBranch());
             return false;

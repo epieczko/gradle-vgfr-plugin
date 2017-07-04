@@ -16,7 +16,7 @@ import spock.lang.Specification
 abstract class AbstractReleasePluginIntegrationTest extends Specification {
 
     @Rule
-    TemporaryFolder remoteRepositoryDir = new TemporaryFolder()
+    final TemporaryFolder remoteRepositoryDir = new TemporaryFolder()
     @Rule
     final TemporaryFolder testProjectDir = new TemporaryFolder()
 
@@ -28,7 +28,7 @@ abstract class AbstractReleasePluginIntegrationTest extends Specification {
     }
 
     protected def getGradleReleaseRunner() {
-        gradleRunner.withArguments('release', '--stacktrace')
+        gradleRunner.withArguments('release', '--stacktrace', '--info').forwardOutput()
     }
 
     private Git remoteGit, git
@@ -47,7 +47,6 @@ build
         log.info("Checked out development branch.")
         final source = getResourceFile("/baseProject/build.gradle").parentFile
         FileUtils.copyDirectory(source, testProjectDir.root)
-        new File(testProjectDir.root, "gradle.properties") << "integrationTest=true\n"
         commit("Initial project")
     }
 
@@ -74,6 +73,19 @@ build
         remoteGit.repository.getRef("refs/tags/${name}") != null
     }
 
+    boolean hasLocalBranch(final String name) {
+        git.repository.getRef("refs/heads/${name}") != null
+    }
+
+    boolean hasRemoteBranch(final String name) {
+        remoteGit.repository.getRef("refs/heads/${name}") != null
+    }
+
+    boolean repositoryContains(final String group, final String name, final String version) {
+        final repoFile = new File(testProjectDir.root, ".repository/${group.replace('.', '/')}/${name}/${version}/${name}-${version}.jar")
+        repoFile.isFile()
+    }
+
     File getImplementationFile() {
         new File(testProjectDir.root, "impl/src/main/java/com/example/SomeImplementation.java")
     }
@@ -81,4 +93,15 @@ build
     File getApiFile() {
         new File(testProjectDir.root, "api/src/main/java/com/example/SomeInterface.java")
     }
+
+    File getGradlePropertiesFile() {
+        new File(testProjectDir.root, "gradle.properties")
+    }
+
+    Properties getGradleProperties() {
+        final Properties result = new Properties()
+        new File(testProjectDir.root, "gradle.properties").withReader { result.load(it) }
+        return result
+    }
+
 }

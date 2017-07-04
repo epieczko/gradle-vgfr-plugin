@@ -5,26 +5,23 @@ plugins {
 }
 
 
-final localMavenRepository = new File(rootProject.projectDir, ".repository").toURI().toURL().toExternalForm().replace('file:/', 'file://localhost/')
+final localMavenRepository = new File(rootProject.projectDir, ".repository").toURI().toURL().toExternalForm()
 println "Local maven repository: ${localMavenRepository}"
 
 allprojects {
+    apply plugin: 'maven'
+
     group = 'test.group'
+
     repositories {
         jcenter()
+        maven { url = localMavenRepository }
     }
+
     uploadArchives {
         repositories {
             mavenDeployer {
                 repository(url: localMavenRepository)
-            }
-        }
-        doLast {
-            project.configurations.default.artifacts.each{ artifact ->
-                project.copy {
-                    from (artifact.file)
-                    into "${localMavenRepository}/${project.group.replace('.', '/')}/${project.name}}/"
-                }
             }
         }
     }

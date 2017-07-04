@@ -111,8 +111,11 @@ class JGitFlowAccessorTest extends Specification {
         accessor.commitFiles("Changing a file")
         final head = accessor.revisionId
         accessor.finishReleaseBranch("1.2.3")
+
         then:
         accessor.branch == expectedFinishBranch
+        jGitFlow.git().repository.getRef("refs/heads/${expectedReleaseBranch}") == null
+        remote.repository.getRef("refs/heads/${expectedReleaseBranch}") == null
         and:
         isMerged(head)
 
