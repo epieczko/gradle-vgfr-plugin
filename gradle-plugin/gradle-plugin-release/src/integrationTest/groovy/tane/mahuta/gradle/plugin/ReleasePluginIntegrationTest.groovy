@@ -59,7 +59,7 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         gradleProperties.version == '1.2.0-SNAPSHOT'
     }
 
-    @Ignore("Resolution not yet ready")
+    @Ignore("First the resolution has to be fixed")
     def 'release fails when changing API'() {
         setup: 'creating the first release'
         buildRelease()
@@ -67,6 +67,21 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         implementationFile.text = implementationFile.text.replace('String s', 'int s')
         apiFile.text = apiFile.text.replace('String s', 'int s')
         git.commit().setAll(true).setMessage("Changing the API").call()
+
+        when: 'running the next release'
+        final result = gradleReleaseRunner.buildAndFail()
+
+        then: 'the release check will fail, and no release is being run'
+        result.task(':releaseCheck')?.outcome == TaskOutcome.FAILED
+        result.task(':release') == null // Not run
+    }
+
+    def 'release fails when already released'() {
+        setup: 'creating the first release'
+        buildRelease()
+        and: 'setting the old version'
+        gradlePropertiesFile.text = gradlePropertiesFile.text.replaceAll('1.1.0', '1.0.0')
+        git.commit().setAll(true).setMessage("Using the aready released version").call()
 
         when: 'running the next release'
         final result = gradleReleaseRunner.buildAndFail()

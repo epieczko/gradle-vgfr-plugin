@@ -51,9 +51,11 @@ class ReleasePlugin implements Plugin<Project> {
 
         target.allprojects.each {
             it.afterEvaluate { project ->
-                final Task check = project.tasks.findByName("check")
-                if (check) {
-                    releaseCheckTask.dependsOn(check)
+                ['check', 'assemble'].each {
+                    final Task dep = project.tasks.findByName(it)
+                    if (dep) {
+                        releaseCheckTask.dependsOn(dep)
+                    }
                 }
             }
         }

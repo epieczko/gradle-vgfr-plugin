@@ -19,7 +19,7 @@ class StorageTransformer extends ResponseDefinitionTransformer {
 
     @Override
     ResponseDefinition transform(Request request, ResponseDefinition responseDefinition, FileSource files, Parameters parameters) {
-        final String path = request.url?.startsWith("/") ? request.url : "/${request.url}"
+        final String path = normalizePath(request.url)
         if (request.method == RequestMethod.PUT) {
             contents[path] = request.body
         } else if (request.method == RequestMethod.GET) {
@@ -35,11 +35,16 @@ class StorageTransformer extends ResponseDefinitionTransformer {
     }
 
     boolean hasContent(final String path) {
-        return contents[path] != null
+        return contents[normalizePath(path)] != null
     }
 
     @Override
     String getName() {
         return getClass().getSimpleName()
     }
+
+    private static String normalizePath(final String path) {
+        !path?.startsWith('/') ? "/${path}" : path
+    }
+
 }
