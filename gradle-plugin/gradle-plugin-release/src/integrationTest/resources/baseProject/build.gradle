@@ -4,24 +4,19 @@ plugins {
     id 'tane.mahuta.gradle.semver-branch-plugin'
 }
 
-
-final localMavenRepository = new File(rootProject.projectDir, ".repository").toURI().toURL().toExternalForm()
-println "Local maven repository: ${localMavenRepository}"
-
 allprojects {
     apply plugin: 'maven'
 
     group = 'test.group'
 
     repositories {
-        jcenter()
-        maven { url = localMavenRepository }
+        maven { url = "http://localhost:${rootProject.properties['wireMockPort']}" }
     }
 
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: localMavenRepository)
+                repository(url: "http://localhost:${rootProject.properties['wireMockPort']}")
             }
         }
     }

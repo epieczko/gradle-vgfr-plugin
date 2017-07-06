@@ -1,0 +1,30 @@
+{
+  "id" : "8a3ece51-36e6-3bb6-bb1f-2c33f4382fa8",
+  "request" : {
+    "url" : "/maven2/org/apache/commons/commons-parent/39/commons-parent-39.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-39-commons-parent-39.pom-oES4S.xml",
+    "headers" : {
+      "x-amz-meta-last-modified-epoch" : "1440681285000",
+      "ETag" : "\"6ef191d426cf9e2d123b310a2b707f17\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 27 Aug 2015 13:14:45 GMT",
+      "X-Checksum-MD5" : "6ef191d426cf9e2d123b310a2b707f17",
+      "X-Checksum-SHA1" : "4bc32d3cda9f07814c548492af7bf19b21798d46",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "4c0519a64481cc9ba4285c3b0844aa7f07ea3ecbb983480a33474b1d9df25a74",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:18 GMT",
+      "Age" : "5891905",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2146-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 6",
+      "X-Timer" : "S1499344519.997831,VS0,VE0"
+    }
+  },
+  "uuid" : "8a3ece51-36e6-3bb6-bb1f-2c33f4382fa8"
+}

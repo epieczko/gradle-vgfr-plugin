@@ -49,6 +49,15 @@ class ReleasePlugin implements Plugin<Project> {
                 createCheckTask(target, ReleaseVersionMatchesApiCompatibilityCheck.instance)
         )
 
+        target.allprojects.each {
+            it.afterEvaluate { project ->
+                final Task check = project.tasks.findByName("check")
+                if (check) {
+                    releaseCheckTask.dependsOn(check)
+                }
+            }
+        }
+
         target.task(TASK_RELEASE, type: ReleaseTask).dependsOn(releaseCheckTask)
     }
 

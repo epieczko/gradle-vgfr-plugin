@@ -3,12 +3,10 @@ package tane.mahuta.buildtools.apilyzer.clirr
 import org.junit.ClassRule
 import org.junit.rules.TemporaryFolder
 import org.slf4j.LoggerFactory
-import spock.lang.Requires
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 import tane.mahuta.buildtools.apilyzer.Scope
-import tane.mahuta.gradle.plugin.OnlineCheck
 
 /**
  * @author christian.heike@icloud.com
@@ -21,27 +19,15 @@ class ClirrApiCompatibilityReportBuilderTest extends Specification {
     @Delegate
     static final TemporaryFolder folderRule = new TemporaryFolder()
 
-    def setupSpec() {
-        if (OnlineCheck.online) {
-            folderRule.create()
-            ['1.1', '2.4', '2.5'].each { version ->
-                new URL("http://central.maven.org/maven2/commons-io/commons-io/${version}/commons-io-${version}.jar").withInputStream { is ->
-                    new File(root, "commons-io-${version}.jar").withOutputStream { os -> os << is }
-                }
-            }
-        }
-    }
-
     def cleanupSpec() {
         folderRule.delete()
     }
 
     @Unroll
-    @Requires({ OnlineCheck.online })
     def 'analysis of #curVer vs #baseVer scope #scope packages #packages classes #classes finds #definiteSize/#possibleSize classes (d/p)'() {
         setup:
-        final source = new File(root, "commons-io-${curVer}.jar")
-        final target = new File(root, "commons-io-${baseVer}.jar")
+        final source = new File("src/test/resources/repo/commons-io-${curVer}.jar").absoluteFile
+        final target = new File("src/test/resources/repo/commons-io-${baseVer}.jar").absoluteFile
         final reporter = new ClirrApiCompatibilityReportBuilder()
                 .withScope(scope)
                 .withCurrent(source)

@@ -1,0 +1,29 @@
+{
+  "id" : "0d18a0e4-595e-3585-a317-531d246213af",
+  "request" : {
+    "url" : "/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/4.7.1.201706071930-r/org.eclipse.jgit-parent-4.7.1.201706071930-r.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.7.1.201706071930-r-org.eclipse.jgit-parent-4.7.1.201706071930-r.pom-JkOjd.xml",
+    "headers" : {
+      "ETag" : "\"af198b6e24743dbdfac910e2651cde3b\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 08 Jun 2017  0:47:28 GMT",
+      "X-Checksum-MD5" : "af198b6e24743dbdfac910e2651cde3b",
+      "X-Checksum-SHA1" : "42fc14b5de1739e7ef55bfaf006a497161f155d8",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "d3297460a48df1401e93cee5214c94cd9a626bb558df7e3428c4c174e1a759fc",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:20 GMT",
+      "Age" : "777487",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2148-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499344521.828817,VS0,VE0"
+    }
+  },
+  "uuid" : "0d18a0e4-595e-3585-a317-531d246213af"
+}

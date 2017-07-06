@@ -1,0 +1,29 @@
+{
+  "id" : "b55de26b-19d1-3e38-9060-bd230979f48e",
+  "request" : {
+    "url" : "/maven2/junit/junit/4.12/junit-4.12.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.12-junit-4.12.pom-AEHEn.xml",
+    "headers" : {
+      "ETag" : "\"af7ca61fba26556cfe5b40cf15aadc14\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 04 Dec 2014 16:17:43 GMT",
+      "X-Checksum-MD5" : "af7ca61fba26556cfe5b40cf15aadc14",
+      "X-Checksum-SHA1" : "35fb238baee3f3af739074d723279ebea2028398",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "98af39b73bac384627a39a9378acddf3178731dfb134626f3b2d070c8a209732",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:19 GMT",
+      "Age" : "4710373",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2138-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "21, 8",
+      "X-Timer" : "S1499344520.958760,VS0,VE0"
+    }
+  },
+  "uuid" : "b55de26b-19d1-3e38-9060-bd230979f48e"
+}

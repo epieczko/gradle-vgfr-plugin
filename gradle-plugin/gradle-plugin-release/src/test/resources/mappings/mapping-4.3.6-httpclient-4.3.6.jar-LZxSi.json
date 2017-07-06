@@ -1,0 +1,29 @@
+{
+  "id" : "db31cee9-93a3-3f31-8c62-eac88916e2fa",
+  "request" : {
+    "url" : "/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.3.6-httpclient-4.3.6.jar-LZxSi.jar",
+    "headers" : {
+      "ETag" : "\"2d29a27bb6c6b44bc8a608a0e5d09735\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Sun, 02 Nov 2014 13:45:58 GMT",
+      "X-Checksum-MD5" : "2d29a27bb6c6b44bc8a608a0e5d09735",
+      "X-Checksum-SHA1" : "4c47155e3e6c9a41a28db36680b828ced53b8af4",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "3cad11cee2fc41fbccc62323e1287032ec8e85b1187144561f222fdeb6341f06",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:31 GMT",
+      "Age" : "5731620",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2149-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499344531.423133,VS0,VE2"
+    }
+  },
+  "uuid" : "db31cee9-93a3-3f31-8c62-eac88916e2fa"
+}

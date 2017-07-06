@@ -2,10 +2,8 @@ package tane.mahuta.gradle.plugin.release
 
 import org.eclipse.jgit.api.Git
 import org.junit.Rule
-import spock.lang.Requires
 import spock.lang.Specification
 import spock.lang.Subject
-import tane.mahuta.gradle.plugin.OnlineCheck
 import tane.mahuta.gradle.plugin.ProjectBuilderTestRule
 import tane.mahuta.gradle.plugin.SemanticVersionPlugin
 import tane.mahuta.gradle.plugin.VcsPlugin
@@ -31,7 +29,6 @@ class ReleaseExtensionIntegrationTest extends Specification {
         extension = project.extensions.create('release', ReleaseExtension, project)
     }
 
-    @Requires({ OnlineCheck.online })
     def 'creates infrastructure correctly'() {
         when:
         final infrastructure = extension.infrastructure

@@ -1,0 +1,30 @@
+{
+  "id" : "2a37acb5-a9f0-3a2c-a7c9-ed53f9a60c6f",
+  "request" : {
+    "url" : "/maven2/org/apache/apache/13/apache-13.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-13-apache-13.pom-FiY8X.xml",
+    "headers" : {
+      "x-amz-meta-last-modified-epoch" : "1358436198000",
+      "ETag" : "\"e5feb6aa552d5d62f8a678e0051a7dc5\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 17 Jan 2013 15:23:18 GMT",
+      "X-Checksum-MD5" : "e5feb6aa552d5d62f8a678e0051a7dc5",
+      "X-Checksum-SHA1" : "15aff1faaec4963617f07dbe8e603f0adabc3a12",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "bd0ad0953680ff9a891daae1a7da8b2cec517c02311fde5eed63b22f3e2ce3a8",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:21 GMT",
+      "Age" : "6368882",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2138-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "15, 178",
+      "X-Timer" : "S1499344521.116144,VS0,VE0"
+    }
+  },
+  "uuid" : "2a37acb5-a9f0-3a2c-a7c9-ed53f9a60c6f"
+}

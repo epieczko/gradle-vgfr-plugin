@@ -1,0 +1,30 @@
+{
+  "id" : "4b85b49e-bd02-338c-a573-14d627925cbf",
+  "request" : {
+    "url" : "/maven2/unknown/unknown/maven-metadata.xml",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 404,
+    "bodyFileName" : "body-unknown-maven-metadata.xml-lKuZy.txt",
+    "headers" : {
+      "Last-Modified" : "Wed, 10 Aug 2016 15:08:35 GMT",
+      "ETag" : "\"1fb066da6a67c7c02962f59b4b8cd1ee\"",
+      "x-amz-error-code" : "NoSuchKey",
+      "x-amz-error-message" : "The specified key does not exist.",
+      "x-amz-error-detail-Key" : "maven2/unknown/unknown/maven-metadata.xml",
+      "Content-Type" : "text/html",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "d0956ffb8d5e8135ce351795059ffe49f70567a66a7564b3a39226a7f941dc97",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:36:14 GMT",
+      "Age" : "531318",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2149-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "MISS, HIT",
+      "X-Cache-Hits" : "0, 1",
+      "X-Timer" : "S1499344574.022357,VS0,VE0"
+    }
+  },
+  "uuid" : "4b85b49e-bd02-338c-a573-14d627925cbf"
+}
