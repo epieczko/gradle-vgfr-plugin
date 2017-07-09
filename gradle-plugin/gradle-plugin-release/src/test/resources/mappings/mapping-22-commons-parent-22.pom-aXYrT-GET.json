@@ -1,0 +1,29 @@
+{
+  "id" : "646d1b3f-7a89-3cbd-b101-b11d236548f4",
+  "request" : {
+    "url" : "/maven2/org/apache/commons/commons-parent/22/commons-parent-22.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-22-commons-parent-22.pom-aXYrT.xml",
+    "headers" : {
+      "ETag" : "\"33ddd6e431b210b0d660bf226ecf9f47\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Fri, 16 Sep 2011 15:56:20 GMT",
+      "X-Checksum-MD5" : "33ddd6e431b210b0d660bf226ecf9f47",
+      "X-Checksum-SHA1" : "0e895fa7ed472b3b2081ef77e2d5ece78c139d54",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "f9d12fd9ad1926e857790ec80ef0d6e4cc2a7bc75afd2e0fcbd12f92a249fea7",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:21 GMT",
+      "Age" : "6699498",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2130-IAD, cache-hhn1533-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "4, 30",
+      "X-Timer" : "S1499344521.219119,VS0,VE0"
+    }
+  },
+  "uuid" : "646d1b3f-7a89-3cbd-b101-b11d236548f4"
+}

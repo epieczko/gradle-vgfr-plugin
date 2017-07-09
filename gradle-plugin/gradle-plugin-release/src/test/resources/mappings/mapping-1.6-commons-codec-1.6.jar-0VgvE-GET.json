@@ -1,0 +1,29 @@
+{
+  "id" : "0b91384a-5e7a-3c09-aad0-89432198e29b",
+  "request" : {
+    "url" : "/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.6-commons-codec-1.6.jar-0VgvE.jar",
+    "headers" : {
+      "ETag" : "\"5970f54883b4831b24b97f1125ba27e6\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Sat, 03 Dec 2011  2:38:26 GMT",
+      "X-Checksum-MD5" : "5970f54883b4831b24b97f1125ba27e6",
+      "X-Checksum-SHA1" : "b7f0fc8f61ecadeb3695f0b9464755eee44374d4",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "23bb3e97f77ee99ae2695188dbbe53d40559065ca265204416836f9ced2f13b1",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:31 GMT",
+      "Age" : "5910982",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2142-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 2",
+      "X-Timer" : "S1499344532.610715,VS0,VE0"
+    }
+  },
+  "uuid" : "0b91384a-5e7a-3c09-aad0-89432198e29b"
+}

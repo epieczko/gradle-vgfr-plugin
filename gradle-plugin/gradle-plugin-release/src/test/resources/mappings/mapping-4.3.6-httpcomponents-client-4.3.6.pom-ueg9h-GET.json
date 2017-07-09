@@ -1,0 +1,29 @@
+{
+  "id" : "a6492260-06f1-3d38-a4d2-314e3e5216f1",
+  "request" : {
+    "url" : "/maven2/org/apache/httpcomponents/httpcomponents-client/4.3.6/httpcomponents-client-4.3.6.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.3.6-httpcomponents-client-4.3.6.pom-ueg9h.xml",
+    "headers" : {
+      "ETag" : "\"c60dd682236a97d17f7bc3fb7c3f55df\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Sun, 02 Nov 2014 13:45:13 GMT",
+      "X-Checksum-MD5" : "c60dd682236a97d17f7bc3fb7c3f55df",
+      "X-Checksum-SHA1" : "c50d432fb65515f304ca50880b913e8851377316",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "a1ce635bb46220380b5ced9afd9405a6dd53b1aaa887fe8ed863da1e69d6b6b2",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:20 GMT",
+      "Age" : "1416216",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2120-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499344521.999506,VS0,VE0"
+    }
+  },
+  "uuid" : "a6492260-06f1-3d38-a4d2-314e3e5216f1"
+}

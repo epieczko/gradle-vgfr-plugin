@@ -1,0 +1,29 @@
+{
+  "id" : "c8cc16ac-3521-3c5c-acbd-b739ff98ceb1",
+  "request" : {
+    "url" : "/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.7.2-slf4j-api-1.7.2.jar-nZanq.jar",
+    "headers" : {
+      "ETag" : "\"21216c2ee1bf4f097a51e49418527100\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Thu, 11 Oct 2012 18:55:23 GMT",
+      "X-Checksum-MD5" : "21216c2ee1bf4f097a51e49418527100",
+      "X-Checksum-SHA1" : "0081d61b7f33ebeab314e07de0cc596f8e858d97",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "e286dac31cbf6c1d7e27b7836ef96e1ac2df7b1c2ccd9aa2c6699674650a7fd7",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:31 GMT",
+      "Age" : "1763652",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2133-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499344531.478392,VS0,VE0"
+    }
+  },
+  "uuid" : "c8cc16ac-3521-3c5c-acbd-b739ff98ceb1"
+}

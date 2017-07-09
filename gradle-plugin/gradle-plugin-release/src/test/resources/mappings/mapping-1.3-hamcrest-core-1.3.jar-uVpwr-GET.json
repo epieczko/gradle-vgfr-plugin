@@ -1,0 +1,30 @@
+{
+  "id" : "3d7a570f-a9ec-30ba-9928-9838acda1965",
+  "request" : {
+    "url" : "/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.3-hamcrest-core-1.3.jar-uVpwr.jar",
+    "headers" : {
+      "x-amz-meta-last-modified-epoch" : "1341868082000",
+      "ETag" : "\"6393363b47ddcbba82321110c3e07519\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Mon, 09 Jul 2012 21:08:02 GMT",
+      "X-Checksum-MD5" : "6393363b47ddcbba82321110c3e07519",
+      "X-Checksum-SHA1" : "42a25dc3219429f0e5d060061f71acb49bf010a0",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "6cd28ab207f180442ff73a2d82ab5c4b0c92157b51b51c797c38067941a1680c",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:20 GMT",
+      "Age" : "7041185",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2124-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 39",
+      "X-Timer" : "S1499344520.159764,VS0,VE0"
+    }
+  },
+  "uuid" : "3d7a570f-a9ec-30ba-9928-9838acda1965"
+}

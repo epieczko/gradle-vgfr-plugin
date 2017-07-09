@@ -1,0 +1,29 @@
+{
+  "id" : "4585bfcc-44e3-35b5-9217-773bfef9c3ea",
+  "request" : {
+    "url" : "/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.6-commons-codec-1.6.pom-6vOd4.xml",
+    "headers" : {
+      "ETag" : "\"ed3b827f716cbf865710bf48115f83ae\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Sat, 03 Dec 2011  2:38:26 GMT",
+      "X-Checksum-MD5" : "ed3b827f716cbf865710bf48115f83ae",
+      "X-Checksum-SHA1" : "9499f0c87ab43a74c456b9847acbcb5e67fe9f32",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "e5f058f98b06f9b722a78f442dc6844dbcd491f8d3a94dc158dc37b6aa293063",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:21 GMT",
+      "Age" : "1762485",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2126-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "2, 5",
+      "X-Timer" : "S1499344521.176139,VS0,VE0"
+    }
+  },
+  "uuid" : "4585bfcc-44e3-35b5-9217-773bfef9c3ea"
+}

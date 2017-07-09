@@ -1,0 +1,29 @@
+{
+  "id" : "1e3e05fd-4b18-3d37-8acf-e4822e1145a0",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast-client/3.8.3/hazelcast-client-3.8.3.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-3.8.3-hazelcast-client-3.8.3.pom-ICQbL.xml",
+    "headers" : {
+      "ETag" : "\"2e1af3e0080e248779956d5aa1c44091\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 04 Jul 2017  6:57:38 GMT",
+      "X-Checksum-MD5" : "2e1af3e0080e248779956d5aa1c44091",
+      "X-Checksum-SHA1" : "9961745d570035c1ed00732670626acdbb05fb22",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "498d873c294db4c7397e70a21fd86093ed393175129ff9ec68586aef7d8fbdf3",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:31 GMT",
+      "Age" : "192250",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2131-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "MISS, HIT",
+      "X-Cache-Hits" : "0, 1",
+      "X-Timer" : "S1499344532.788986,VS0,VE0"
+    }
+  },
+  "uuid" : "1e3e05fd-4b18-3d37-8acf-e4822e1145a0"
+}

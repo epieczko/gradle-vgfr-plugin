@@ -1,0 +1,30 @@
+{
+  "id" : "a712731b-ee54-37ab-a318-99ad3653cd1e",
+  "request" : {
+    "url" : "/maven2/org/apache/apache/4/apache-4.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4-apache-4.pom-wYNiw.xml",
+    "headers" : {
+      "x-amz-meta-last-modified-epoch" : "1173132300000",
+      "ETag" : "\"d95741bde072d96582983b122e5052cb\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Mon, 05 Mar 2007 22:05:00 GMT",
+      "X-Checksum-MD5" : "d95741bde072d96582983b122e5052cb",
+      "X-Checksum-SHA1" : "602b647986c1d24301bc3d70e5923696bc7f1401",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "ab854620ac2d2d8f672fac204eee6bb8d377dd8454f7e03fedfbecdd35034a86",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:19 GMT",
+      "Age" : "6369564",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2141-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "3, 2847",
+      "X-Timer" : "S1499344520.701230,VS0,VE0"
+    }
+  },
+  "uuid" : "a712731b-ee54-37ab-a318-99ad3653cd1e"
+}

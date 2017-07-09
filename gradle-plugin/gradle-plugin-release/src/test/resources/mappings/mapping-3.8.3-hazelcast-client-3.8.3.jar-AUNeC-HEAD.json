@@ -1,0 +1,29 @@
+{
+  "id" : "4e54cb97-b9d9-312e-99d7-4487894a0bf1",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast-client/3.8.3/hazelcast-client-3.8.3.jar",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-3.8.3-hazelcast-client-3.8.3.jar-AUNeC.jar",
+    "headers" : {
+      "ETag" : "\"2a1979d6c1fc2663d57c27490c07b0fd\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Tue, 04 Jul 2017  6:57:37 GMT",
+      "X-Checksum-MD5" : "2a1979d6c1fc2663d57c27490c07b0fd",
+      "X-Checksum-SHA1" : "456340e899a71bcdd723c2adc94b712c22b8c96c",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "7366c73f1a9e340a064151f22041fbb8839e9baa0abbd9778bacabda73252077",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:32 GMT",
+      "Age" : "13533",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2132-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499344532.000997,VS0,VE1"
+    }
+  },
+  "uuid" : "4e54cb97-b9d9-312e-99d7-4487894a0bf1"
+}

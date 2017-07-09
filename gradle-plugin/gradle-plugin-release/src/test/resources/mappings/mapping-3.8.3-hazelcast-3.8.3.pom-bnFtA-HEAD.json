@@ -1,0 +1,29 @@
+{
+  "id" : "6f0ddd6b-23f6-334f-bb54-0f5e06e89a32",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast/3.8.3/hazelcast-3.8.3.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-3.8.3-hazelcast-3.8.3.pom-bnFtA.xml",
+    "headers" : {
+      "ETag" : "\"4def49e2350b02caaa804cb059d94b9f\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 04 Jul 2017  6:57:40 GMT",
+      "X-Checksum-MD5" : "4def49e2350b02caaa804cb059d94b9f",
+      "X-Checksum-SHA1" : "72497144ec168927037f8d15f79869f1ebc13f92",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "aeb0bda865af9042e97cfd45c31b937d812261f686c2fe322019990c1287a489",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:31 GMT",
+      "Age" : "192252",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2144-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 2",
+      "X-Timer" : "S1499344532.934653,VS0,VE0"
+    }
+  },
+  "uuid" : "6f0ddd6b-23f6-334f-bb54-0f5e06e89a32"
+}

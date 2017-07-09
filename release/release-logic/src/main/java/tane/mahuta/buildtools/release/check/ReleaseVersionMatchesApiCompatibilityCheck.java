@@ -61,7 +61,7 @@ public class ReleaseVersionMatchesApiCompatibilityCheck extends AbstractGuardedR
 
         final ArtifactWithClasspath lastRelease = releaseInfrastructure.getArtifactResolver().resolveLastReleaseArtifact(releaseDescriptor);
         if (lastRelease == null) {
-            log.info("Could not find latest release for: {}", releaseDescriptor);
+            log.warn("Could not find latest release for: {}", releaseDescriptor);
             return; // No last release
         }
         final Object parsedLastReleaseVersion = releaseInfrastructure.getVersionHandler().parse(lastRelease.getDescriptor().getVersion(), release.getProjectDir());

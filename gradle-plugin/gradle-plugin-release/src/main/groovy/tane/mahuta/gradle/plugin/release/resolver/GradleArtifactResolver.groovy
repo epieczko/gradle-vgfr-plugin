@@ -5,8 +5,7 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ComponentSelection
 import org.gradle.api.artifacts.Configuration
-import org.gradle.api.internal.artifacts.repositories.ResolutionAwareRepository
-import org.gradle.api.internal.project.ProjectInternal
+import tane.mahuta.buildtools.LogHelper
 import tane.mahuta.buildtools.dependency.ArtifactResolver
 import tane.mahuta.buildtools.dependency.ArtifactWithClasspath
 import tane.mahuta.buildtools.dependency.GAVCDescriptor
@@ -40,9 +39,7 @@ class GradleArtifactResolver implements ArtifactResolver {
     @Override
     ArtifactWithClasspath resolveLastReleaseArtifact(@Nonnull final GAVCDescriptor currentDescriptor) {
 
-//        (project as ProjectInternal).services.get(ProjectFactory.class).createProject()
         final Closure configurationResolver = { Configuration conf ->
-//            conf.resolutionStrategy.force('test.group:test-impl:1.0.0')
             conf.resolutionStrategy.componentSelection.all { ComponentSelection selection ->
                 if (selection.candidate.version.endsWith("-SNAPSHOT")) {
                     selection.reject("Not using SNAPSHOT for releases.")
@@ -50,21 +47,16 @@ class GradleArtifactResolver implements ArtifactResolver {
             }
         }
 
-        def internal = project as ProjectInternal
-        project.repositories.findAll{ it instanceof ResolutionAwareRepository}.collect{ it as ResolutionAwareRepository}.each {
-            it.createResolver()
-        }
-
-
         final matcher = VERSION_EXTRACTION_PATTERN.matcher(currentDescriptor.version)
         if (matcher.find()) {
 
             final origVersionParts = matcher.group(0).split('\\.')
             final versionParts = origVersionParts.collect(this.&safeToInt).findAll { it != null } as List<Integer>
+            final from = versionParts.collect{0}.join('.')
             versionParts[versionParts.size()-1] = Integer.MAX_VALUE
             final String to = versionParts.join('.')
 
-            return resolveWithVersion(currentDescriptor, "(,${to}[", configurationResolver)
+            return resolveWithVersion(currentDescriptor, "[${from},${to}]", configurationResolver)
         } else {
             return resolveWithVersion(currentDescriptor, "+", configurationResolver)
         }
@@ -81,6 +73,7 @@ class GradleArtifactResolver implements ArtifactResolver {
     private ArtifactWithClasspath resolveArtifactImpl(
             @Nonnull final GAVCDescriptor descriptor,
             @Nullable @DelegatesTo(Configuration) Closure configurationClosure) {
+        project.configurations.maybeCreate('default')
         final configuration = descriptor.with {
             final configuration = project.configurations.detachedConfiguration(project.dependencies.create(group: group, name: artifact, version: version, classifier: classifier))
             configurationClosure?.delegate = configuration
@@ -88,14 +81,12 @@ class GradleArtifactResolver implements ArtifactResolver {
             configuration.resolvedConfiguration.lenientConfiguration
         }
         if (!configuration.unresolvedModuleDependencies.isEmpty()) {
-            /*
             log.warn("Could not resolve the dependencies for artifact {}: \n{}", descriptor.toStringDescriptor(),
                     LogHelper.wrap({
                         configuration.unresolvedModuleDependencies.collect {
-                            "${it.selector.group}:${it.selector.name}:${it.selector.version}: ${it.problem.message}"
+                            "${it.selector.group}:${it.selector.name}:${it.selector.version}: ${it.problem?.message} -> (${it.problem?.cause?.message})"
                         }.join(('\n'))
                     }))
-             */
             return null
         }
         GradleDomainObjectAdapter.instance.createArtifactWithClasspath(descriptor, configuration.artifacts)

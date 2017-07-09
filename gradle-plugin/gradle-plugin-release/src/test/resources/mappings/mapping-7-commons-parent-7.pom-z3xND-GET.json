@@ -1,0 +1,29 @@
+{
+  "id" : "7ab84660-96de-3b27-9941-621594bc5dd6",
+  "request" : {
+    "url" : "/maven2/org/apache/commons/commons-parent/7/commons-parent-7.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-7-commons-parent-7.pom-z3xND.xml",
+    "headers" : {
+      "ETag" : "\"85139fe7600f2d12565f61eacce3635c\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 15 Jan 2008 20:29:32 GMT",
+      "X-Checksum-MD5" : "85139fe7600f2d12565f61eacce3635c",
+      "X-Checksum-SHA1" : "95db361d9db1474346b2bde93e5402281909144c",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "ae4ad2631113bef33e88142cbff15f0af312f9b254ec9640feb0cd69e25830ce",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:19 GMT",
+      "Age" : "5720818",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2125-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 3",
+      "X-Timer" : "S1499344520.656388,VS0,VE0"
+    }
+  },
+  "uuid" : "7ab84660-96de-3b27-9941-621594bc5dd6"
+}

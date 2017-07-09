@@ -1,0 +1,29 @@
+{
+  "id" : "f87066c3-203b-3e61-b08f-396a2095df4a",
+  "request" : {
+    "url" : "/maven2/org/eclipse/jgit/org.eclipse.jgit/maven-metadata.xml",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-org.eclipse.jgit-maven-metadata.xml-znOaA.xml",
+    "headers" : {
+      "ETag" : "\"5e20210472a5b3c5a10ef2899ef9f1b9\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Fri, 16 Jun 2017 11:40:31 GMT",
+      "X-Checksum-MD5" : "5e20210472a5b3c5a10ef2899ef9f1b9",
+      "X-Checksum-SHA1" : "cdd158f1a277d0158269c71d67869347fbcc9218",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "a70573044c6274ac3fd6785ca06384e652a4d5048dff5f010fbd0a3a1f398600",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:20 GMT",
+      "Age" : "813030",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2135-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 2",
+      "X-Timer" : "S1499344521.732210,VS0,VE0"
+    }
+  },
+  "uuid" : "f87066c3-203b-3e61-b08f-396a2095df4a"
+}

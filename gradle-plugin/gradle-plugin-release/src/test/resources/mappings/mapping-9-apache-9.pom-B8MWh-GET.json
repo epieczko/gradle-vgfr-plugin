@@ -1,0 +1,29 @@
+{
+  "id" : "ffe8ea88-6172-3477-84d0-866b961d1ba2",
+  "request" : {
+    "url" : "/maven2/org/apache/apache/9/apache-9.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-9-apache-9.pom-B8MWh.xml",
+    "headers" : {
+      "ETag" : "\"691d27ba6d2aa16ba4653431c577e52b\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 10 Feb 2011 23:56:43 GMT",
+      "X-Checksum-MD5" : "691d27ba6d2aa16ba4653431c577e52b",
+      "X-Checksum-SHA1" : "de55d73a30c7521f3d55e8141d360ffbdfd88caa",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "546be6de7cb69b0cbace7ea0d5c199403b565a459082c82231ac267657e8a905",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:21 GMT",
+      "Age" : "6369479",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2142-IAD, cache-hhn1547-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "40, 26",
+      "X-Timer" : "S1499344521.276591,VS0,VE0"
+    }
+  },
+  "uuid" : "ffe8ea88-6172-3477-84d0-866b961d1ba2"
+}

@@ -1,0 +1,29 @@
+{
+  "id" : "0cc4258e-d5cf-306a-b370-eccbc673a48d",
+  "request" : {
+    "url" : "/maven2/commons-io/commons-io/1.4/commons-io-1.4.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.4-commons-io-1.4.jar-OHtzA.jar",
+    "headers" : {
+      "ETag" : "\"b6a50c8a15ece8753e37cbe5700bf84f\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Sun, 20 Jan 2008 20:44:18 GMT",
+      "X-Checksum-MD5" : "b6a50c8a15ece8753e37cbe5700bf84f",
+      "X-Checksum-SHA1" : "a8762d07e76cfde2395257a5da47ba7c1dbd3dce",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "084aad51c3e2d71740d9a42a85dc470b96931c1d3d9e2e121d3237aa3c7caaaf",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:19 GMT",
+      "Age" : "6690042",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2138-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 8",
+      "X-Timer" : "S1499344520.777175,VS0,VE0"
+    }
+  },
+  "uuid" : "0cc4258e-d5cf-306a-b370-eccbc673a48d"
+}

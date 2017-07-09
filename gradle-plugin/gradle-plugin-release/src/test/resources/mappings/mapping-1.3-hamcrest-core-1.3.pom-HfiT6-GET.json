@@ -1,0 +1,30 @@
+{
+  "id" : "f467cee4-5e23-330e-a7d5-d9caa00ccc57",
+  "request" : {
+    "url" : "/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.3-hamcrest-core-1.3.pom-HfiT6.xml",
+    "headers" : {
+      "x-amz-meta-last-modified-epoch" : "1341868082000",
+      "ETag" : "\"7cd680c223f3807e1ef353466b9a4b25\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Mon, 09 Jul 2012 21:08:02 GMT",
+      "X-Checksum-MD5" : "7cd680c223f3807e1ef353466b9a4b25",
+      "X-Checksum-SHA1" : "872e413497b906e7c9fa85ccc96046c5d1ef7ece",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "df0ad1ee1ff3af7a0cef963fbe4263602f740da7d98469a4801a74e5dc30d7b1",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Thu, 06 Jul 2017 12:35:20 GMT",
+      "Age" : "4155242",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2134-IAD, cache-hhn1529-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "3, 55",
+      "X-Timer" : "S1499344520.009467,VS0,VE0"
+    }
+  },
+  "uuid" : "f467cee4-5e23-330e-a7d5-d9caa00ccc57"
+}
