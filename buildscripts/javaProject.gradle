@@ -30,7 +30,9 @@ test {
         }
     }
     testLogging {
-        events "failed"
-        exceptionFormat "short"
+        events "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+        showCauses true
+        showStacktraces true
     }
 }
