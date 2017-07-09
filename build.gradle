@@ -48,12 +48,14 @@ subprojects {
             name = 'gradle-vgfr-plugin'
             userOrg = project.properties['bintray.user']
             licenses = ['Apache-2.0']
-            vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+            githubRepo = 'Tanemahuta/gradle-vgfr-plugin/'
+            //githubReleaseNotesFile = 'README.md'
+            vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin.git'
             version {
                 name = project.version as String
                 released = new Date()
                 if (!(project.version as String).endsWith("-SNAPSHOT")) {
-                    vcsTag = "versions/${version}"
+                    vcsTag = "v/${project.version}"
                 }
             }
         }
