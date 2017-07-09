@@ -14,6 +14,7 @@ buildscript {
         classpath 'io.franzbecker:gradle-lombok:1.8'
         classpath 'com.bmuschko:gradle-clover-plugin:2.1.1'
         classpath 'com.gradle.publish:plugin-publish-plugin:0.9.7'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
@@ -36,6 +37,27 @@ subprojects {
 
     group = rootProject.group
     version = rootProject.version
+
+    apply plugin: 'com.jfrog.bintray'
+
+    bintray {
+        user = project.properties['bintray.user']
+        key = project.properties['bintray.key']
+        pkg {
+            repo = 'gradle-plugins'
+            name = 'gradle-vgfr-plugin'
+            userOrg = project.properties['bintray.user']
+            licenses = ['Apache-2.0']
+            vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+            version {
+                name = project.version as String
+                released = new Date()
+                if (!(project.version as String).endsWith("-SNAPSHOT")) {
+                    vcsTag = "versions/${version}"
+                }
+            }
+        }
+    }
 
     afterEvaluate {
 

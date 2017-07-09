@@ -57,7 +57,6 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         gradleProperties.version == '1.2.0-SNAPSHOT'
     }
 
-    //@PendingFeature(exceptions=UnexpectedBuildSuccess.class)
     def 'release fails when changing API'() {
         setup: 'creating the first release'
         buildRelease()

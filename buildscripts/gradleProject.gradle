@@ -13,7 +13,9 @@ if (descriptors.isFile()) {
     apply plugin: 'java-gradle-plugin'
     apply plugin: "com.gradle.plugin-publish"
     apply from: descriptors
+
     project.properties.put('gradle.publish.secret', System.getenv("GRADLE_PUBLISH_SECRET"))
+    println tasks.publishPlugins.class
 }
 
 sourceSets {

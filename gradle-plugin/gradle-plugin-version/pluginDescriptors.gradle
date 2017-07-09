@@ -15,28 +15,20 @@ gradlePlugin {
     }
 }
 
-pluginBundle {
-    website = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
-    vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
-    description = 'Versioning and release plugins'
-    tags = ['version', 'versioning', 'semantic-version', 'semver']
-
-    plugins {
-        versionPlugin {
-            id = 'tane.mahuta.gradle.version-plugin'
-            description = 'A plugin which provides enhanced versioning functionality'
-            displayName = "Gradle version parser plugin"
-        }
-        semVerPlugin {
-            id = 'tane.mahuta.gradle.semver-plugin'
-            description = 'A plugin which sets a semantic version to project.version'
-            displayName = "Gradle semantic version plugin"
-        }
-        semVerBranchPlugin {
-            id = 'tane.mahuta.gradle.semver-branch-plugin'
-            description = 'A plugin which sets a semantic version including a branch qualifier to project.version'
-            displayName = "Gradle semantic branch version plugin"
-        }
-
+pluginBundle.plugins {
+    versionPlugin {
+        id = 'tane.mahuta.gradle.version-plugin'
+        description = 'A plugin which provides enhanced versioning functionality'
+        displayName = "Gradle version parser plugin"
+    }
+    semVerPlugin {
+        id = 'tane.mahuta.gradle.semver-plugin'
+        description = 'A plugin which sets a semantic version to project.version'
+        displayName = "Gradle semantic version plugin"
+    }
+    semVerBranchPlugin {
+        id = 'tane.mahuta.gradle.semver-branch-plugin'
+        description = 'A plugin which sets a semantic version including a branch qualifier to project.version'
+        displayName = "Gradle semantic branch version plugin"
     }
 }
