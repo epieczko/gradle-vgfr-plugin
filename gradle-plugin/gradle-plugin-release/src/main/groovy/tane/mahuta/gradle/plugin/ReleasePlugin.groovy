@@ -40,13 +40,13 @@ class ReleasePlugin implements Plugin<Project> {
             it.extensions.create(EXTENSION, ReleaseExtension, it)
             target.logger.info("Created release extension for {}", it)
         }
-
+        final checkTasks = [createCheckTask(target, UncommittedChangesCheck.instance),
+                            createCheckTask(target, ReleasableBranchCheck.instance),
+                            createCheckTask(target, ReferencesSnapshotDependenciesCheck.instance),
+                            createCheckTask(target, NotAlreadyReleasedCheck.instance),
+                            createCheckTask(target, ReleaseVersionMatchesApiCompatibilityCheck.instance)]
         final releaseCheckTask = target.task(TASK_RELEASE_CHECK, type: ReleaseCheckReportTask).dependsOn(
-                createCheckTask(target, UncommittedChangesCheck.instance),
-                createCheckTask(target, ReleasableBranchCheck.instance),
-                createCheckTask(target, ReferencesSnapshotDependenciesCheck.instance),
-                createCheckTask(target, NotAlreadyReleasedCheck.instance),
-                createCheckTask(target, ReleaseVersionMatchesApiCompatibilityCheck.instance)
+                checkTasks
         )
 
         target.allprojects.each {
@@ -54,7 +54,7 @@ class ReleasePlugin implements Plugin<Project> {
                 ['check', 'assemble'].each {
                     final Task dep = project.tasks.findByName(it)
                     if (dep) {
-                        releaseCheckTask.dependsOn(dep)
+                        checkTasks.each{ check -> check.dependsOn(dep) }
                     }
                 }
             }

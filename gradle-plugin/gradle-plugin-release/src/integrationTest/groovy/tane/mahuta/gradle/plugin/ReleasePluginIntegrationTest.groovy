@@ -2,9 +2,6 @@ package tane.mahuta.gradle.plugin
 
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.TaskOutcome
-import org.gradle.testkit.runner.UnexpectedBuildSuccess
-import spock.lang.PendingFeature
-
 /**
  * @author christian.heike@icloud.com
  * Created on 29.06.17.
@@ -60,7 +57,7 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         gradleProperties.version == '1.2.0-SNAPSHOT'
     }
 
-    @PendingFeature(exceptions=UnexpectedBuildSuccess.class)
+    //@PendingFeature(exceptions=UnexpectedBuildSuccess.class)
     def 'release fails when changing API'() {
         setup: 'creating the first release'
         buildRelease()
