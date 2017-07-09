@@ -8,6 +8,9 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 
+script:
+  - ./gradlew assemble check --info
+
 jdk:
 - oraclejdk8
 after_success:

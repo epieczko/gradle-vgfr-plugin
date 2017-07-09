@@ -2,7 +2,8 @@ package tane.mahuta.gradle.plugin
 
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.TaskOutcome
-import spock.lang.Ignore
+import org.gradle.testkit.runner.UnexpectedBuildSuccess
+import spock.lang.PendingFeature
 
 /**
  * @author christian.heike@icloud.com
@@ -59,7 +60,7 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         gradleProperties.version == '1.2.0-SNAPSHOT'
     }
 
-    @Ignore("First the resolution has to be fixed")
+    @PendingFeature(exceptions=UnexpectedBuildSuccess.class)
     def 'release fails when changing API'() {
         setup: 'creating the first release'
         buildRelease()
