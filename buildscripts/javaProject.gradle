@@ -23,8 +23,14 @@ artifacts {
     testArtifacts testJar
 }
 
-test.doFirst {
-    sourceSets.each{ sourceSet ->
-        sourceSet.output.classesDir.mkdirs()
+test {
+    doFirst {
+        sourceSets.each { sourceSet ->
+            sourceSet.output.classesDir.mkdirs()
+        }
+    }
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
     }
 }
