@@ -1,0 +1,29 @@
+{
+  "id" : "c8cccdb2-637e-3ace-a988-75f96b3b3330",
+  "request" : {
+    "url" : "/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"ed3b827f716cbf865710bf48115f83ae\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Sat, 03 Dec 2011  2:38:26 GMT",
+      "X-Checksum-MD5" : "ed3b827f716cbf865710bf48115f83ae",
+      "X-Checksum-SHA1" : "9499f0c87ab43a74c456b9847acbcb5e67fe9f32",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "e5f058f98b06f9b722a78f442dc6844dbcd491f8d3a94dc158dc37b6aa293063",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "228850",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2146-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "3, 1",
+      "X-Timer" : "S1499612914.246680,VS0,VE0"
+    }
+  },
+  "uuid" : "c8cccdb2-637e-3ace-a988-75f96b3b3330"
+}

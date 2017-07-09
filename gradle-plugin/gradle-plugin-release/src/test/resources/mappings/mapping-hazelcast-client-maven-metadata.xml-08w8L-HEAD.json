@@ -1,0 +1,29 @@
+{
+  "id" : "d9227ac4-ddf7-3386-b9d0-5b7c21d9bfa3",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast-client/maven-metadata.xml",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"c5f0f2f6e5c904ae2ae2ff0b6731dd18\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 04 Jul 2017  8:54:38 GMT",
+      "X-Checksum-MD5" : "c5f0f2f6e5c904ae2ae2ff0b6731dd18",
+      "X-Checksum-SHA1" : "e72105244deeea21f8c8350893343a17df20842b",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "e122605351cd6ddece9197d9bdaab12800ea38b6c9400a765ecdf0f54fcaed6a",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Age" : "453753",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2133-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "MISS, HIT",
+      "X-Cache-Hits" : "0, 1",
+      "X-Timer" : "S1499612915.270693,VS0,VE1"
+    }
+  },
+  "uuid" : "d9227ac4-ddf7-3386-b9d0-5b7c21d9bfa3"
+}

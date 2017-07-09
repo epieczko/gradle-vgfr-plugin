@@ -1,0 +1,29 @@
+{
+  "id" : "26ded3df-1093-3875-8cb2-c032e4379653",
+  "request" : {
+    "url" : "/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.7.2-slf4j-api-1.7.2.pom-mZBpU.xml",
+    "headers" : {
+      "ETag" : "\"71f03f1293831ab1462ab5436b1e9ca3\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 11 Oct 2012 18:55:24 GMT",
+      "X-Checksum-MD5" : "71f03f1293831ab1462ab5436b1e9ca3",
+      "X-Checksum-SHA1" : "3fceb45ce8f7a6f87f3f2077a24a3833d1ecb4c6",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "87dcadd151d747c5153831613b4dd54fad2d620c63cf5c4ba5440514fef385c2",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "6862903",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2121-IAD, cache-hhn1526-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "2, 1",
+      "X-Timer" : "S1499612914.119046,VS0,VE1"
+    }
+  },
+  "uuid" : "26ded3df-1093-3875-8cb2-c032e4379653"
+}

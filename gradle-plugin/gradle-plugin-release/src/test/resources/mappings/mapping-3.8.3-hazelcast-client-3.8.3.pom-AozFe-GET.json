@@ -1,0 +1,29 @@
+{
+  "id" : "6091ced6-8eeb-3870-88e0-5da1c009a155",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast-client/3.8.3/hazelcast-client-3.8.3.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-3.8.3-hazelcast-client-3.8.3.pom-AozFe.xml",
+    "headers" : {
+      "ETag" : "\"2e1af3e0080e248779956d5aa1c44091\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 04 Jul 2017  6:57:38 GMT",
+      "X-Checksum-MD5" : "2e1af3e0080e248779956d5aa1c44091",
+      "X-Checksum-SHA1" : "9961745d570035c1ed00732670626acdbb05fb22",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "498d873c294db4c7397e70a21fd86093ed393175129ff9ec68586aef7d8fbdf3",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Age" : "460633",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2131-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "MISS, HIT",
+      "X-Cache-Hits" : "0, 1",
+      "X-Timer" : "S1499612915.292245,VS0,VE1"
+    }
+  },
+  "uuid" : "6091ced6-8eeb-3870-88e0-5da1c009a155"
+}

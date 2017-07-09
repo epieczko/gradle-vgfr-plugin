@@ -1,0 +1,29 @@
+{
+  "id" : "b8635e26-3dcf-31e5-a8b3-e33946ea12e9",
+  "request" : {
+    "url" : "/maven2/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"b6d77c0ad17a0b56389137c9ad4bcf9f\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Sat, 18 Oct 2014 11:51:18 GMT",
+      "X-Checksum-MD5" : "b6d77c0ad17a0b56389137c9ad4bcf9f",
+      "X-Checksum-SHA1" : "f71c37a11c766f61f0f0e3589ee291009617fdcb",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "941179b519f4a46c0ffa5ffe4813213b0d57fe896fd03650a73aae9d413e5da3",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "1078042",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2146-IAD, cache-hhn1551-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.242224,VS0,VE0"
+    }
+  },
+  "uuid" : "b8635e26-3dcf-31e5-a8b3-e33946ea12e9"
+}

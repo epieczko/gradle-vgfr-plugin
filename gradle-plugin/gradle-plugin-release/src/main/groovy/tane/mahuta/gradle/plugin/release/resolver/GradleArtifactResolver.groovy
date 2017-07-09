@@ -84,7 +84,7 @@ class GradleArtifactResolver implements ArtifactResolver {
             log.warn("Could not resolve the dependencies for artifact {}: \n{}", descriptor.toStringDescriptor(),
                     LogHelper.wrap({
                         configuration.unresolvedModuleDependencies.collect {
-                            "${it.selector.group}:${it.selector.name}:${it.selector.version}: ${it.problem?.message} -> (${it.problem?.cause?.message})"
+                            "${it.selector.group}:${it.selector.name}:${it.selector.version}: ${it.problem.message}"
                         }.join(('\n'))
                     }))
             return null

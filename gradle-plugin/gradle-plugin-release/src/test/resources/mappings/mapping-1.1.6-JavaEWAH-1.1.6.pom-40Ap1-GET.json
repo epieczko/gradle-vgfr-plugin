@@ -1,0 +1,29 @@
+{
+  "id" : "1634fbc7-d4dd-3d85-b4b0-3a415c9479f9",
+  "request" : {
+    "url" : "/maven2/com/googlecode/javaewah/JavaEWAH/1.1.6/JavaEWAH-1.1.6.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.1.6-JavaEWAH-1.1.6.pom-40Ap1.xml",
+    "headers" : {
+      "ETag" : "\"10520542d26311a378d9bb77d3eed7da\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Wed, 27 Apr 2016  2:40:37 GMT",
+      "X-Checksum-MD5" : "10520542d26311a378d9bb77d3eed7da",
+      "X-Checksum-SHA1" : "759dda489d69ebd237d9ee353e67a460274b14f0",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "6b51d521f95f28a1fc95799700cdddd61f59bf72fd2495827bede42e8079b2f6",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "1590328",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2129-IAD, cache-hhn1551-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.125049,VS0,VE0"
+    }
+  },
+  "uuid" : "1634fbc7-d4dd-3d85-b4b0-3a415c9479f9"
+}

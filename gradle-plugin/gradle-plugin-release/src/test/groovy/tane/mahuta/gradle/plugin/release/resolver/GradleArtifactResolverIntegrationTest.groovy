@@ -32,6 +32,35 @@ class GradleArtifactResolverIntegrationTest extends Specification {
         resolver = new GradleArtifactResolver(project)
     }
 
+    protected redownloadMappings() {
+        new File("src/test/resources/mappings/").eachFile { f ->
+            if (!['GET', 'HEAD'].any { f.name.endsWith("-${it}.json") }) {
+                def m = f.text =~ /"bodyFileName" : "([^"]+)",/
+                m.find()
+                final fn = m.group(1)
+                m = f.text =~ /"url" : "([^"]+)",/
+                m.find()
+                final url = "http://repo1.maven.org${m.group(1)}"
+                if (f.text.contains('"status" : 200,')) {
+                    new URL(url).withInputStream { is ->
+                        new File(f.parentFile, "../__files/${fn}").withOutputStream { os ->
+                            os << is
+                        }
+                    }
+                }
+                if (f.text.contains('"HEAD"')) {
+                    new File(f.absolutePath.replace('.json', '-HEAD.json')).text = f.text.replaceAll(/"bodyFileName" : "([^"]+)",/, '')
+                    new File(f.absolutePath.replace('.json', '-GET.json')).text = f.text.replace('"HEAD"', '"GET"')
+                    f.delete()
+                } else if (f.text.contains('"GET"')) {
+                    new File(f.absolutePath.replace('.json', '-HEAD.json')).text = f.text.replace('"GET"', '"HEAD"').replaceAll(/"bodyFileName" : "([^"]+)",/, '')
+                    new File(f.absolutePath.replace('.json', '-GET.json')).text = f.text
+                    f.delete()
+                }
+            }
+        }
+    }
+
     @Unroll
     def 'latest release of #group:#artifact:#version = #expectedVersion (#expectedDependencies dependencies)'() {
         setup:

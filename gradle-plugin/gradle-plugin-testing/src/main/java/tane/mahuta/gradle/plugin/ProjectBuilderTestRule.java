@@ -65,7 +65,7 @@ public class ProjectBuilderTestRule extends TemporaryFolder {
      * @return the project ready to be used
      */
     public Project getProject() {
-        return project = Optional.ofNullable(project).orElseGet(() -> projectBuilder.withProjectDir(getRoot()).build());
+        return project = Optional.ofNullable(project).orElseGet(() -> projectBuilder.withProjectDir(getRoot()).withGradleUserHomeDir(new File(getRoot(), ".gradlehome")).build());
     }
 
 }

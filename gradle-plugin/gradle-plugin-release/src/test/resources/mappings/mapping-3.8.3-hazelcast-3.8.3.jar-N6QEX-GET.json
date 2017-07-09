@@ -1,0 +1,28 @@
+{
+  "id" : "7180e462-261d-3155-8ac9-2ffd373a19f4",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast/3.8.3/hazelcast-3.8.3.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-3.8.3-hazelcast-3.8.3.jar-N6QEX.jar",
+    "headers" : {
+      "ETag" : "\"86a55ba210342ee82c8c0ddf66faac4c\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Tue, 04 Jul 2017  6:57:39 GMT",
+      "X-Checksum-MD5" : "86a55ba210342ee82c8c0ddf66faac4c",
+      "X-Checksum-SHA1" : "4e60f5407f8fb70a599b9514b26e8ad278f0fb06",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "04ea2020ef07a3cb931ecdb5c6853b0c8ada2f0c69d674ca7ddf4df52e8cbb59",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2148-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "0, 0",
+      "X-Timer" : "S1499612916.509021,VS0,VE1"
+    }
+  },
+  "uuid" : "7180e462-261d-3155-8ac9-2ffd373a19f4"
+}

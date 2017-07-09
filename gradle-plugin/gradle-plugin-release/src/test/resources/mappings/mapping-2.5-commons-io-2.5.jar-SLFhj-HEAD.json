@@ -1,0 +1,29 @@
+{
+  "id" : "cb377553-29cc-3354-9757-9be0448810ee",
+  "request" : {
+    "url" : "/maven2/commons-io/commons-io/2.5/commons-io-2.5.jar",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"e2d74794fba570ec2115fb9d5b05dc9b\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Fri, 22 Apr 2016 14:52:36 GMT",
+      "X-Checksum-MD5" : "e2d74794fba570ec2115fb9d5b05dc9b",
+      "X-Checksum-SHA1" : "2852e6e05fbb95076fc091f6d1780f1f8fe35e0f",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "b6291ade3f14df24a4977cb59acb9c56e6ab2587cb87561921e555e2cd2f3220",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:32 GMT",
+      "Age" : "1681034",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2138-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612913.841046,VS0,VE1"
+    }
+  },
+  "uuid" : "cb377553-29cc-3354-9757-9be0448810ee"
+}
