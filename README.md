@@ -23,14 +23,14 @@ version=1.0.0-SNAPSHOT
 ### Gradle >=2.1
 In your root `build.gradle` apply the release plugin and the semantic branch version plugin, the repository is necessary, because some modules of the project are referenced.
 ```groovy
-plugins {    
-    id 'tane.mahuta.gradle.release-plugin' version '1.0.0'
-    id 'tane.mahuta.gradle.semver-branch-plugin' version '1.0.0'
-}
 buildscript {
     repositories {
         maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" }    
     }
+}
+plugins {    
+    id 'tane.mahuta.gradle.release-plugin' version '1.0.0'
+    id 'tane.mahuta.gradle.semver-branch-plugin' version '1.0.0'
 }
 ```
 ### Gradle <2.1
@@ -52,7 +52,6 @@ For analysing the release and comparing the release versions, the buildscripts n
 ```groovy
 allprojects {    
     apply plugin: 'maven'
-    group = 'test.group'
     repositories {
         maven { url = "<your maven repository url>" }    
     }
