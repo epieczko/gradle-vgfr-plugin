@@ -47,8 +47,25 @@ buildscript {
 apply plugin: 'tane.mahuta.gradle.release-plugin'
 apply plugin: 'tane.mahuta.gradle.semver-branch-plugin'
 ```
-
-## Checking the releae
+### Necessary additional configuration
+For analysing the release and comparing the release versions, the buildscripts need to be configured the way that they also have access to the target repository for dependency resolution. Thus your configuration should match the following:
+```groovy
+allprojects {    
+    apply plugin: 'maven'
+    group = 'test.group'
+    repositories {
+        maven { url = "<your maven repository url>" }    
+    }
+    uploadArchives {        
+        repositories {
+            mavenDeployer {
+                repository(url: "<your maven repository url>")            
+            }        
+        }    
+    }
+}
+```
+## Checking the release
 If you want to check your release prior to running it, you may issue a `./gradlew releaseCheck`.
 This will check the following:
  - issue the `check` tasks  on each project
@@ -73,7 +90,8 @@ The release steps being performed are as follows:
 ## API compatibility check
 The API is being checked using [CLIRR](http://clirr.sourceforge.net/) which provides a report of incompatible class changes (e.g. public method signatures which have been changed). From this report, the tooling suggests the next semantic version for the release (referring to the latest release version). If the version is greater than the version to be released, the check will fail, providing the minimum version to be used for the release.
 
-
+## Example project 
+An example project being used for integration testing can be found [here](https://github.com/Tanemahuta/gradle-vgfr-plugin/tree/development/gradle-plugin/gradle-plugin-release/src/integrationTest/resources/baseProject).
 
 # Attention - Outdated information (will be updated soon)
 
