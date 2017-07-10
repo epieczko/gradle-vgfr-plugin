@@ -1,0 +1,16 @@
+gradlePlugin {
+    plugins {
+        vcsPlugin {
+            id = 'tane.mahuta.gradle.vcs-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.VcsPlugin'
+        }
+    }
+}
+
+pluginBundle.plugins {
+    vcsPlugin {
+        id = 'tane.mahuta.gradle.vcs-plugin'
+        description = 'A plugin which provides access to the vcs via project.vcs'
+        displayName = "Gradle VCS plugin"
+    }
+}

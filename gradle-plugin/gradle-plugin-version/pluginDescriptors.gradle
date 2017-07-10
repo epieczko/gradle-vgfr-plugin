@@ -1,0 +1,34 @@
+gradlePlugin {
+    plugins {
+        versionPlugin {
+            id = 'tane.mahuta.gradle.version-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.VersionPlugin'
+        }
+        semVerPlugin {
+            id = 'tane.mahuta.gradle.semver-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.SemanticVersionPlugin'
+        }
+        semVerBranchPlugin {
+            id = 'tane.mahuta.gradle.semver-branch-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.SemanticBranchVersionPlugin'
+        }
+    }
+}
+
+pluginBundle.plugins {
+    versionPlugin {
+        id = 'tane.mahuta.gradle.version-plugin'
+        description = 'A plugin which provides enhanced versioning functionality'
+        displayName = "Gradle version parser plugin"
+    }
+    semVerPlugin {
+        id = 'tane.mahuta.gradle.semver-plugin'
+        description = 'A plugin which sets a semantic version to project.version'
+        displayName = "Gradle semantic version plugin"
+    }
+    semVerBranchPlugin {
+        id = 'tane.mahuta.gradle.semver-branch-plugin'
+        description = 'A plugin which sets a semantic version including a branch qualifier to project.version'
+        displayName = "Gradle semantic branch version plugin"
+    }
+}

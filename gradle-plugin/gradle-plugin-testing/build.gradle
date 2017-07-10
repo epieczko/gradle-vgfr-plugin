@@ -1,0 +1,7 @@
+apply from: rootProject.file('buildscripts/gradleProject.gradle')
+
+dependencies {
+    compile 'junit:junit:4.12'
+    compile 'commons-io:commons-io:2.5'
+    compile 'com.github.tomakehurst:wiremock:2.6.0'
+}

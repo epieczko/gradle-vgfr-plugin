@@ -1,1 +1,28 @@
 rootProject.name = 'gradle-vgfr-plugin'
+
+[
+        'versioning'   : [
+                'semver',
+                'semver-branch',
+                'storage'
+        ],
+        'release'      : [
+                'apilyzer',
+                'logic'
+        ],
+        'vcs'          : [
+                'gitflow'
+        ],
+        'gradle-plugin': [
+                'testing',
+                'vcs',
+                'version',
+                'release'
+        ]
+
+].each { parent, subprojects ->
+    if (new File(rootProject.projectDir, "${parent}/${parent}-api").isDirectory()) {
+        include "${parent}:${parent}-api"
+    }
+    subprojects.each { include "${parent}:${parent}-${it}" }
+}

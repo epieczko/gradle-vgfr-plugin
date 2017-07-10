@@ -1,0 +1,30 @@
+{
+  "id" : "2587cf40-706d-36e7-ae38-24464793429e",
+  "request" : {
+    "url" : "/maven2/org/apache/httpcomponents/project/7/project-7.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-7-project-7.pom-n01BM.xml",
+    "headers" : {
+      "x-amz-meta-last-modified-epoch" : "1372434036000",
+      "ETag" : "\"0778143f735cc545821fe47465989446\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Fri, 28 Jun 2013 15:40:36 GMT",
+      "X-Checksum-MD5" : "0778143f735cc545821fe47465989446",
+      "X-Checksum-SHA1" : "c486760d8e0eafe8d4932450e386c2805364f782",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "487549c804d098c2a296191a51e0470d86bb555ca3eacb0ad88c4ded35b5d126",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "2860286",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2137-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "7, 1",
+      "X-Timer" : "S1499612914.177852,VS0,VE1"
+    }
+  },
+  "uuid" : "2587cf40-706d-36e7-ae38-24464793429e"
+}

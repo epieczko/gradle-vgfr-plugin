@@ -1,0 +1,29 @@
+{
+  "id" : "6947e027-12e1-3c74-9d52-c2ed54100113",
+  "request" : {
+    "url" : "/maven2/com/googlecode/javaewah/JavaEWAH/1.1.6/JavaEWAH-1.1.6.jar",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"ad90237fa8e47defd9fdac73e68608fd\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Wed, 27 Apr 2016  2:40:37 GMT",
+      "X-Checksum-MD5" : "ad90237fa8e47defd9fdac73e68608fd",
+      "X-Checksum-SHA1" : "94ad16d728b374d65bd897625f3fbb3da223a2b6",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "7c2bf46d1b33c2754d8b3cf93fe7ee4d6bc8927990df725311b393ffe7e3ba3d",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Age" : "205149",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2149-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612915.050540,VS0,VE1"
+    }
+  },
+  "uuid" : "6947e027-12e1-3c74-9d52-c2ed54100113"
+}

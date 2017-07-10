@@ -1,12 +1,88 @@
-apply plugin: 'java-gradle-plugin'
-apply plugin: 'groovy'
+import io.franzbecker.gradle.lombok.task.DelombokTask
 
-sourceCompatibility = targetCompatibility = 1.8
+group = 'tane.mahuta.build'
+
+buildscript {
+
+    repositories {
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+
+    dependencies {
+        classpath 'io.franzbecker:gradle-lombok:1.8'
+        classpath 'com.bmuschko:gradle-clover-plugin:2.1.1'
+        classpath 'com.gradle.publish:plugin-publish-plugin:0.9.7'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
 
 repositories {
     jcenter()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
 
-dependencies {
-    compile localGroovy()
+allprojects {
+    apply plugin: 'maven'
+}
+
+apply from: file('buildscripts/cloverProject.gradle')
+
+subprojects {
+
+    buildscript.repositories.addAll(rootProject.repositories)
+    repositories.addAll(buildscript.repositories)
+
+    group = rootProject.group
+    version = rootProject.version
+
+    apply plugin: 'com.jfrog.bintray'
+
+    bintray {
+        user = project.properties['bintray.user']
+        key = project.properties['bintray.key']
+        configurations = ['archives']
+        pkg {
+            repo = 'gradle-plugins'
+            name = 'gradle-vgfr-plugin'
+            userOrg = project.properties['bintray.user']
+            licenses = ['Apache-2.0']
+            githubRepo = 'Tanemahuta/gradle-vgfr-plugin/'
+            //githubReleaseNotesFile = 'README.md'
+            vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin.git'
+            version {
+                name = project.version as String
+                released = new Date()
+                if (!(project.version as String).endsWith("-SNAPSHOT")) {
+                    vcsTag = "v/${project.version}"
+                }
+            }
+        }
+    }
+
+    afterEvaluate {
+
+        if (pluginManager.hasPlugin('io.franzbecker.gradle-lombok')) {
+
+
+            task delombok(type: DelombokTask, dependsOn: compileJava) {
+                ext.outputDir = file("$buildDir/delombok")
+                outputs.dir(outputDir)
+                sourceSets.main.java.srcDirs.each {
+                    inputs.dir(it)
+                    args(it, "-d", outputDir)
+                }
+            }
+
+            javadoc {
+                dependsOn delombok
+                source = delombok.outputDir
+                failOnError = false
+            }
+        }
+
+    }
+
 }

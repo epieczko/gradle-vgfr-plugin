@@ -1,0 +1,29 @@
+{
+  "id" : "0ea13989-1f73-3fda-ac70-ef9d4db0eea8",
+  "request" : {
+    "url" : "/maven2/org/eclipse/jgit/org.eclipse.jgit/4.7.1.201706071930-r/org.eclipse.jgit-4.7.1.201706071930-r.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.7.1.201706071930-r-org.eclipse.jgit-4.7.1.201706071930-r.jar-A9Lgj.jar",
+    "headers" : {
+      "ETag" : "\"0ee292b5598f9abf5648c3c058a5c34b\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Thu, 08 Jun 2017  0:47:37 GMT",
+      "X-Checksum-MD5" : "0ee292b5598f9abf5648c3c058a5c34b",
+      "X-Checksum-SHA1" : "0023aa574d6ea984e770af60da94da366a0109d2",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "454421fd8d42ad94f940bc5b35f16a6d13849c146101318a3a3c4b1a7e050d91",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "2222",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2144-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.340381,VS0,VE27"
+    }
+  },
+  "uuid" : "0ea13989-1f73-3fda-ac70-ef9d4db0eea8"
+}

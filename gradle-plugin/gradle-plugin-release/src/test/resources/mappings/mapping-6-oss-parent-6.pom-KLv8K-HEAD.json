@@ -1,0 +1,29 @@
+{
+  "id" : "8e951ea4-6681-3c20-8bf6-e77de68f95cb",
+  "request" : {
+    "url" : "/maven2/org/sonatype/oss/oss-parent/6/oss-parent-6.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"b5f5bdffc48fec678905a5213a78f3bc\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Wed, 19 Jan 2011 14:36:45 GMT",
+      "X-Checksum-MD5" : "b5f5bdffc48fec678905a5213a78f3bc",
+      "X-Checksum-SHA1" : "765c355ec09ad070065d9d12a9245bba5c689d96",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "9ad7916b66b88ae48e693b62180087300afc3beded30dc4d4da2f5f8e7f14505",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "1681582",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2131-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "764, 1",
+      "X-Timer" : "S1499612914.129320,VS0,VE0"
+    }
+  },
+  "uuid" : "8e951ea4-6681-3c20-8bf6-e77de68f95cb"
+}

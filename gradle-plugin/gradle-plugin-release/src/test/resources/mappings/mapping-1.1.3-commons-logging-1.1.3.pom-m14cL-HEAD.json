@@ -1,0 +1,29 @@
+{
+  "id" : "5f9c4318-d00b-3e37-91e5-358d291a5224",
+  "request" : {
+    "url" : "/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"c3da00af895d34cf6dea3a531ae814ca\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 16 May 2013 20:05:23 GMT",
+      "X-Checksum-MD5" : "c3da00af895d34cf6dea3a531ae814ca",
+      "X-Checksum-SHA1" : "4aeb2c0ae4261632487bf8ea870bdb405696cee9",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "5e48a93fc35a72ee66ecbf6f90a8972243903dde541896883d94e2c851a83875",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "6105282",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2124-IAD, cache-hhn1526-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "14, 2",
+      "X-Timer" : "S1499612914.240951,VS0,VE0"
+    }
+  },
+  "uuid" : "5f9c4318-d00b-3e37-91e5-358d291a5224"
+}

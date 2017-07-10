@@ -1,0 +1,29 @@
+{
+  "id" : "64880ba1-62cd-30ed-832e-95a9a8c67c00",
+  "request" : {
+    "url" : "/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"5970f54883b4831b24b97f1125ba27e6\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Sat, 03 Dec 2011  2:38:26 GMT",
+      "X-Checksum-MD5" : "5970f54883b4831b24b97f1125ba27e6",
+      "X-Checksum-SHA1" : "b7f0fc8f61ecadeb3695f0b9464755eee44374d4",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "23bb3e97f77ee99ae2695188dbbe53d40559065ca265204416836f9ced2f13b1",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Age" : "6179366",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2142-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612915.189756,VS0,VE1"
+    }
+  },
+  "uuid" : "64880ba1-62cd-30ed-832e-95a9a8c67c00"
+}

@@ -1,0 +1,29 @@
+{
+  "id" : "bbc25ada-d0f7-35cd-b79a-93dff5534395",
+  "request" : {
+    "url" : "/maven2/org/json/json/maven-metadata.xml",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"7970273155ba31e5234d059e5ad24b1d\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Wed, 17 May 2017 20:57:35 GMT",
+      "X-Checksum-MD5" : "7970273155ba31e5234d059e5ad24b1d",
+      "X-Checksum-SHA1" : "61880c6f5c9a7517855f641b3d9225432e08619f",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "270e2f0a42da9998437decf922beff267df44701bdd470c738ce63c64ec8250d",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:33 GMT",
+      "Age" : "212902",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2151-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.784368,VS0,VE0"
+    }
+  },
+  "uuid" : "bbc25ada-d0f7-35cd-b79a-93dff5534395"
+}

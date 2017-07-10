@@ -1,0 +1,29 @@
+{
+  "id" : "2ecba63f-140e-3f86-914f-b56f830e94e4",
+  "request" : {
+    "url" : "/maven2/junit/junit/maven-metadata.xml",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"5f8c5cb7ec7952e6cea0ce24bc47cd73\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 04 Dec 2014 18:10:42 GMT",
+      "X-Checksum-MD5" : "5f8c5cb7ec7952e6cea0ce24bc47cd73",
+      "X-Checksum-SHA1" : "6b3bd6b851b73353595bb396d76256ebb439ee6f",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "34d7007fd7d7a92737d668a2787e5add3508353e9c5ae3ae6bf56c022b386429",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:33 GMT",
+      "Age" : "7850610",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2150-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "2, 1",
+      "X-Timer" : "S1499612913.401040,VS0,VE0"
+    }
+  },
+  "uuid" : "2ecba63f-140e-3f86-914f-b56f830e94e4"
+}

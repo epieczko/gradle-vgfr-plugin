@@ -1,0 +1,29 @@
+{
+  "id" : "0351cd65-710d-32a2-b8ac-744c9cd66773",
+  "request" : {
+    "url" : "/maven2/org/slf4j/slf4j-parent/1.7.2/slf4j-parent-1.7.2.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-1.7.2-slf4j-parent-1.7.2.pom-X5nI0.xml",
+    "headers" : {
+      "ETag" : "\"fa51f51627a91b4fb8d8980e3f43e16b\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 11 Oct 2012 18:55:06 GMT",
+      "X-Checksum-MD5" : "fa51f51627a91b4fb8d8980e3f43e16b",
+      "X-Checksum-SHA1" : "26c68730e36b29249e0c3bb70eba4a5dbaa4f76c",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "980686cbc5dc46827e5ebcad6923f5a9dd42f9f8d7be7d9a1bfba0be711d13f6",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "6257573",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2121-IAD, cache-hhn1551-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "2, 3",
+      "X-Timer" : "S1499612914.148923,VS0,VE0"
+    }
+  },
+  "uuid" : "0351cd65-710d-32a2-b8ac-744c9cd66773"
+}

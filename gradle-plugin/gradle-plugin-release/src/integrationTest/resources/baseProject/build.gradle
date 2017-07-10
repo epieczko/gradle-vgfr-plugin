@@ -1,0 +1,28 @@
+plugins {
+    id 'maven'
+    id 'tane.mahuta.gradle.release-plugin'
+    id 'tane.mahuta.gradle.semver-branch-plugin'
+}
+
+allprojects {
+    apply plugin: 'maven'
+
+    group = 'test.group'
+
+    repositories {
+        maven { url = "http://localhost:${rootProject.properties['wireMockPort']}" }
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "http://localhost:${rootProject.properties['wireMockPort']}")
+            }
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    version = rootProject.version
+}

@@ -1,0 +1,29 @@
+{
+  "id" : "6798d176-baec-392b-835c-53758df6d8f7",
+  "request" : {
+    "url" : "/maven2/org/json/json/20170516/json-20170516.pom",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"62016f241d845d7ff2d108643bc0eab6\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 16 May 2017 19:42:41 GMT",
+      "X-Checksum-MD5" : "62016f241d845d7ff2d108643bc0eab6",
+      "X-Checksum-SHA1" : "48701bc8a080cbe230a5ea5cdb46fd3b4b57a2f8",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "74f10aa423afe9428004650e27797cd320e224ee73847778a75c868c8c3dad7d",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:33 GMT",
+      "Age" : "1418134",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2150-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.824123,VS0,VE1"
+    }
+  },
+  "uuid" : "6798d176-baec-392b-835c-53758df6d8f7"
+}

@@ -1,0 +1,60 @@
+apply plugin: 'groovy'
+
+apply from: rootProject.file('buildscripts/javaProject.gradle')
+apply from: rootProject.file('buildscripts/spockDependencies.gradle')
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+final descriptors = file("pluginDescriptors.gradle")
+if (descriptors.isFile()) {
+    apply plugin: 'java-gradle-plugin'
+    apply plugin: "com.gradle.plugin-publish"
+    pluginBundle {
+        website = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+        vcsUrl = 'https://github.com/Tanemahuta/gradle-vgfr-plugin'
+        description = 'Versioning and release plugins'
+        tags = ['version', 'versioning', 'semantic-version', 'semver']
+    }
+    apply from: descriptors
+    project.properties.put('gradle.publish.secret', System.getenv("GRADLE_PUBLISH_SECRET"))
+}
+
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDirs = [file('src/integrationTest/java')]
+        }
+        groovy {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDirs = [file('src/integrationTest/groovy')]
+        }
+        resources.srcDirs = [file('src/integrationTest/resources')]
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+    integrationTestCompile gradleTestKit()
+}
+
+tasks.check.dependsOn task('integrationTest', type: Test, description: 'Runs the integration tests.', group: 'Verification') {
+    dependsOn tasks.integrationTestClasses
+    mustRunAfter tasks.test
+    classpath += sourceSets.integrationTest.runtimeClasspath
+    classpath += sourceSets.integrationTest.runtimeClasspath
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+}
+
+clover {
+    excludeTasks = ['integrationTest'] // For the moment I can't get to work :(
+}

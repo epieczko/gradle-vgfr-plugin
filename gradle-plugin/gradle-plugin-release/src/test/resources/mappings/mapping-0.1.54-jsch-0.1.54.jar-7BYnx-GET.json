@@ -1,0 +1,29 @@
+{
+  "id" : "fcc4edd0-5a69-3b9f-9ef2-78dad18d8b37",
+  "request" : {
+    "url" : "/maven2/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-0.1.54-jsch-0.1.54.jar-7BYnx.jar",
+    "headers" : {
+      "ETag" : "\"56a6c6fc5819e21c665355b39b9097d8\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Sat, 03 Sep 2016  9:42:14 GMT",
+      "X-Checksum-MD5" : "56a6c6fc5819e21c665355b39b9097d8",
+      "X-Checksum-SHA1" : "da3584329a263616e277e15462b387addd1b208d",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "8f6c8629fd5b78419b55968f3298b1eb01f8f96c650bfbab9c74e84345fde482",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "1600205",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2133-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 19",
+      "X-Timer" : "S1499612915.959536,VS0,VE0"
+    }
+  },
+  "uuid" : "fcc4edd0-5a69-3b9f-9ef2-78dad18d8b37"
+}

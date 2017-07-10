@@ -1,0 +1,6 @@
+description = 'Contains all the business logic for the release'
+
+dependencies {
+    compile parent.project('release-api')
+    compile 'commons-lang:commons-lang:2.5'
+}

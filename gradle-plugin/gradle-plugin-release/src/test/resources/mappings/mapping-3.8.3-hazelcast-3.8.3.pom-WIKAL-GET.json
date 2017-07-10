@@ -1,0 +1,29 @@
+{
+  "id" : "4c31c7b6-4f2b-3e3e-ba33-76551bd50e19",
+  "request" : {
+    "url" : "/maven2/com/hazelcast/hazelcast/3.8.3/hazelcast-3.8.3.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-3.8.3-hazelcast-3.8.3.pom-WIKAL.xml",
+    "headers" : {
+      "ETag" : "\"4def49e2350b02caaa804cb059d94b9f\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Tue, 04 Jul 2017  6:57:40 GMT",
+      "X-Checksum-MD5" : "4def49e2350b02caaa804cb059d94b9f",
+      "X-Checksum-SHA1" : "72497144ec168927037f8d15f79869f1ebc13f92",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "aeb0bda865af9042e97cfd45c31b937d812261f686c2fe322019990c1287a489",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Age" : "460636",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2144-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612915.358609,VS0,VE1"
+    }
+  },
+  "uuid" : "4c31c7b6-4f2b-3e3e-ba33-76551bd50e19"
+}

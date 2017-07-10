@@ -1,0 +1,29 @@
+{
+  "id" : "54676b0d-063e-35ca-9c5a-f4dd6f5c890e",
+  "request" : {
+    "url" : "/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-9-oss-parent-9.pom-VIobU.xml",
+    "headers" : {
+      "ETag" : "\"c2944a5a8a424e93d315ab18c994b4ee\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Mon, 27 Jan 2014 19:15:21 GMT",
+      "X-Checksum-MD5" : "c2944a5a8a424e93d315ab18c994b4ee",
+      "X-Checksum-SHA1" : "e5cdc4d23b86d79c436f16fed20853284e868f65",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "fc0eca45d25265440941ceeeb3182f726a73f1daefa991f88f4cb83fe94a92b7",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:33 GMT",
+      "Age" : "5882049",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2125-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "74, 9",
+      "X-Timer" : "S1499612914.859329,VS0,VE0"
+    }
+  },
+  "uuid" : "54676b0d-063e-35ca-9c5a-f4dd6f5c890e"
+}

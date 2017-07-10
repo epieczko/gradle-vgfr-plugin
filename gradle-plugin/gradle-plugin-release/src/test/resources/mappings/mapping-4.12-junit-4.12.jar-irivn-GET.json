@@ -1,0 +1,29 @@
+{
+  "id" : "c877af51-211c-31a2-920f-f2194cd0f657",
+  "request" : {
+    "url" : "/maven2/junit/junit/4.12/junit-4.12.jar",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.12-junit-4.12.jar-irivn.jar",
+    "headers" : {
+      "ETag" : "\"5b38c40c97fbd0adee29f91e60405584\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Thu, 04 Dec 2014 16:17:43 GMT",
+      "X-Checksum-MD5" : "5b38c40c97fbd0adee29f91e60405584",
+      "X-Checksum-SHA1" : "2973d150c0dc1fefe998f834810d68f278ea58ec",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "641d04b672653d5125af7d7e939d9625a5000d7fcbafdd800a70838a90463edf",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:33 GMT",
+      "Age" : "2097673",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2151-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.512460,VS0,VE2"
+    }
+  },
+  "uuid" : "c877af51-211c-31a2-920f-f2194cd0f657"
+}

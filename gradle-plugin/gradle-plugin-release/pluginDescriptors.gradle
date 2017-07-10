@@ -1,0 +1,16 @@
+gradlePlugin {
+    plugins {
+        releasePlugin {
+            id = 'tane.mahuta.gradle.release-plugin'
+            implementationClass = 'tane.mahuta.gradle.plugin.ReleasePlugin'
+        }
+    }
+}
+
+pluginBundle.plugins {
+    releasePlugin {
+        id = 'tane.mahuta.gradle.release-plugin'
+        description = 'A plugin which allows you to release via gitflow'
+        displayName = "Gradle gitflow release plugin"
+    }
+}

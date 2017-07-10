@@ -1,0 +1,9 @@
+apply from: rootProject.file('buildscripts/javaProject.gradle')
+
+apply plugin: 'groovy'
+
+sourceSets.main.groovy.srcDirs = []
+
+configurations.compile.exclude module: 'groovy-all'
+
+apply from: rootProject.file('buildscripts/spockDependencies.gradle')

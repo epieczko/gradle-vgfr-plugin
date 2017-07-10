@@ -1,0 +1,29 @@
+{
+  "id" : "6c9b0dcd-0214-3496-92f2-936f8c58a193",
+  "request" : {
+    "url" : "/maven2/org/eclipse/jgit/org.eclipse.jgit/4.7.1.201706071930-r/org.eclipse.jgit-4.7.1.201706071930-r.pom",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-4.7.1.201706071930-r-org.eclipse.jgit-4.7.1.201706071930-r.pom-xx5f3.xml",
+    "headers" : {
+      "ETag" : "\"a8971735465f292c2fddcf003508af52\"",
+      "Content-Type" : "text/xml",
+      "Last-Modified" : "Thu, 08 Jun 2017  0:48:03 GMT",
+      "X-Checksum-MD5" : "a8971735465f292c2fddcf003508af52",
+      "X-Checksum-SHA1" : "4b3e2d040a55bb9d13c15efb61735e04eee83bb0",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "05659dca10e08ce94decb857138b4891fc19499adbd9b2982fc81c4c44ad6945",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:34 GMT",
+      "Age" : "1410970",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2149-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612914.017499,VS0,VE1"
+    }
+  },
+  "uuid" : "6c9b0dcd-0214-3496-92f2-936f8c58a193"
+}

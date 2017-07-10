@@ -1,0 +1,29 @@
+{
+  "id" : "000cf51e-5a8a-3c54-a8e5-e79ad6f56024",
+  "request" : {
+    "url" : "/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar",
+    "method" : "HEAD"
+  },
+  "response" : {
+    "status" : 200,
+    
+    "headers" : {
+      "ETag" : "\"2d29a27bb6c6b44bc8a608a0e5d09735\"",
+      "Content-Type" : "application/java-archive",
+      "Last-Modified" : "Sun, 02 Nov 2014 13:45:58 GMT",
+      "X-Checksum-MD5" : "2d29a27bb6c6b44bc8a608a0e5d09735",
+      "X-Checksum-SHA1" : "4c47155e3e6c9a41a28db36680b828ced53b8af4",
+      "Via" : [ "1.1 varnish", "1.1 varnish" ],
+      "Fastly-Debug-Digest" : "3cad11cee2fc41fbccc62323e1287032ec8e85b1187144561f222fdeb6341f06",
+      "Accept-Ranges" : "bytes",
+      "Date" : "Sun, 09 Jul 2017 15:08:35 GMT",
+      "Age" : "6000004",
+      "Connection" : "keep-alive",
+      "X-Served-By" : "cache-iad2149-IAD, cache-hhn1523-HHN",
+      "X-Cache" : "HIT, HIT",
+      "X-Cache-Hits" : "1, 1",
+      "X-Timer" : "S1499612915.084641,VS0,VE1"
+    }
+  },
+  "uuid" : "000cf51e-5a8a-3c54-a8e5-e79ad6f56024"
+}
