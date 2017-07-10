@@ -43,6 +43,7 @@ subprojects {
     bintray {
         user = project.properties['bintray.user']
         key = project.properties['bintray.key']
+        configurations = ['archives']
         pkg {
             repo = 'gradle-plugins'
             name = 'gradle-vgfr-plugin'
