@@ -5,10 +5,77 @@
 [![Build Status](https://travis-ci.org/Tanemahuta/gradle-vgfr-plugin.svg?branch=development)](https://travis-ci.org/Tanemahuta/gradle-vgfr-plugin)
 [![Code Coverage](https://img.shields.io/codecov/c/github/Tanemahuta/gradle-vgfr-plugin/development.svg)](https://codecov.io/github/Tanemahuta/gradle-vgfr-plugin?branch=development)
 
-## Description
-A gradle plugin collection for using 
-- the semantic version scheme (in combination with feature branches)
-- git flow and a version scheme for releasing 
+## Introduction
+Whenever you are developing and releasing software, you have to deal certain questions. 
+E.g.
+ - issueing checks on the artifacts to be released
+ - tagging the release in your Version Control System
+ - using the correct release version
+For versioning the [semantic versioning schem](https://www.semver.org) has become the quasi-standard.
+The branch model [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/) has become the model of choice in many projects when it comes to maintaining source code streaming.
+I decided to write a release plugin which behaves pretty much like the maven release plugin using git-flow and semantic versioning for automatic releasing.
+
+## Usage
+In your root project have a `gradle.properties` ready which provides the current version and will be maintained by the plugin:
+```properties
+version=1.0.0-SNAPSHOT
+```
+### Gradle >=2.1
+In your root `build.gradle` apply the release plugin and the semantic branch version plugin, the repository is necessary, because some modules of the project are referenced.
+```groovy
+plugins {    
+    id 'tane.mahuta.gradle.release-plugin' version '1.0.0'
+    id 'tane.mahuta.gradle.semver-branch-plugin' version '1.0.0'
+}
+buildscript {
+    repositories {
+        maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" }    
+    }
+}
+```
+### Gradle <2.1
+In your root `build.gradle` configure the repository and add the plugin jar to the class path, then apply the release plugin and the semantic branch version plugin
+```groovy
+buildscript {
+    repositories {        
+        maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" }        
+    }
+    dependencies {
+        classpath "tane.mahuta.build:gradle-plugin-release:1.0.0"
+    }
+}
+apply plugin: 'tane.mahuta.gradle.release-plugin'
+apply plugin: 'tane.mahuta.gradle.semver-branch-plugin'
+```
+
+## Checking the releae
+If you want to check your release prior to running it, you may issue a `./gradlew releaseCheck`.
+This will check the following:
+ - issue the `check` tasks  on each project
+ - there are uncommitted changes
+ - you are on a releasable branch (develop, release/..., hotfix/...)
+ - any project from the root references SNAPSHOT dependencies on their compile configuration
+ - any of the projects' artifacts has already been released
+ - the API changes are matching the current version increment (to be release) regarding the last released version
+A report with problems will be provided for each project and its artifacts.
+
+## Releasing
+Releasing is as simple as running `./gradlew release`. This will run the release check as well.
+If you want to skip a check or all checks, you may use the `-x <task>` switch in gradle.
+The release steps being performed are as follows:
+ - issue all checks
+ - if not on hotfix/... or release/..., start a release branch with git flow
+ - set and store the release version, commit and push it
+ - run the `uploadArchives` task
+ - finish the release via git flow and push the tags
+ - set and store the next development iteration on the development branch
+
+## API compatibility check
+The API is being checked using [CLIRR](http://clirr.sourceforge.net/) which provides a report of incompatible class changes (e.g. public method signatures which have been changed). From this report, the tooling suggests the next semantic version for the release (referring to the latest release version). If the version is greater than the version to be released, the check will fail, providing the minimum version to be used for the release.
+
+
+
+# Attention - Outdated information (will be updated soon)
 
 ## Plugins
 
