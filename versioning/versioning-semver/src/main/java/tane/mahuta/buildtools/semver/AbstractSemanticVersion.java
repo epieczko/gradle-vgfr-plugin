@@ -3,6 +3,7 @@ package tane.mahuta.buildtools.semver;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Wither;
 import org.apache.commons.lang.StringUtils;
 import tane.mahuta.buildtools.version.SemanticVersion;
 
@@ -41,12 +42,15 @@ public abstract class AbstractSemanticVersion implements SemanticVersion {
     );
 
     @Getter(onMethod = @__(@Override))
+    @Wither
     protected final int major;
 
     @Getter(onMethod = @__(@Override))
+    @Wither
     protected final int minor;
 
     @Getter(onMethod = @__(@Override))
+    @Wither
     protected final Integer micro;
 
     @Override

@@ -24,7 +24,7 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         !hasRemoteBranch("release/1.0.0")
 
         and: 'the local repository contains the artifacts'
-        repositoryContains("test.group", "api", "1.0.0")
+        repositoryContains("test.group", "api", "1.0")
         repositoryContains("test.group", "impl", "1.0.0")
 
         and: 'the version in the gradle.properties has been set'
@@ -50,7 +50,7 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
         !hasRemoteBranch("release/1.1.0")
 
         and: 'the local repository contains the artifacts'
-        repositoryContains("test.group", "api", "1.0.0")
+        repositoryContains("test.group", "api", "1.0")
         repositoryContains("test.group", "impl", "1.0.0")
 
         and: 'the version in the gradle.properties has been set'

@@ -40,4 +40,14 @@ class DefaultSemanticVersionTest extends Specification {
         "1.3-SNAPSHOT"   | "1.3.0"          | -1       | false
     }
 
+    def 'with methods are working'() {
+        setup:
+        final version = new DefaultSemanticVersion(1,2,3, 'SNAPSHOT')
+        expect:
+        version.withMajor(2).major == 2
+        version.withMinor(3).minor == 3
+        version.withMicro(4).micro == 4
+        version.withQualifier("RELEASE").qualifier == "RELEASE"
+    }
+
 }

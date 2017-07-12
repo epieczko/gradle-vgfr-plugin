@@ -41,4 +41,27 @@ public class DefaultSemanticVersion extends AbstractSemanticVersion {
     protected String toStringRepresentation() {
         return this.stringRepresentation = Optional.ofNullable(this.stringRepresentation).orElseGet(() -> createStringRepresentation(major, minor, micro, qualifier));
     }
+
+    @Override
+    @Nonnull
+    public DefaultSemanticVersion withMajor(final int major) {
+        return new DefaultSemanticVersion(major, minor, micro, qualifier);
+    }
+
+    @Override
+    @Nonnull
+    public DefaultSemanticVersion withMinor(final int minor) {
+        return new DefaultSemanticVersion(major, minor, micro, qualifier);
+    }
+
+    @Override
+    @Nonnull
+    public DefaultSemanticVersion withMicro(@Nullable final Integer micro) {
+        return new DefaultSemanticVersion(major, minor, micro, qualifier);
+    }
+
+    @Nonnull
+    public DefaultSemanticVersion withQualifier(@Nullable final  String qualifier) {
+        return new DefaultSemanticVersion(major, minor, micro, qualifier);
+    }
 }
