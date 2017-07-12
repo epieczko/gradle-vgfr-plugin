@@ -119,7 +119,7 @@ implementations of the services you want to provide.
 
 #### Introduction
 This plugin creates an extension `project.vcs` with type `tane.mahuta.gradle.plugin.vcs.VcsExtension`.
-You are able to access your VCS via the extension and 
+You are able to access your VCS via the extension and change the flow configuration, as well as query the current branch and revision id.
 
 #### Usage
 Apply the plugin and configure it. The following code shows the defaults: 
