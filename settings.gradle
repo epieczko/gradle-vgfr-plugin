@@ -11,7 +11,8 @@ rootProject.name = 'gradle-vgfr-plugin'
                 'logic'
         ],
         'vcs'          : [
-                'gitflow'
+                'gitflow',
+                'svnflow'
         ],
         'gradle-plugin': [
                 'testing',

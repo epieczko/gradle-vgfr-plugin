@@ -1,0 +1,6 @@
+description = 'Implementation for the vcs-api for gitflow'
+
+dependencies {
+    compile parent.project('vcs-api')
+    compile 'org.tmatesoft.svnkit:svnkit:1.8.14'
+}
