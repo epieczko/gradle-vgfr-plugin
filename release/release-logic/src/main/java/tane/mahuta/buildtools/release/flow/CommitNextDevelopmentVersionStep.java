@@ -31,11 +31,11 @@ public class CommitNextDevelopmentVersionStep extends AbstractGuardedReleaseStep
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) throws Exception {
+                           @Nonnull final Object releaseVersion) throws Exception {
 
         releaseInfrastructure.getVcs().checkout(releaseInfrastructure.getVcs().getFlowConfig().getDevelopmentBranch());
 
-        final Object nextVersion = releaseInfrastructure.getVersionHandler().toNextDevelopmentVersion(version);
+        final Object nextVersion = releaseInfrastructure.getVersionHandler().toNextDevelopmentVersion(releaseVersion);
         releaseInfrastructure.getBuildToolAdapter().setVersion(nextVersion);
         releaseInfrastructure.getVersionStorage().store(nextVersion.toString());
         releaseInfrastructure.getVcs().commitFiles("Next development iteration version: " + nextVersion);

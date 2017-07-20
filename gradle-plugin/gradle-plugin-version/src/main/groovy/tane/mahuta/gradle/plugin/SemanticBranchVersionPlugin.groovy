@@ -29,34 +29,37 @@ class SemanticBranchVersionPlugin implements Plugin<Project> {
         final versionExtension = target.extensions.findByType(VersioningExtension)
 
         versionExtension.parser = DefaultSemanticBranchVersionParser.instance
-        versionExtension.setReleaseTransformerClosure(this.&transformToRelease.curry(versionExtension.releaseTransformer))
-        versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport.curry(versionExtension.releaseTransformerForReport))
-        versionExtension.setNextDevelopmentTransformer(this.&transformToNextDevelopmentVersion.curry(versionExtension.nextDevelopmentTransformer))
-
+        versionExtension.setReleaseTransformerClosure(this.&transformToRelease.curry(versionExtension.releaseTransformer).ncurry(1, target.projectDir))
+        versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport.curry(versionExtension.releaseTransformerForReport).ncurry(2, target.projectDir))
+        versionExtension.setNextDevelopmentTransformer(this.&transformToNextDevelopmentVersion.curry(versionExtension.nextDevelopmentTransformer).ncurry(1, target.projectDir))
     }
 
     @Nonnull
     private SemanticBranchVersion transformToRelease(
             @Nonnull final Function<SemanticVersion, SemanticVersion> original,
-            @Nonnull final SemanticBranchVersion v) {
-        final SemanticVersion transformed = original.apply(v)
-        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, v.&getBranchQualifier, transformed.qualifier)
+            @Nonnull final Object version, @Nonnull final File projectDir) {
+        final SemanticBranchVersion semBranchVer = version instanceof SemanticBranchVersion ? version as SemanticVersion : DefaultSemanticBranchVersionParser.instance.parse(version as String, projectDir)
+        final SemanticVersion transformed = original.apply(semBranchVer)
+        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, semBranchVer.&getBranchQualifier, transformed.qualifier)
     }
 
     @Nonnull
     private SemanticBranchVersion transformReleaseForReport(
             @Nonnull final BiFunction<SemanticVersion, ApiCompatibilityReport, SemanticVersion> original,
-            @Nonnull final SemanticBranchVersion v, @Nonnull final ApiCompatibilityReport report) {
-        final SemanticVersion transformed = original.apply(v, report)
-        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, v.&getBranchQualifier, transformed.qualifier)
+            @Nonnull final Object version,
+            @Nonnull final ApiCompatibilityReport report, @Nonnull final File projectDir) {
+        final SemanticBranchVersion semBranchVer = version instanceof SemanticBranchVersion ? version as SemanticVersion : DefaultSemanticBranchVersionParser.instance.parse(version as String, projectDir)
+        final SemanticVersion transformed = original.apply(semBranchVer, report)
+        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, semBranchVer.&getBranchQualifier, transformed.qualifier)
     }
 
     @Nonnull
     private SemanticBranchVersion transformToNextDevelopmentVersion(
             @Nonnull final Function<SemanticVersion, SemanticVersion> original,
-            @Nonnull final SemanticBranchVersion v) {
-        final SemanticVersion transformed = original.apply(v)
-        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, v.&getBranchQualifier, transformed.qualifier)
+            @Nonnull final Object version, @Nonnull final File projectDir) {
+        final SemanticBranchVersion semBranchVer = version instanceof SemanticBranchVersion ? version as SemanticVersion : DefaultSemanticBranchVersionParser.instance.parse(version as String, projectDir)
+        final SemanticVersion transformed = original.apply(semBranchVer)
+        new DefaultSemanticBranchVersion(transformed.major, transformed.minor, transformed.micro, semBranchVer.&getBranchQualifier, transformed.qualifier)
     }
 
 }

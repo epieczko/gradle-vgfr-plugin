@@ -32,7 +32,7 @@ public class ReferencesSnapshotDependenciesCheck extends AbstractGuardedReleaseS
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) {
+                           @Nonnull final Object releaseVersion) {
         release.getDependencyContainers().forEach(container -> {
 
             final List<String> snapshotDependencies = container.getExternalDependencies().stream()

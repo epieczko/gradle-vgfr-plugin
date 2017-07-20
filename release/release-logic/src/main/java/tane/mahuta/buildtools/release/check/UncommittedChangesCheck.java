@@ -30,7 +30,7 @@ public class UncommittedChangesCheck extends AbstractGuardedReleaseStep {
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) {
+                           @Nonnull final Object releaseVersion) {
         final Collection<String> uncommitted = releaseInfrastructure.getVcs().getUncommittedFilePaths();
         if (!uncommitted.isEmpty()) {
             release.describeProblem(b -> b.severity(Severity.PROBLEM)
