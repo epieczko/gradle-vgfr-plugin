@@ -32,24 +32,28 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
         final versionExtension = target.extensions.getByType(VersioningExtension)
         versionExtension.setParser(DefaultSemanticVersionParser.instance)
         versionExtension.setComparatorClosure({ v1, v2 -> v1 <=> v2 })
-        versionExtension.setReleaseTransformerClosure(this.&transformToRelease)
-        versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport)
-        versionExtension.setNextDevelopmentTransformerClosure(this.&transformNextDevelopment)
+        versionExtension.setReleaseTransformerClosure(this.&transformToRelease.ncurry(1, target.projectDir))
+        versionExtension.setReleaseTransformerForReportClosure(this.&transformReleaseForReport.ncurry(2, target.projectDir))
+        versionExtension.setNextDevelopmentTransformerClosure(this.&transformNextDevelopment.ncurry(1, target.projectDir))
     }
 
-    private SemanticVersion transformToRelease(@Nonnull final SemanticVersion v) {
-        new DefaultSemanticVersion(v.major, v.minor, v.micro, v.isSnapshot() ? null : v.qualifier)
+    private SemanticVersion transformToRelease(@Nonnull final Object version, @Nonnull final File projectDir) {
+        final SemanticVersion semVer = version instanceof SemanticVersion ? version as SemanticVersion : DefaultSemanticVersionParser.instance.parse(version as String, projectDir)
+        new DefaultSemanticVersion(semVer.major, semVer.minor, semVer.micro, semVer.isSnapshot() ? null : semVer.qualifier)
     }
 
-    private SemanticVersion transformNextDevelopment(@Nonnull final SemanticVersion v) {
-        new DefaultSemanticVersion(v.major, v.minor + 1, v.micro != null ? 0 : null, "SNAPSHOT")
+    private SemanticVersion transformNextDevelopment(@Nonnull final Object version, @Nonnull final File projectDir) {
+        final SemanticVersion semVer = version instanceof SemanticVersion ? version as SemanticVersion : DefaultSemanticVersionParser.instance.parse(version as String, projectDir)
+        new DefaultSemanticVersion(semVer.major, semVer.minor + 1, semVer.micro != null ? 0 : null, "SNAPSHOT")
     }
 
     @Nonnull
     private SemanticVersion transformReleaseForReport(
-            @Nonnull final SemanticVersion v, @Nonnull final ApiCompatibilityReport report) {
-        int major = v.major, minor = v.minor
-        Integer micro = v.micro
+            @Nonnull final Object version,
+            @Nonnull final ApiCompatibilityReport report, @Nonnull final File projectDir) {
+        final SemanticVersion semVer = version instanceof SemanticVersion ? version as SemanticVersion : DefaultSemanticVersionParser.instance.parse(version as String, projectDir)
+        int major = semVer.major, minor = semVer.minor
+        Integer micro = semVer.micro
         if (!report.definiteIncompatibleClasses.isEmpty()) {
             major++
             minor = 0
@@ -62,7 +66,7 @@ class SemanticVersionPlugin implements Plugin<ProjectInternal> {
         } else {
             minor++
         }
-        new DefaultSemanticVersion(major, minor, micro, v.isSnapshot() ? null : v.qualifier)
+        new DefaultSemanticVersion(major, minor, micro, semVer.isSnapshot() ? null : semVer.qualifier)
     }
 
 }

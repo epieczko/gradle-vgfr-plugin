@@ -31,8 +31,8 @@ public class FinishReleaseStep extends AbstractGuardedReleaseStep {
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) throws Exception {
-        releaseInfrastructure.getVcs().finishReleaseBranch(version.toString());
+                           @Nonnull final Object releaseVersion) throws Exception {
+        releaseInfrastructure.getVcs().finishReleaseBranch(releaseVersion.toString());
         releaseInfrastructure.getVcs().pushTags();
     }
 }

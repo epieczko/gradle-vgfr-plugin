@@ -33,16 +33,14 @@ public class NotAlreadyReleasedCheck extends AbstractGuardedReleaseStep {
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) {
+                           @Nonnull final Object releaseVersion) {
 
         final GAVCDescriptor currentDescriptor = release.getDescriptor();
-        final Object parsedVersion = releaseInfrastructure.getVersionHandler().parse(currentDescriptor.getVersion(), release.getProjectDir());
-        final String releaseVersion = releaseInfrastructure.getVersionHandler().toReleaseVersion(parsedVersion).toString();
 
         final GAVCDescriptor releaseDescriptor = DefaultGAVCDescriptor.builder()
                 .group(currentDescriptor.getGroup())
                 .artifact(currentDescriptor.getArtifact())
-                .version(releaseVersion).build();
+                .version(releaseVersion.toString()).build();
 
         final Artifact releasedArtifact = releaseInfrastructure.getArtifactResolver().resolveArtifact(releaseDescriptor);
 

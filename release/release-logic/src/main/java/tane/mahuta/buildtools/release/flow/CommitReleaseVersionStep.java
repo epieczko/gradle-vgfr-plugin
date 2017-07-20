@@ -31,9 +31,9 @@ public class CommitReleaseVersionStep extends AbstractGuardedReleaseStep {
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) throws Exception {
-        final String versionString = version.toString();
-        releaseInfrastructure.getBuildToolAdapter().setVersion(version);
+                           @Nonnull final Object releaseVersion) throws Exception {
+        final String versionString = releaseVersion.toString();
+        releaseInfrastructure.getBuildToolAdapter().setVersion(releaseVersion);
         releaseInfrastructure.getVersionStorage().store(versionString);
         releaseInfrastructure.getVcs().commitFiles("Set release version " + versionString);
         releaseInfrastructure.getVcs().push();

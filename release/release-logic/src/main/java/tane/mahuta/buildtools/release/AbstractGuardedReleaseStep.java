@@ -28,10 +28,10 @@ public abstract class AbstractGuardedReleaseStep implements ReleaseStep {
     /**
      * @param release               the release
      * @param releaseInfrastructure the infrastructure
-     * @param version               the release version
+     * @param releaseVersion               the release version
      * @throws Exception any exception while invoking the step
      * @see ReleaseStep#apply(ArtifactRelease, ReleaseInfrastructure)
      */
-    protected abstract void doApply(@Nonnull ArtifactRelease release, @Nonnull ReleaseInfrastructure releaseInfrastructure, @Nonnull final Object version) throws Exception;
+    protected abstract void doApply(@Nonnull ArtifactRelease release, @Nonnull ReleaseInfrastructure releaseInfrastructure, @Nonnull final Object releaseVersion) throws Exception;
 
 }

@@ -31,7 +31,7 @@ public class RunReleaseBuildStep extends AbstractGuardedReleaseStep {
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                            @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                           @Nonnull final Object version) throws Exception {
+                           @Nonnull final Object releaseVersion) throws Exception {
         releaseInfrastructure.getBuildToolAdapter().buildRelease();
     }
 }

@@ -43,7 +43,7 @@ public class ReleaseVersionMatchesApiCompatibilityCheck extends AbstractGuardedR
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                         @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                        @Nonnull final Object version) {
+                        @Nonnull final Object releaseVersion) {
 
         if (release.getLocalFile() == null) {
             log.debug("releaseVersionMatchesAtLeastApiCompatibility: Release does not provide an artifact, skipping check.");
