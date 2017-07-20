@@ -43,7 +43,7 @@ public class ReleasableBranchCheck extends AbstractGuardedReleaseStep {
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
                         @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                        @Nonnull final Object version) {
+                        @Nonnull final Object releaseVersion) {
         final VcsAccessor vcs = releaseInfrastructure.getVcs();
         final String branch = vcs.getBranch();
         if (branch != null) {

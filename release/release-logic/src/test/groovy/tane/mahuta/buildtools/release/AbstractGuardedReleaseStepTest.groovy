@@ -22,7 +22,7 @@ class AbstractGuardedReleaseStepTest extends Specification {
         @Override
         protected void doApply(
                 @Nonnull ArtifactRelease release,
-                @Nonnull ReleaseInfrastructure releaseInfrastructure, @Nonnull Object version) throws Exception {
+                @Nonnull ReleaseInfrastructure releaseInfrastructure, @Nonnull Object releaseVersion) throws Exception {
             throw new IllegalArgumentException()
         }
     }
