@@ -1,14 +1,14 @@
 package tane.mahuta.buildtools.apilyzer.clirr;
 
 import lombok.SneakyThrows;
-import net.sf.clirr.core.Checker;
-import net.sf.clirr.core.ClassSelector;
+import net.sf.clirr.core.*;
 import net.sf.clirr.core.internal.bcel.BcelTypeArrayBuilder;
 import net.sf.clirr.core.spi.JavaType;
 import net.sf.clirr.core.spi.Scope;
 import org.slf4j.Logger;
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportBuilder;
+import tane.mahuta.buildtools.apilyzer.ReportOutputType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +37,7 @@ public class ClirrApiCompatibilityReportBuilder implements ApiCompatibilityRepor
     private final Collection<File> baselineCp = new HashSet<>();
     private final Collection<File> currentCp = new HashSet<>();
     private Logger logger;
+    private DiffListener diffListener;
 
     @Override
     public ClirrApiCompatibilityReportBuilder withCurrent(final File source) {
@@ -94,6 +95,22 @@ public class ClirrApiCompatibilityReportBuilder implements ApiCompatibilityRepor
     }
 
     @Override
+    @SneakyThrows
+    public ClirrApiCompatibilityReportBuilder withReportOutput(@Nonnull final ReportOutputType type, @Nonnull final File file) {
+        switch (type) {
+            case XML:
+                diffListener = new XmlDiffListener(file.getAbsolutePath());
+                break;
+            case TXT:
+                diffListener = new PlainDiffListener(file.getAbsolutePath());
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot create a diff listener for output type: " + type);
+        }
+        return this;
+    }
+
+    @Override
     public ClirrApiCompatibilityReportBuilder withCurrentClasspath(final Iterable<File> sourceClasspath) {
         return addAllIfNotnull(sourceClasspath, this.currentCp);
     }
@@ -133,7 +150,7 @@ public class ClirrApiCompatibilityReportBuilder implements ApiCompatibilityRepor
         final JavaType[] sourceClasses = BcelTypeArrayBuilder.createClassSet(new File[]{current}, sourceLoader, classSelector);
         final JavaType[] targetClasses = BcelTypeArrayBuilder.createClassSet(new File[]{baseline}, targetLoader, classSelector);
 
-        final ReportDiffListener listener = new ReportDiffListener(logger);
+        final ReportDiffListener listener = new ReportDiffListener(logger, diffListener);
         checker.addDiffListener(listener);
         checker.reportDiffs(targetClasses, sourceClasses);
         return listener.getReport();
