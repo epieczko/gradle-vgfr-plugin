@@ -1,3 +1,7 @@
+branches:
+  except:
+    - /[0-9]+\.[0-9]+\.[0-9]+/
+
 language: groovy
 
 cache:
