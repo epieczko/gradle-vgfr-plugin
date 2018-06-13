@@ -45,7 +45,7 @@ subprojects {
         pkg {
             repo = 'gradle-plugins'
             name = 'gradle-vgfr-plugin'
-            userOrg = project.properties['bintray.user']
+            userOrg = System.getenv("BINTRAY_USER")
             licenses = ['Apache-2.0']
             githubRepo = 'Tanemahuta/gradle-vgfr-plugin/'
             //githubReleaseNotesFile = 'README.md'
@@ -60,5 +60,7 @@ subprojects {
         }
         publish = true
     }
+
+    tasks.bintrayUpload.onlyIf { !(project.version as String).endsWith("-SNAPSHOT") }
 
 }
