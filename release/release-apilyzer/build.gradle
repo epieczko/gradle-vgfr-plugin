@@ -4,7 +4,7 @@ apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
 dependencies {
     compile project(':release/release-api')
     compile 'net.sf.clirr:clirr-core:0.6'
-    compile 'org.apache.bcel:bcel:6.0'
+    compile 'org.apache.bcel:bcel:6.2'
     testCompile project(':gradle-plugin/gradle-plugin-testing')
     testRuntime 'org.slf4j:slf4j-simple:1.7.10'
 }
