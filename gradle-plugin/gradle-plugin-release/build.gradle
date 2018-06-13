@@ -2,9 +2,9 @@ apply from: rootProject.file('buildscripts/gradleProject.gradle')
 
 dependencies {
 
-    compile project(':gradle-plugin/gradle-plugin-version')
-    compile project(':release/release-apilyzer')
-    compile project(':release/release-logic')
+    compile project(':gradle-plugin:gradle-plugin-version')
+    compile project(':release:release-apilyzer')
+    compile project(':release:release-logic')
 
-    testCompile project(':gradle-plugin/gradle-plugin-testing')
+    testCompile project(':gradle-plugin:gradle-plugin-testing')
 }

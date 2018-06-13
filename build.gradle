@@ -54,7 +54,7 @@ subprojects {
                 name = project.version as String
                 released = new Date()
                 if (!(project.version as String).endsWith("-SNAPSHOT")) {
-                    vcsTag = "v/${project.version}"
+                    vcsTag = "${project.version}"
                 }
             }
         }

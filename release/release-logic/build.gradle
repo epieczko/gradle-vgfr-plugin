@@ -2,6 +2,6 @@ description = 'Contains all the business logic for the release'
 apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
 
 dependencies {
-    compile project(':release/release-api')
+    compile project(':release:release-api')
     compile 'commons-lang:commons-lang:2.5'
 }

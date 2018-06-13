@@ -2,6 +2,6 @@ description = 'An implementation of the semantic version with branch qualifiers'
 apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
 
 dependencies {
-    compile project(':versioning/versioning-semver')
-    compile project(':vcs/vcs-api')
+    compile project(':versioning:versioning-semver')
+    compile project(':vcs:vcs-api')
 }

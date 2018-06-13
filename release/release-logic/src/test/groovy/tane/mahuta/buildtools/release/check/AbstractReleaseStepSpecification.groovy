@@ -26,7 +26,7 @@ abstract class AbstractReleaseStepSpecification extends Specification {
      */
     private final VcsAccessor vcs = Mock(VcsAccessor) {
         getFlowConfig() >> Mock(VcsFlowConfig) {
-            getReleaseBranchPrefix() >> "release/"
+            getReleaseBranchPrefix() >> "release:"
             getProductionBranch() >> "master"
             getDevelopmentBranch() >> "develop"
             getHotfixBranchPrefix() >> "hotfix/"

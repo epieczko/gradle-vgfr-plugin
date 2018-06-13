@@ -60,8 +60,8 @@ class SemanticBranchVersionPluginTest extends Specification {
         'support/platsch'   | '1.2.3-SNAPSHOT' | 'platsch'       | '1.2.3-platsch-SNAPSHOT'
         'hotfix/1.2.3'      | '1.2.3'          | null            | '1.2.3'
         'hotfix/1.2.3'      | '1.2.3-SNAPSHOT' | null            | '1.2.3-SNAPSHOT'
-        'release/1.2.3'     | '1.2.3'          | null            | '1.2.3'
-        'release/1.2.3'     | '1.2.3-SNAPSHOT' | null            | '1.2.3-SNAPSHOT'
+        'release:1.2.3'     | '1.2.3'          | null            | '1.2.3'
+        'release:1.2.3'     | '1.2.3-SNAPSHOT' | null            | '1.2.3-SNAPSHOT'
     }
 
     @Unroll
@@ -78,8 +78,8 @@ class SemanticBranchVersionPluginTest extends Specification {
         where:
         version          | branch          | expectedVersion
         '1.2.3-SNAPSHOT' | 'development'   | '1.2.3'
-        '1.2.3'          | 'release/1.2.3' | '1.2.3'
-        '1.2.3-RELEASE'  | 'release/1.2.3' | '1.2.3'
+        '1.2.3'          | 'release:1.2.3' | '1.2.3'
+        '1.2.3-RELEASE'  | 'release:1.2.3' | '1.2.3'
     }
 
     @Unroll
@@ -101,10 +101,10 @@ class SemanticBranchVersionPluginTest extends Specification {
         where:
         d | p | version          | branch            | expectedVersion
         0 | 0 | '1.2.3-SNAPSHOT' | 'development'     | '1.2.4'
-        1 | 0 | '1.2.3'          | 'release/1.2.3'   | '2.0.0'
-        1 | 0 | '1.2.3-a'        | 'release/1.2.3-a' | '2.0.0-a'
-        0 | 1 | '1.2.3'          | 'release/1.2.3'   | '1.3.0'
-        1 | 1 | '1.2.3'          | 'release/1.2.3'   | '2.0.0'
+        1 | 0 | '1.2.3'          | 'release:1.2.3'   | '2.0.0'
+        1 | 0 | '1.2.3-a'        | 'release:1.2.3-a' | '2.0.0-a'
+        0 | 1 | '1.2.3'          | 'release:1.2.3'   | '1.3.0'
+        1 | 1 | '1.2.3'          | 'release:1.2.3'   | '2.0.0'
     }
 
     @Unroll

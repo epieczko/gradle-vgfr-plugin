@@ -1,19 +1,19 @@
 rootProject.name = 'gradle-vgfr-plugin'
 
-include "versioning/versioning-api"
-include "versioning/versioning-semver"
-include "versioning/versioning-semver-branch"
-include "versioning/versioning-storage"
+include "versioning:versioning-api"
+include "versioning:versioning-semver"
+include "versioning:versioning-semver-branch"
+include "versioning:versioning-storage"
 
-include "release/release-api"
-include "release/release-apilyzer"
-include "release/release-logic"
-include "vcs/vcs-api"
+include "release:release-api"
+include "release:release-apilyzer"
+include "release:release-logic"
+include "vcs:vcs-api"
 
-include "vcs/vcs-gitflow"
+include "vcs:vcs-gitflow"
 
-include "gradle-plugin/gradle-plugin-testing"
-include "gradle-plugin/gradle-plugin-vcs"
-include "gradle-plugin/gradle-plugin-version"
-include "gradle-plugin/gradle-plugin-release"
+include "gradle-plugin:gradle-plugin-testing"
+include "gradle-plugin:gradle-plugin-vcs"
+include "gradle-plugin:gradle-plugin-version"
+include "gradle-plugin:gradle-plugin-release"
 

@@ -22,7 +22,7 @@ class JGitFlowAccessorTest extends Specification {
     private static final InitContext INIT_CTX = new InitContext()
             .setDevelop("develop")
             .setMaster("master")
-            .setRelease("release/")
+            .setRelease("release:")
             .setHotfix("hotfix/")
             .setSupport("support/")
             .setVersiontag("version/")
@@ -90,7 +90,7 @@ class JGitFlowAccessorTest extends Specification {
         'productionBranch'    | INIT_CTX.master     | 'myMaster'
         'developmentBranch'   | INIT_CTX.develop    | 'myDevelop'
         'featureBranchPrefix' | INIT_CTX.feature    | 'myFeature/'
-        'releaseBranchPrefix' | INIT_CTX.release    | 'myRelease/'
+        'releaseBranchPrefix' | INIT_CTX.release    | 'myrelease:'
         'hotfixBranchPrefix'  | INIT_CTX.hotfix     | 'myHotfix/'
         'supportBranchPrefix' | INIT_CTX.support    | 'support/'
         'versionTagPrefix'    | INIT_CTX.versiontag | 'myVersion/'
@@ -122,11 +122,11 @@ class JGitFlowAccessorTest extends Specification {
 
         where:
         startBranch     | expectedReleaseBranch | expectedFinishBranch
-        'release/1.2.3' | 'release/1.2.3'       | INIT_CTX.getDevelop()
-        'development'   | 'release/1.2.3'       | INIT_CTX.getDevelop()
+        'release:1.2.3' | 'release:1.2.3'       | INIT_CTX.getDevelop()
+        'development'   | 'release:1.2.3'       | INIT_CTX.getDevelop()
         'hotfix/1.2.3'  | 'hotfix/1.2.3'        | INIT_CTX.getDevelop()
-        'support/1.2.3' | 'release/1.2.3'       | INIT_CTX.getDevelop()
-        'feature/xy'    | 'release/1.2.3'       | INIT_CTX.getDevelop()
+        'support/1.2.3' | 'release:1.2.3'       | INIT_CTX.getDevelop()
+        'feature/xy'    | 'release:1.2.3'       | INIT_CTX.getDevelop()
     }
 
     def "finish on other branches result in error"() {
@@ -149,7 +149,7 @@ class JGitFlowAccessorTest extends Specification {
         accessor.checkout(INIT_CTX.master)
         new File(folder1.root, "xy.txt") << "Some master commit"
         accessor.commitFiles("Commit on master branch")
-        accessor.checkout("release/1.2.3")
+        accessor.checkout("release:1.2.3")
 
         and:
         accessor.finishReleaseBranch("1.2.3")

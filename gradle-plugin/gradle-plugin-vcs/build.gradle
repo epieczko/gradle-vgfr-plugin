@@ -1,7 +1,7 @@
 apply from: rootProject.file('buildscripts/gradleProject.gradle')
 
 dependencies {
-    compile project(':vcs/vcs-gitflow')
+    compile project(':vcs:vcs-gitflow')
 
-    testCompile project(':gradle-plugin/gradle-plugin-testing')
+    testCompile project(':gradle-plugin:gradle-plugin-testing')
 }
