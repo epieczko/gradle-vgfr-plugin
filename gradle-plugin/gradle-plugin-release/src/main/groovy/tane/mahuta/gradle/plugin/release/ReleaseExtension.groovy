@@ -100,7 +100,8 @@ class ReleaseExtension {
         return new ApiCompatibilityReportBuilder.Factory() {
             @Override
             ApiCompatibilityReportBuilder builder() {
-                final ApiCompatibilityReportBuilder builder = apiReportBuilderFactory?.builder() ?: new ClirrApiCompatibilityReportBuilder()
+                final ApiCompatibilityReportBuilder builder =
+                        (apiReportBuilderFactory?.builder() ?: new ClirrApiCompatibilityReportBuilder()) as ApiCompatibilityReportBuilder
                 apiReportConfiguration?.delegate = builder
                 apiReportConfiguration?.resolveStrategy == Closure.DELEGATE_FIRST
                 apiReportConfiguration?.call()
