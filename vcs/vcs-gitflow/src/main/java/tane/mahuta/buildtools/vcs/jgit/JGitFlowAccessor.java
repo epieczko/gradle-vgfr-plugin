@@ -129,7 +129,7 @@ public class JGitFlowAccessor implements VcsAccessor {
     }
 
     private JGitFlow getJGitFlow() {
-        return jGitFlowWithConfig.getJGitFlow();
+        return jGitFlowWithConfig;
     }
 
     private static <T extends AbstractBranchMergingCommand<T, ReleaseMergeResult>> boolean handleAndReturn(final T command) throws Exception {
