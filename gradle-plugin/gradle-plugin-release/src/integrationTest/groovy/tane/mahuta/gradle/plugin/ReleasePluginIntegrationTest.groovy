@@ -19,9 +19,9 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
 
         and: 'the tags and branches are created'
         hasLocalTag('version/1.0.0')
-        !hasLocalBranch("release:1.0.0")
+        !hasLocalBranch("release/1.0.0")
         hasRemoteTag('version/1.0.0')
-        !hasRemoteBranch("release:1.0.0")
+        !hasRemoteBranch("release/1.0.0")
 
         and: 'the local repository contains the artifacts'
         repositoryContains("test.group", "api", "1.0")
@@ -45,9 +45,9 @@ class ReleasePluginIntegrationTest extends AbstractReleasePluginIntegrationTest 
 
         and: 'the tags and branches are created'
         hasLocalTag('version/1.1.0')
-        !hasLocalBranch("release:1.1.0")
+        !hasLocalBranch("release/1.1.0")
         hasRemoteTag('version/1.1.0')
-        !hasRemoteBranch("release:1.1.0")
+        !hasRemoteBranch("release/1.1.0")
 
         and: 'the local repository contains the artifacts'
         repositoryContains("test.group", "api", "1.0")

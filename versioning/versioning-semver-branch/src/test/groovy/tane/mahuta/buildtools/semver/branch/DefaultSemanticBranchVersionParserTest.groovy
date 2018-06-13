@@ -25,7 +25,7 @@ class DefaultSemanticBranchVersionParserTest extends Specification {
                     getFeatureBranchPrefix() >> "feature/"
                     getSupportBranchPrefix() >> "support/"
                     getHotfixBranchPrefix() >> "hotfix/"
-                    getReleaseBranchPrefix() >> "release:"
+                    getReleaseBranchPrefix() >> "release/"
                     getDevelopmentBranch() >> "development"
                     getProductionBranch() >> "master"
                 }
@@ -57,7 +57,7 @@ class DefaultSemanticBranchVersionParserTest extends Specification {
         "1.2.3"   | "fff"           | 1     | 2     | 3     | null      | "fff"           | "1.2.3-fff"
         "1.2.3"   | "master"        | 1     | 2     | 3     | null      | null            | "1.2.3"
         "1.2.3"   | "development"   | 1     | 2     | 3     | null      | null            | "1.2.3"
-        "1.2.3"   | "release:1.2.3" | 1     | 2     | 3     | null      | null            | "1.2.3"
+        "1.2.3"   | "release/1.2.3" | 1     | 2     | 3     | null      | null            | "1.2.3"
         "1.2.3"   | "hotfix/1.2.3"  | 1     | 2     | 3     | null      | null            | "1.2.3"
         "1.2.3"   | "feature/b"     | 1     | 2     | 3     | null      | "b"             | "1.2.3-b"
         "1.2.3-q" | null            | 1     | 2     | 3     | "q"       | null            | "1.2.3-q"

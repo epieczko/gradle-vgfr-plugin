@@ -23,7 +23,7 @@ class ReleasableBranchCheckTest extends AbstractReleaseStepSpecification {
         'master'        | 1
         'development'   | 0
         'blubb'         | 1
-        'release:1.2.3' | 0
+        'release/1.2.3' | 0
         'hotfix/1.2.3'  | 0
         'support/xy'    | 0
     }
