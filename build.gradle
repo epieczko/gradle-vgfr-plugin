@@ -39,8 +39,8 @@ subprojects {
     apply plugin: 'com.jfrog.bintray'
 
     bintray {
-        user = project.properties['bintray.user']
-        key = project.properties['bintray.key']
+        user = System.getenv("BINTRAY_USER")
+        key = System.getenv("BINTRAY_KEY")
         configurations = ['archives']
         pkg {
             repo = 'gradle-plugins'
