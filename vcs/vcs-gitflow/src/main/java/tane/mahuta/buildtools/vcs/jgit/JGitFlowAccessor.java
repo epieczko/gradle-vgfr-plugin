@@ -18,13 +18,17 @@ import tane.mahuta.buildtools.vcs.VcsFlowConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * {@link VcsAccessor} using {@link com.atlassian.jgitflow.core.JGitFlow}.
  *
  * @author christian.heike@icloud.com
- *         Created on 06.06.17.
+ * Created on 06.06.17.
  */
 @Slf4j
 public class JGitFlowAccessor implements VcsAccessor {
@@ -41,8 +45,12 @@ public class JGitFlowAccessor implements VcsAccessor {
 
     @Override
     @Nullable
-    @SneakyThrows
     public String getBranch() {
+        return Optional.ofNullable(System.getenv("GIT_BRANCH")).orElseGet(this::getRepositoryBranch);
+    }
+
+    @SneakyThrows
+    private String getRepositoryBranch() {
         return getJGitFlow().git().getRepository().getBranch();
     }
 
