@@ -6,7 +6,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 script:
-  - ./gradlew assemble check bintrayUpload --stacktrace-Pgradle.publish.secret=${GRADLE_PUBLISH_SECRET}
+  - ./gradlew assemble check bintrayUpload --stacktrace -Pgradle.publish.secret=${GRADLE_PUBLISH_SECRET}
 
 jdk:
 - oraclejdk8
