@@ -1,12 +1,14 @@
 apply plugin: 'java'
-apply plugin: 'io.franzbecker.gradle-lombok'
+apply plugin: 'net.ltgt.apt'
 apply from: rootProject.file('buildscripts/cloverProject.gradle')
 
 sourceCompatibility = targetCompatibility = 1.8
-
-lombok.version = '1.16.16'
-
+configurations {
+    compileOnly.extendsFrom annotationProcessor
+    testCompileOnly.extendsFrom annotationProcessor
+}
 dependencies {
+    annotationProcessor "org.projectlombok:lombok:1.16.20"
     compile 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
@@ -26,7 +28,7 @@ artifacts {
 test {
     doFirst {
         sourceSets.each { sourceSet ->
-            sourceSet.output.classesDir.mkdirs()
+            sourceSet.output.classesDirs.each { it.mkdirs() }
         }
     }
     testLogging {

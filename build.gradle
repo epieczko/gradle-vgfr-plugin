@@ -1,5 +1,3 @@
-import io.franzbecker.gradle.lombok.task.DelombokTask
-
 group = 'tane.mahuta.build'
 
 buildscript {
@@ -11,10 +9,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.franzbecker:gradle-lombok:1.8'
-        classpath 'com.bmuschko:gradle-clover-plugin:2.1.1'
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
+        classpath 'com.bmuschko:gradle-clover-plugin:2.2.0'
         classpath 'com.gradle.publish:plugin-publish-plugin:0.9.7'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
     }
 }
 
@@ -60,29 +58,7 @@ subprojects {
                 }
             }
         }
-    }
-
-    afterEvaluate {
-
-        if (pluginManager.hasPlugin('io.franzbecker.gradle-lombok')) {
-
-
-            task delombok(type: DelombokTask, dependsOn: compileJava) {
-                ext.outputDir = file("$buildDir/delombok")
-                outputs.dir(outputDir)
-                sourceSets.main.java.srcDirs.each {
-                    inputs.dir(it)
-                    args(it, "-d", outputDir)
-                }
-            }
-
-            javadoc {
-                dependsOn delombok
-                source = delombok.outputDir
-                failOnError = false
-            }
-        }
-
+        publish = true
     }
 
 }

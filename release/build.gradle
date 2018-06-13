@@ -1,5 +1,0 @@
-description = 'Libraries which are used for releasing'
-
-subprojects {
-    apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
-}

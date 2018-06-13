@@ -97,12 +97,15 @@ class ReleaseExtension {
     }
 
     private ApiCompatibilityReportBuilder.Factory getOrDefaultApiCompatibilityReportBuilderFactory() {
-        { ->
-            final ApiCompatibilityReportBuilder builder = apiReportBuilderFactory?.builder() ?: new ClirrApiCompatibilityReportBuilder()
-            apiReportConfiguration?.delegate = builder
-            apiReportConfiguration?.resolveStrategy == Closure.DELEGATE_FIRST
-            apiReportConfiguration?.call()
-            return builder
+        return new ApiCompatibilityReportBuilder.Factory() {
+            @Override
+            ApiCompatibilityReportBuilder builder() {
+                final ApiCompatibilityReportBuilder builder = apiReportBuilderFactory?.builder() ?: new ClirrApiCompatibilityReportBuilder()
+                apiReportConfiguration?.delegate = builder
+                apiReportConfiguration?.resolveStrategy == Closure.DELEGATE_FIRST
+                apiReportConfiguration?.call()
+                return builder
+            }
         }
     }
 

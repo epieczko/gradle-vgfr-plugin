@@ -1,7 +1,8 @@
 description = 'API for releasing'
+apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
 
 dependencies {
-    compile project(':versioning:versioning-api')
-    compile project(':vcs:vcs-api')
+    compile project(':versioning/versioning-api')
+    compile project(':vcs/vcs-api')
     compile 'org.slf4j:slf4j-api:1.7.10'
 }

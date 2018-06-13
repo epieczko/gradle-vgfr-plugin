@@ -1,9 +1,9 @@
 package tane.mahuta.gradle.plugin.version
 
 import groovy.transform.CompileStatic
+import groovy.transform.EqualsAndHashCode
 import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.FromString
-import lombok.EqualsAndHashCode
 import org.gradle.api.Project
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport
 import tane.mahuta.buildtools.version.VersionParser

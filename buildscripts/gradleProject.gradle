@@ -25,13 +25,13 @@ if (descriptors.isFile()) {
 sourceSets {
     integrationTest {
         java {
-            compileClasspath += main.output
-            runtimeClasspath += main.output
+            compileClasspath += sourceSets.main.output + configurations.testRuntime
+            runtimeClasspath += output + compileClasspath
             srcDirs = [file('src/integrationTest/java')]
         }
         groovy {
-            compileClasspath += main.output
-            runtimeClasspath += main.output
+            compileClasspath += sourceSets.main.output + configurations.testRuntime
+            runtimeClasspath += output + compileClasspath
             srcDirs = [file('src/integrationTest/groovy')]
         }
         resources.srcDirs = [file('src/integrationTest/resources')]
