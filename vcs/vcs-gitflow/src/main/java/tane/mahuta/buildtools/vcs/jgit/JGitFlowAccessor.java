@@ -8,11 +8,14 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.merge.ResolveMerger;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import tane.mahuta.buildtools.vcs.VcsAccessor;
 import tane.mahuta.buildtools.vcs.VcsFlowConfig;
 
@@ -113,7 +116,7 @@ public class JGitFlowAccessor implements VcsAccessor {
     @Override
     @SneakyThrows
     public void push() {
-        getJGitFlow().git().push().call();
+        gitPushWithCredentials().call();
     }
 
     @Override
@@ -125,8 +128,24 @@ public class JGitFlowAccessor implements VcsAccessor {
     @Override
     @SneakyThrows
     public void pushTags() {
-        getJGitFlow().git().push().setPushTags().call();
+        gitPushWithCredentials().setPushTags().call();
     }
+
+    private PushCommand gitPushWithCredentials() {
+        final PushCommand result = getJGitFlow().git().push();
+        getCredentialsProvider().ifPresent(result::setCredentialsProvider);
+        return result;
+    }
+
+    private Optional<CredentialsProvider> getCredentialsProvider() {
+        final String username = System.getenv("GIT_USERNAME");
+        final String password = System.getenv("GIT_PASSWORD");
+        if (username != null && password != null) {
+            return Optional.of(new UsernamePasswordCredentialsProvider(username, password));
+        }
+        return Optional.empty();
+    }
+
 
     private JGitFlow getJGitFlow() {
         return jGitFlowWithConfig;
