@@ -37,7 +37,7 @@ class ReleaseExtensionTask extends AbstractTask {
      * @param step the step to invoke
      */
     void invokeStep(@Nonnull final ReleaseStep step) {
-        project.allprojects { p ->
+        project.allprojects { Project p ->
             final extension = releaseExtensionOf(p)
             if (extension == null) {
                 throw new InvalidUserCodeException("The ${p} has no release extension applied, this is probably due to a wrong configuration.")

@@ -1,1 +1,2 @@
 description = 'API for VCS access'
+apply from: rootProject.file('buildscripts/javaSpockProject.gradle')

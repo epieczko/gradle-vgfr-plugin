@@ -2,6 +2,7 @@ package tane.mahuta.buildtools.semver.branch;
 
 
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Wither;
 import tane.mahuta.buildtools.semver.AbstractSemanticVersion;
 import tane.mahuta.buildtools.version.SemanticBranchVersion;
 import tane.mahuta.buildtools.version.SemanticVersion;
@@ -69,4 +70,26 @@ public class DefaultSemanticBranchVersion extends AbstractSemanticVersion implem
         return qualifier;
     }
 
+    @Override
+    @Nonnull
+    public DefaultSemanticBranchVersion withMajor(final int major) {
+        return new DefaultSemanticBranchVersion(major, minor, micro, branchQualifierSupplier, qualifier);
+    }
+
+    @Override
+    @Nonnull
+    public DefaultSemanticBranchVersion withMinor(final int minor) {
+        return new DefaultSemanticBranchVersion(major, minor, micro, branchQualifierSupplier, qualifier);
+    }
+
+    @Override
+    @Nonnull
+    public DefaultSemanticBranchVersion withMicro(@Nullable final Integer micro) {
+        return new DefaultSemanticBranchVersion(major, minor, micro, branchQualifierSupplier, qualifier);
+    }
+
+    @Nonnull
+    public DefaultSemanticBranchVersion withQualifier(@Nullable final  String qualifier) {
+        return new DefaultSemanticBranchVersion(major, minor, micro, branchQualifierSupplier, qualifier);
+    }
 }

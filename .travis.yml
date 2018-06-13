@@ -1,7 +1,4 @@
 language: groovy
-env:
-  global:
-    secure: c1AOS/lmLlvSxXt1Y7BxQztLcYs5AV5XQWg313jo3ZyEH9OklhRl3tlFpDs+rtrXzIiairAyXQdjDW7MiO3Gw1KCwFIQ9cHQKEUobqqPVPYzdKdc3l/8zX6bPkv57CbkLsWjYV6aUeHkf8uoetUAUenLTcVqYh0n4M7+9tnNN8rmuUdC18vdlC9HMIYK5J+VeuvjE/Tm7MrzC+SFmphRcvENOAvJ4riIIO0mgFu3Mk3gGqNFvgFc00ZuVlf6jVzKm46A5v/kvGhJyUz497kNjFsZVGnVES/1Hcn+ms4q/64ji9Gd3/Byoegu6v2FR3eHLpA9Q1PWXv0Ob7Pq05v2EPjNqwA/P2d07r+TiO9UvX2SKVhm3gdUpg1DdNjT1uxl89x6xuZeOLXWXJaCpNxkb3VEu5z2U3gE7qHG3Xk/TWHG9FQIFCJRRAuJXjNT5TtYfzLiYtZnD3RoMqUCYWdNSQmw26hiJ/WDPdX1hjDrCJW3vunLqvs6mkloAkzccmWteouQyleAKGVepBkSl4K3Z0I9vrFXbXegV5Ee6eCsHJizuX2hEhUSNA2fIfTTGR57+ohtRMZLQALb+fO7OVFrZab4xrXn0APA7aWW1mVBbncSZQud1YLbn1PbyngEL/1SCnyTwuXR7MKK8XNv23iO0oOV4wzZh9PokzP6sxzzk+w=
 
 cache:
   directories:
@@ -9,7 +6,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 script:
-  - ./gradlew assemble check --info
+  - ./gradlew assemble check bintrayUpload --stacktrace-Pgradle.publish.secret=${GRADLE_PUBLISH_SECRET}
 
 jdk:
 - oraclejdk8

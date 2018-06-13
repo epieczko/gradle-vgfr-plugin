@@ -1,7 +1,8 @@
 description = 'Implementation of default version storages'
+apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
 
 dependencies {
-    compile parent.project('versioning-api')
+    compile project(':versioning/versioning-api')
     compile 'org.slf4j:slf4j-api:1.7.6'
     compile 'commons-io:commons-io:2.4'
 }

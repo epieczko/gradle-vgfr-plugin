@@ -26,6 +26,7 @@ public class ReportDiffListener implements DiffListener {
 
     private final Logger logger;
     private final MessageTranslator translator = new MessageTranslator();
+    private final DiffListener delegateListener;
 
     private ClirrApiCompatibilityReport reportInProgress;
     private ClirrApiCompatibilityReport finalizedReport;
@@ -33,15 +34,18 @@ public class ReportDiffListener implements DiffListener {
     /**
      * Create a new listener with a {@link Logger}.
      *
-     * @param logger the optional logger
+     * @param logger           the optional logger
+     * @param delegateListener
      */
-    public ReportDiffListener(@Nullable final Logger logger) {
+    public ReportDiffListener(@Nullable final Logger logger, @Nullable final DiffListener delegateListener) {
         this.logger = logger;
+        this.delegateListener = delegateListener;
     }
 
     @Override
     public void start() {
         Optional.ofNullable(logger).ifPresent(l -> logger.info("Starting analysis..."));
+        Optional.ofNullable(delegateListener).ifPresent(DiffListener::start);
         reportInProgress = new ClirrApiCompatibilityReport();
         finalizedReport = null;
     }
@@ -50,12 +54,14 @@ public class ReportDiffListener implements DiffListener {
     public void reportDiff(final ApiDifference difference) {
         Objects.requireNonNull(reportInProgress, "Reporting has not started yet.");
         Optional.ofNullable(logger).ifPresent(l -> getLoggerConsumer(l, difference.getMaximumSeverity()).accept(difference.getReport(translator)));
+        Optional.ofNullable(delegateListener).ifPresent(l -> l.reportDiff(difference));
         Optional.ofNullable(targetMapFor(difference.getMaximumSeverity())).ifPresent(target -> target.add(difference.getAffectedClass()));
     }
 
     @Override
     public void stop() {
         Objects.requireNonNull(reportInProgress, "Reporting has not started yet.");
+        Optional.ofNullable(delegateListener).ifPresent(DiffListener::stop);
         Optional.ofNullable(logger).ifPresent(l -> l.info("Analysis finished."));
         this.finalizedReport = reportInProgress;
         this.reportInProgress = null;

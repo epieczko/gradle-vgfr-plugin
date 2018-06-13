@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportConfiguration
 import tane.mahuta.buildtools.apilyzer.Scope
 
 /**
@@ -28,18 +29,22 @@ class ClirrApiCompatibilityReportBuilderTest extends Specification {
         setup:
         final source = new File("src/test/resources/repo/commons-io-${curVer}.jar").absoluteFile
         final target = new File("src/test/resources/repo/commons-io-${baseVer}.jar").absoluteFile
+        final configuration = ApiCompatibilityReportConfiguration.builder()
+                .scope(scope)
+                .current(source)
+                .currentClasspath([])
+                .baseline(target)
+                .baselineClasspath([])
+                .logger(LoggerFactory.getLogger(getClass()))
+                .includePackages(packages.collect { "org.apache.commons.io.${it}" as String })
+                .includeClasses(classes.collect { "org.apache.commons.io.${it}" as String })
+                .build()
+
         final reporter = new ClirrApiCompatibilityReportBuilder()
-                .withScope(scope)
-                .withCurrent(source)
-                .withCurrentClasspath([])
-                .withBaseline(target)
-                .withBaselineClasspath([])
-                .withLogger(LoggerFactory.getLogger(getClass()))
-                .withPackages(packages.collect { "org.apache.commons.io.${it}" as String })
-                .withClasses(classes.collect { "org.apache.commons.io.${it}" as String })
         final compatible = (definiteSize + possibleSize) == 0
+
         when:
-        final report = reporter.buildReport()
+        final report = reporter.buildReport(configuration)
 
         then:
         report.definiteIncompatibleClasses.size() == definiteSize

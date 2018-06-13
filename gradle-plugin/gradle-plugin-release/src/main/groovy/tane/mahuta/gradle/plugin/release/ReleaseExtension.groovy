@@ -3,6 +3,8 @@ package tane.mahuta.gradle.plugin.release
 import groovy.transform.CompileStatic
 import org.gradle.api.artifacts.PublishArtifact
 import org.gradle.api.internal.project.ProjectInternal
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportBuilder
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportConfiguration
 import tane.mahuta.buildtools.apilyzer.clirr.ClirrApiCompatibilityReportBuilder
 import tane.mahuta.buildtools.dependency.ArtifactResolver
 import tane.mahuta.buildtools.release.ArtifactRelease
@@ -16,6 +18,7 @@ import tane.mahuta.gradle.plugin.version.VersioningExtension
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
+
 /**
  * Extension for the {@link tane.mahuta.gradle.plugin.ReleasePlugin}.
  *
@@ -31,7 +34,17 @@ class ReleaseExtension {
     private ReleaseInfrastructure releaseInfrastructure
     private Set<ArtifactRelease> artifactReleases
 
-    List<String> releaseTasks = []
+    /**
+     * The {@link ApiCompatibilityReportBuilder.Factory} to use when creating the report builder
+     */
+    ApiCompatibilityReportBuilder.Factory apiReportBuilderFactory
+
+    /**
+     * The tasks to run when releasing
+     */
+    List<String> releaseTasks
+
+    private Closure apiReportConfiguration
 
     ReleaseExtension(@Nonnull final ProjectInternal project) {
         this.project = project
@@ -44,6 +57,16 @@ class ReleaseExtension {
 
     protected VcsExtension getVcs() {
         findExtension(VcsExtension)
+    }
+
+    /**
+     * Set the closure
+     * @param reportConfiguration
+     */
+    ReleaseExtension setApiReportConfiguration(
+            @Nullable @DelegatesTo(ApiCompatibilityReportConfiguration) final Closure apiReportConfiguration) {
+        this.apiReportConfiguration = apiReportConfiguration
+        this
     }
 
     /**
@@ -68,9 +91,23 @@ class ReleaseExtension {
                 .versionHandler(factorVersionHandler())
                 .vcs(vcs)
                 .buildToolAdapter(new GradleBuildAdapter(project))
-                .apiCompatibilityReportBuilderFactory({ -> new ClirrApiCompatibilityReportBuilder() })
+                .apiCompatibilityReportBuilderFactory(getOrDefaultApiCompatibilityReportBuilderFactory())
                 .versionStorage(versionExtension.storage)
                 .build()
+    }
+
+    private ApiCompatibilityReportBuilder.Factory getOrDefaultApiCompatibilityReportBuilderFactory() {
+        return new ApiCompatibilityReportBuilder.Factory() {
+            @Override
+            ApiCompatibilityReportBuilder builder() {
+                final ApiCompatibilityReportBuilder builder =
+                        (apiReportBuilderFactory?.builder() ?: new ClirrApiCompatibilityReportBuilder()) as ApiCompatibilityReportBuilder
+                apiReportConfiguration?.delegate = builder
+                apiReportConfiguration?.resolveStrategy == Closure.DELEGATE_FIRST
+                apiReportConfiguration?.call()
+                return builder
+            }
+        }
     }
 
     @Nonnull
@@ -85,7 +122,7 @@ class ReleaseExtension {
                 .storage(versionExtension.storage)
                 .toReleaseVersionHandler(versionExtension.releaseTransformer)
                 .toReleaseVersionWithReportHandler(versionExtension.releaseTransformerForReport)
-        .toNextDevelopmentVersionHandler(versionExtension.nextDevelopmentTransformer)
+                .toNextDevelopmentVersionHandler(versionExtension.nextDevelopmentTransformer)
                 .comparator(versionExtension.comparator).build()
     }
 
@@ -94,7 +131,9 @@ class ReleaseExtension {
         (project.configurations
                 .collect { it.artifacts }
                 .flatten() as Collection<PublishArtifact>)
-                .collect { GradleDomainObjectAdapter.instance.createArtifactRelease(project, it) } as Set<ArtifactRelease>
+                .collect {
+            GradleDomainObjectAdapter.instance.createArtifactRelease(project, it)
+        } as Set<ArtifactRelease>
     }
 
     @Nullable

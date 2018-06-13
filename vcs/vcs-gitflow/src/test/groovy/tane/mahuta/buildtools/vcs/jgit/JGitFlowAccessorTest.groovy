@@ -39,12 +39,13 @@ class JGitFlowAccessorTest extends Specification {
 
     def setup() {
         remote = Git.init().setBare(true).setDirectory(folder2.root).call()
-        Git.cloneRepository().setDirectory(folder1.root).setURI(folder2.root.toURI().toASCIIString()).call()
-        jGitFlow = JGitFlow.getOrInit(folder1.getRoot(), INIT_CTX)
+        final git = Git.cloneRepository().setDirectory(folder1.root).setURI(folder2.root.toURI().toASCIIString()).call()
+        jGitFlow = new JGitFlowWithConfig(git, INIT_CTX)
         new File(folder1.getRoot(), "test.txt").createNewFile()
-        accessor = new JGitFlowAccessor(new JGitFlowWithConfig(jGitFlow))
+        accessor = new JGitFlowAccessor(jGitFlow)
         jGitFlow.git().add().addFilepattern("test.txt").call()
         head = jGitFlow.git().commit().setMessage("Test message").call().name() as String
+        jGitFlow.git().checkout().setCreateBranch(true).setName("develop").call()
     }
 
     def "getBranch returns checked out branch"() {

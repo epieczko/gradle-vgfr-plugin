@@ -30,6 +30,16 @@ class DefaultSemanticBranchVersionTest extends Specification {
         1     | 2     | 3     | "SNAPSHOT" | "branch" | "1.2.3-branch-SNAPSHOT"
     }
 
+    def 'with methods are working'() {
+        setup:
+        final version = new DefaultSemanticBranchVersion(1,2,3,{ -> 'A'}, 'SNAPSHOT')
+        expect:
+        version.withMajor(2).major == 2
+        version.withMinor(3).minor == 3
+        version.withMicro(4).micro == 4
+        version.withQualifier("RELEASE").qualifier == "RELEASE"
+    }
+
     @Unroll
     def 'comparing #lhs and #rhs returns #expected'() {
         expect:

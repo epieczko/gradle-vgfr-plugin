@@ -15,39 +15,41 @@ For versioning the [semantic versioning schem](https://www.semver.org) has becom
 The branch model [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/) has become the model of choice in many projects when it comes to maintaining source code streaming.
 I decided to write a release plugin which behaves pretty much like the maven release plugin using git-flow and semantic versioning for automatic releasing.
 
-## Usage
+## Release plugin
+
+### Usage
 In your root project have a `gradle.properties` ready which provides the current version and will be maintained by the plugin:
 ```properties
 version=1.0.0-SNAPSHOT
 ```
-### Gradle >=2.1
+#### Gradle >=2.1
 In your root `build.gradle` apply the release plugin and the semantic branch version plugin, the repository is necessary, because some modules of the project are referenced.
 ```groovy
 buildscript {
     repositories {
-        maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" }    
-    }
+        maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" }    
+    }
 }
 plugins {    
-    id 'tane.mahuta.gradle.release-plugin' version '1.0.0'
-    id 'tane.mahuta.gradle.semver-branch-plugin' version '1.0.0'
+    id 'tane.mahuta.gradle.release-plugin' version 'latest.release'
+    id 'tane.mahuta.gradle.semver-branch-plugin' version 'latest.release'
 }
 ```
-### Gradle <2.1
+#### Gradle <2.1
 In your root `build.gradle` configure the repository and add the plugin jar to the class path, then apply the release plugin and the semantic branch version plugin
 ```groovy
 buildscript {
-    repositories {        
-        maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" }        
+    repositories { 
+        maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" } 
     }
     dependencies {
-        classpath "tane.mahuta.build:gradle-plugin-release:1.0.0"
+        classpath "tane.mahuta.build:gradle-plugin-release:latest.release"
     }
 }
 apply plugin: 'tane.mahuta.gradle.release-plugin'
 apply plugin: 'tane.mahuta.gradle.semver-branch-plugin'
 ```
-### Necessary additional configuration
+#### Necessary additional configuration
 For analysing the release and comparing the release versions, the buildscripts need to be configured the way that they also have access to the target repository for dependency resolution. Thus your configuration should match the following:
 ```groovy
 allprojects {    
@@ -64,7 +66,7 @@ allprojects {
     }
 }
 ```
-## Checking the release
+### Checking the release
 If you want to check your release prior to running it, you may issue a `./gradlew releaseCheck`.
 This will check the following:
  - issue the `check` tasks  on each project
@@ -75,49 +77,56 @@ This will check the following:
  - the API changes are matching the current version increment (to be release) regarding the last released version
 A report with problems will be provided for each project and its artifacts.
 
-## Releasing
+### Releasing
 Releasing is as simple as running `./gradlew release`. This will run the release check as well.
 If you want to skip a check or all checks, you may use the `-x <task>` switch in gradle.
 The release steps being performed are as follows:
  - issue all checks
  - if not on hotfix/... or release/..., start a release branch with git flow
  - set and store the release version, commit and push it
- - run the `uploadArchives` task
+ - run the `check` and `uploadArchives` task
  - finish the release via git flow and push the tags
  - set and store the next development iteration on the development branch
 
-## API compatibility check
+
+### Configuration
+If you need to override the defaults while releasing, you can configure the `release` extension in the root (or sub projects):
+```groovy
+release {
+    releaseTasks = ['myReleaseTask1', 'myTask2']
+}
+```
+For other configuration parts (e.g. the VCS flow), please refer to the plugin's documentation.
+
+### Note on the API compatibility check
 The API is being checked using [CLIRR](http://clirr.sourceforge.net/) which provides a report of incompatible class changes (e.g. public method signatures which have been changed). From this report, the tooling suggests the next semantic version for the release (referring to the latest release version). If the version is greater than the version to be released, the check will fail, providing the minimum version to be used for the release.
+In future versions it will be possible to provide an own adapter for a report builder.
 
-## Example project 
+### Example project 
 An example project being used for integration testing can be found [here](https://github.com/Tanemahuta/gradle-vgfr-plugin/tree/development/gradle-plugin/gradle-plugin-release/src/integrationTest/resources/baseProject).
-
-# Attention - Outdated information (will be updated soon)
 
 ## Plugins
 
 ### General
-The plugin code is based on git-flow and the semantic version scheme. 
-
-Though this should be sufficient, you are able to extend the functionality by implementing services or using various extension points.
+There's certain extension points available for gradle in each plugin. Though, some of the code is was written to
+ provide an abstraction layer for other build tools (e.g. maven). 
  
-Most of the extension points use SPI via `java.util.ServiceLoader`, which means you have to define 
+Thus, most of the extension points use SPI via `java.util.ServiceLoader`, which means you have to define 
 `META-INF/services/<fully qualified service interface>` using a line containing the fully qualified class name of the 
 implementations of the services you want to provide.
-
 
 ### VCS Plugin
 
 #### Introduction
 This plugin creates an extension `project.vcs` with type `tane.mahuta.gradle.plugin.vcs.VcsExtension`.
-You are able to access your VCS via the extension and 
+You are able to access your VCS via the extension and change the flow configuration, as well as query the current branch and revision id.
 
 #### Usage
 Apply the plugin and configure it. The following code shows the defaults: 
 ```groovy
 project.apply plugin: 'tane.mahuta.gradle.vcs-plugin'
 
-project.vcs {
+project.vcs { // (git defaults are displayed)
     
     storage
     branch      // current checked out branch
@@ -141,11 +150,11 @@ project.vcs {
 
 }
 ```
-#### Extension points
+### Extension points
 At the moment only git is supported through the jgit-core library by atlassian (which uses eclipse jgit).
 
 If you need to add an implementation for another VCS, you may write your own class implementing 
-`tane.mahuta.gradle.plugin.vcs.VcsAccessorFactory` which returns an implemenation of `tane.mahuta.buildtools.vcs.VcsAccessor` for a `project`.
+`tane.mahuta.gradle.plugin.vcs.VcsAccessorFactory` which returns an implementation of `tane.mahuta.buildtools.vcs.VcsAccessor` for a `project`.
 
 To provide further implementation, create a file `META-INF/services/tane.mahuta.gradle.plugin.vcs.VcsAccessorFactory` which exposes
 your custom implementation.

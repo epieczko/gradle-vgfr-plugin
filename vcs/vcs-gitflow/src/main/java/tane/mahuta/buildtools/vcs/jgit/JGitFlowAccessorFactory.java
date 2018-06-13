@@ -4,6 +4,7 @@ import com.atlassian.jgitflow.core.InitContext;
 import com.atlassian.jgitflow.core.JGitFlow;
 import com.atlassian.jgitflow.core.JGitFlowWithConfig;
 import lombok.SneakyThrows;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import tane.mahuta.buildtools.vcs.VcsAccessor;
 import tane.mahuta.buildtools.vcs.VcsAccessorFactory;
@@ -49,7 +50,7 @@ public class JGitFlowAccessorFactory implements VcsAccessorFactory {
 
     @SneakyThrows
     protected JGitFlowAccessor doCreate(final File d) {
-        return new JGitFlowAccessor(new JGitFlowWithConfig(JGitFlow.getOrInit(d, DEFAULT_INITIAL_CTX)));
+        return new JGitFlowAccessor(new JGitFlowWithConfig(Git.open(d), DEFAULT_INITIAL_CTX));
     }
 
     @Nullable
