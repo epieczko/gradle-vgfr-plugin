@@ -24,8 +24,10 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * {@link VcsAccessor} using {@link com.atlassian.jgitflow.core.JGitFlow}.
@@ -49,7 +51,8 @@ public class JGitFlowAccessor implements VcsAccessor {
     @Override
     @Nullable
     public String getBranch() {
-        return Optional.ofNullable(System.getenv("GIT_BRANCH")).orElseGet(this::getRepositoryBranch);
+        return Stream.of("BRANCH_NAME", "GIT_BRANCH").map(System::getenv)
+                .filter(Objects::nonNull).findFirst().orElseGet(this::getRepositoryBranch);
     }
 
     @SneakyThrows
