@@ -31,8 +31,8 @@ buildscript {
     }
 }
 plugins {    
-    id 'tane.mahuta.gradle.release-plugin' version '1.0.0'
-    id 'tane.mahuta.gradle.semver-branch-plugin' version '1.0.0'
+    id 'tane.mahuta.gradle.release-plugin' version 'latest.release'
+    id 'tane.mahuta.gradle.semver-branch-plugin' version 'latest.release'
 }
 ```
 #### Gradle <2.1
@@ -43,7 +43,7 @@ buildscript {
         maven { url "http://dl.bintray.com/tanemahuta/gradle-plugins" } 
     }
     dependencies {
-        classpath "tane.mahuta.build:gradle-plugin-release:1.0.0"
+        classpath "tane.mahuta.build:gradle-plugin-release:latest.release"
     }
 }
 apply plugin: 'tane.mahuta.gradle.release-plugin'

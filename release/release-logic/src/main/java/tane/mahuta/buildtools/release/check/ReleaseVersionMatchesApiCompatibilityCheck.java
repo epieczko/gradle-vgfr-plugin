@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReport;
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportBuilder;
+import tane.mahuta.buildtools.apilyzer.ApiCompatibilityReportConfiguration;
 import tane.mahuta.buildtools.apilyzer.Scope;
 import tane.mahuta.buildtools.dependency.Artifact;
 import tane.mahuta.buildtools.dependency.ArtifactWithClasspath;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
  * Checks if the release version of the artifact matches the one when including the api compatibility.
  *
  * @author christian.heike@icloud.com
- *         Created on 23.06.17.
+ * Created on 23.06.17.
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Slf4j
@@ -42,8 +44,8 @@ public class ReleaseVersionMatchesApiCompatibilityCheck extends AbstractGuardedR
 
     @Override
     protected void doApply(@Nonnull final ArtifactRelease release,
-                        @Nonnull final ReleaseInfrastructure releaseInfrastructure,
-                        @Nonnull final Object releaseVersion) {
+                           @Nonnull final ReleaseInfrastructure releaseInfrastructure,
+                           @Nonnull final Object releaseVersion) {
 
         if (release.getLocalFile() == null) {
             log.debug("releaseVersionMatchesAtLeastApiCompatibility: Release does not provide an artifact, skipping check.");
@@ -92,14 +94,18 @@ public class ReleaseVersionMatchesApiCompatibilityCheck extends AbstractGuardedR
         final Set<File> baseLineClasspath = collectFiles(baseLineArtifact.getClasspathDependencies());
         final Set<File> currentClasspath = collectFiles(release.getClasspathDependencies());
 
-        return releaseInfrastructure.getApiCompatibilityReportBuilderFactory().builder()
-                .withCurrent(release.getLocalFile())
-                .withCurrentClasspath(currentClasspath)
-                .withBaseline(baseLineArtifact.getLocalFile())
-                .withBaselineClasspath(baseLineClasspath)
-                .withLogger(log)
-                .withScope(Scope.PUBLIC)
-                .buildReport();
+        final ApiCompatibilityReportConfiguration configuration = ApiCompatibilityReportConfiguration.builder()
+                .current(release.getLocalFile())
+                .currentClasspath(currentClasspath)
+                .baseline(baseLineArtifact.getLocalFile())
+                .baselineClasspath(baseLineClasspath)
+                .logger(log)
+                .scope(Scope.PUBLIC)
+                .build();
+
+        final ApiCompatibilityReportBuilder builder = releaseInfrastructure.getApiCompatibilityReportBuilderFactory().builder();
+
+        return builder.buildReport(configuration);
     }
 
     @Nonnull

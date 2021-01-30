@@ -1,4 +1,5 @@
 description = 'API for releasing'
+apply from: rootProject.file('buildscripts/javaSpockProject.gradle')
 
 dependencies {
     compile project(':versioning:versioning-api')

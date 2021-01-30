@@ -17,7 +17,7 @@ class ReleaseVersionMatchesApiCompatibilityCheckTest extends AbstractReleaseStep
     def setup() {
         final builder = Mock(ApiCompatibilityReportBuilder)
         builder./with.+/(_) >> builder
-        builder.buildReport() >> apiReport
+        builder.buildReport(_) >> apiReport
         infrastructure.getApiCompatibilityReportBuilderFactory().builder() >> builder
 
     }

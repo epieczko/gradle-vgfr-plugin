@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 @EqualsAndHashCode(callSuper = true)
 public class DefaultSemanticBranchVersion extends AbstractSemanticVersion implements SemanticBranchVersion {
 
-    @Wither
     protected final String qualifier;
     protected final Supplier<String> branchQualifierSupplier;
 

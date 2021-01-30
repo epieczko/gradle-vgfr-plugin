@@ -1,102 +1,84 @@
 package tane.mahuta.buildtools.apilyzer;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NonNull;
 import org.slf4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 /**
  * The configuration of the builder for the {@link ApiCompatibilityReport}.
  *
  * @author christian.heike@icloud.com
- *         Created on 12.07.17.
+ * Created on 12.07.17.
  */
-public interface ApiCompatibilityReportConfiguration<S extends ApiCompatibilityReportConfiguration<S>> {
+@Builder
+public class ApiCompatibilityReportConfiguration {
 
     /**
      * Use the provided source jar file (current version) for comparison.
-     *
-     * @param source the source jar file
-     * @return {@code this}
      */
-    S withCurrent(@Nonnull File source);
+    @Getter(onMethod = @__(@Nonnull))
+    @NonNull
+    private final File current;
 
     /**
      * Use the provided target jar file (other version) for comparison.
-     *
-     * @param target the source jar file
-     * @return {@code this}
      */
-    S withBaseline(@Nonnull File target);
+    @Getter(onMethod = @__(@Nonnull))
+    @NonNull
+    private final File baseline;
 
     /**
      * Use the provided scope for scanning.
-     *
-     * @param scope the scanning scope (optional)
-     * @return {@code this}
      */
-    S withScope(@Nullable Scope scope);
+    @Getter(onMethod = @__(@Nullable))
+    private final Scope scope;
 
     /**
      * Use the provided packages and subpackages for scanning.
-     *
-     * @param packageNames the names of the pakcages
-     * @return {@code this}
      */
-    S withPackages(@Nullable Iterable<String> packageNames);
+    @Getter(onMethod = @__(@Nullable))
+    private final Collection<String> includePackages;
 
     /**
      * Use the provided classes for scanning.
-     *
-     * @param classNames the names of the classes
-     * @return {@code this}
      */
-    S withClasses(Iterable<String> classNames);
+    @Getter(onMethod = @__(@Nullable))
+    private final Collection<String> includeClasses;
 
     /**
      * Use the provided classpath for the source (current) jar analysis.
-     *
-     * @param sourceClasspath the jar files to be used
-     * @return {@code this}
      */
-    S withCurrentClasspath(@Nullable Iterable<File> sourceClasspath);
+    @Getter(onMethod = @__(@Nullable))
+    private final Collection<File> currentClasspath;
 
     /**
      * Use the provided classpath for the target (other) jar analysis.
-     *
-     * @param targetClasspath the jar files to be used
-     * @return {@code this}
      */
-    S withBaselineClasspath(@Nullable Iterable<File> targetClasspath);
+    @Getter(onMethod = @__(@Nullable))
+    private final Collection<File> baselineClasspath;
 
     /**
      * Use the provided logger for output.
-     *
-     * @param logger the logger to be used
-     * @return {@code this}
      */
-    S withLogger(@Nullable Logger logger);
+    @Getter(onMethod = @__(@Nullable))
+    private final Logger logger;
 
     /**
-     * Create a report file.
-     *
-     * @param type the type of the output
-     * @param file the file to output to
-     * @return {@code this}
+     * The report output type
      */
-    S withReportOutput(@Nonnull final ReportOutputType type, @Nonnull final File file);
+    @Getter(onMethod = @__(@Nullable))
+    private final ReportOutputType reportOutputType;
 
     /**
-     * @see #withReportOutput(ReportOutputType, File)
+     * The report output type
      */
-    default S withReportOutput(@Nonnull final String type, @Nonnull final File file) {
-        final ReportOutputType typeEnum = Arrays.stream(ReportOutputType.values())
-                .filter(v -> v.name().equalsIgnoreCase(type))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Could not find type '" + type + "' in known types: " + String.join(", ", Arrays.stream(ReportOutputType.values()).map(Enum::name).collect(Collectors.toList()))));
-        return withReportOutput(typeEnum, file);
-    }
+    @Getter(onMethod = @__(@Nullable))
+    private final File reportFile;
+
 }

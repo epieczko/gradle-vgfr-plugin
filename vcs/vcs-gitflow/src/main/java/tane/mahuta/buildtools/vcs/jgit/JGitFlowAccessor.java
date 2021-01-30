@@ -8,23 +8,32 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.merge.ResolveMerger;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import tane.mahuta.buildtools.vcs.VcsAccessor;
 import tane.mahuta.buildtools.vcs.VcsFlowConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * {@link VcsAccessor} using {@link com.atlassian.jgitflow.core.JGitFlow}.
  *
  * @author christian.heike@icloud.com
- *         Created on 06.06.17.
+ * Created on 06.06.17.
  */
 @Slf4j
 public class JGitFlowAccessor implements VcsAccessor {
@@ -41,8 +50,14 @@ public class JGitFlowAccessor implements VcsAccessor {
 
     @Override
     @Nullable
-    @SneakyThrows
     public String getBranch() {
+        return Stream.of("BRANCH_NAME", "GIT_BRANCH", "CI_COMMIT_REF_NAME")
+                .map(System::getenv)
+                .filter(Objects::nonNull).findFirst().orElseGet(this::getRepositoryBranch);
+    }
+
+    @SneakyThrows
+    private String getRepositoryBranch() {
         return getJGitFlow().git().getRepository().getBranch();
     }
 
@@ -105,7 +120,7 @@ public class JGitFlowAccessor implements VcsAccessor {
     @Override
     @SneakyThrows
     public void push() {
-        getJGitFlow().git().push().call();
+        gitPushWithCredentials().call();
     }
 
     @Override
@@ -117,11 +132,27 @@ public class JGitFlowAccessor implements VcsAccessor {
     @Override
     @SneakyThrows
     public void pushTags() {
-        getJGitFlow().git().push().setPushTags().call();
+        gitPushWithCredentials().setPushTags().call();
     }
 
+    private PushCommand gitPushWithCredentials() {
+        final PushCommand result = getJGitFlow().git().push();
+        getCredentialsProvider().ifPresent(result::setCredentialsProvider);
+        return result;
+    }
+
+    private Optional<CredentialsProvider> getCredentialsProvider() {
+        final String username = System.getenv("GIT_USERNAME");
+        final String password = System.getenv("GIT_PASSWORD");
+        if (username != null && password != null) {
+            return Optional.of(new UsernamePasswordCredentialsProvider(username, password));
+        }
+        return Optional.empty();
+    }
+
+
     private JGitFlow getJGitFlow() {
-        return jGitFlowWithConfig.getJGitFlow();
+        return jGitFlowWithConfig;
     }
 
     private static <T extends AbstractBranchMergingCommand<T, ReleaseMergeResult>> boolean handleAndReturn(final T command) throws Exception {
